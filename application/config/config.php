@@ -76,7 +76,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'italian';
 
 /*
 |--------------------------------------------------------------------------
@@ -497,7 +497,7 @@ $config['disallow_requests_without_credit'] = TRUE;
 //____________________________________________________________________________
 //List of available languages. If you limit this list to one language, the list of available languages will be hidden from the login form
 //Beware that regional variant is case sensitivie (e.g. "en-GB" and not "en-gb")
-$config['languages'] = 'en,en-GB,fr,es,nl,de,it,ru,cs,uk,km,fa,vi,tr,zh,el,pt,ar,hu,ca,ro,sk';
+$config['languages'] = 'it,en,de,es,fr,pt';
 
 //If you want to use another font for a specific language, put the font into assets/fonts folder and map as in this example
 //Extra fonts are coming from Google noto font project: https://www.google.com/get/noto/
