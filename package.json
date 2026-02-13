@@ -1,10 +1,10 @@
 {
-  "name": "jorani",
-  "version": "1.0.0",
-  "description": "Jorani is a free and open source leave management system",
+  "name": "BlueCalendar",
+  "version": "0.1.0",
+  "description": "Un'applicazione PHP per la gestione delle ferie",
   "main": "index.js",
-  "repository": "https://github.com/bbalet/jorani.git",
-  "author": "bbalet <benjamin.balet@gmail.com>",
+  "repository": "https://github.com/Condi7/BlueCalendar.git",
+  "author": "Condi7 <paoloconde@outlook.it>",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@mdi/font": "^5.7.55",
