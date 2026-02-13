@@ -67,7 +67,7 @@ class Rest extends MY_RestController {
         $config->requestsByManager = $this->config->item('requests_by_manager');
         $config->extraStatusRequested = $this->config->item('extra_status_requested');
         $config->disableEditLeaveDuration = $this->config->item('disable_edit_leave_duration');
-        $config->versionOfJorani = $GLOBALS['versionOfJorani'];
+        $config->versionOfBlueCalendar = $GLOBALS['versionOfBlueCalendar'];
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($config));

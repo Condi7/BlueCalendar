@@ -18,10 +18,10 @@
         </div>
         <div class="span4 pull-right">
               <?php switch ($language_code){
-                  case 'fr' : echo '<a class="anchor" href="https://fr.jorani.org/" target="_blank">Jorani</a>'; break;
-                  default : echo '<a class="anchor" href="https://jorani.org/" target="_blank">Jorani</a>'; break;
+                  case 'it' : echo "BlueCalendar"; break;
+                  default : echo "BlueCalendar"; break;
               } ?>
-          &nbsp;v<?php echo $GLOBALS['versionOfJorani'];?>&nbsp;&copy;2014-2019 Benjamin BALET
+          &nbsp;v<?php echo $GLOBALS['versionOfBlueCalendar'];?>&nbsp;&copy;2026 Bluecube
         </div>
     </div>
     </div>

@@ -459,7 +459,7 @@ $config['proxy_ips'] = '';
 //default email from
 $config['from_mail'] = 'do.not@reply.me';
 $config['from_name'] = 'Bluecube';
-$config['subject_prefix'] = '[Jorani] ';
+$config['subject_prefix'] = '[BlueCalendar] ';
 
 //____________________________________________________________________________
 //User management
