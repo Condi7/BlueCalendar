@@ -108,9 +108,9 @@ if ($showAll == FALSE) {
             </div>
         </td>
         <td><?php echo $request['firstname'] . ' ' . $request['lastname']; ?></td>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($request['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo$tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($request['enddatetype']) . ')'; ?></td>
-        <td><?php echo $request['duration']; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($request['startdate'], $request['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo$tmpEndDate; ?>"><?php echo formatLeaveDateTime($request['enddate'], $request['enddatetype'], lang('global_date_format')); ?></td>
+        <td><?php echo formatLeaveDurationHours($request['duration']); ?></td>
         <td><?php echo $request['type_name']; ?></td>
         <?php
         switch ($request['status']) {

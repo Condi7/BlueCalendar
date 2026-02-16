@@ -407,10 +407,11 @@ class Requests extends CI_Controller {
             'Lastname' => $employee['lastname'],
             'StartDate' => $startdate,
             'EndDate' => $enddate,
-            'StartDateType' => $lang_mail->line($leave['startdatetype']),
-            'EndDateType' => $lang_mail->line($leave['enddatetype']),
+            'StartDateType' => leaveTimeLabel($leave['startdatetype'], $lang_mail),
+            'EndDateType' => leaveTimeLabel($leave['enddatetype'], $lang_mail),
             'Cause' => $leave['cause'],
             'Type' => $leave['type_name'],
+            'Duration' => formatLeaveDurationHours($leave['duration']),
             'Comments' => $comment
         );
         $this->load->library('parser');

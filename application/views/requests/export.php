@@ -42,10 +42,10 @@ foreach ($requests as $request) {
     $sheet->setCellValue('A' . $line, $request['leave_id']);
     $sheet->setCellValue('B' . $line, $request['firstname'] . ' ' . $request['lastname']);
     $sheet->setCellValue('C' . $line, $startdate);
-    $sheet->setCellValue('D' . $line, lang($request['startdatetype']));
+    $sheet->setCellValue('D' . $line, leaveTimeLabel($request['startdatetype']));
     $sheet->setCellValue('E' . $line, $enddate);
-    $sheet->setCellValue('F' . $line, lang($request['enddatetype']));
-    $sheet->setCellValue('G' . $line, $request['duration']);
+    $sheet->setCellValue('F' . $line, leaveTimeLabel($request['enddatetype']));
+    $sheet->setCellValue('G' . $line, formatLeaveDurationHours($request['duration']));
     $sheet->setCellValue('H' . $line, $request['type_name']);
     $sheet->setCellValue('I' . $line, $request['cause']);
     $sheet->setCellValue('J' . $line, lang($request['status_name']));

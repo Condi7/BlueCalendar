@@ -29,21 +29,24 @@ echo form_open('leaves/create', $attributes) ?>
     <?php endforeach ?>
     </select>
 
+    <?php
+    $startTimeValue = set_value('startdatetype');
+    if ($startTimeValue == '' || $startTimeValue == 'Morning') $startTimeValue = '09:00';
+    if ($startTimeValue == 'Afternoon') $startTimeValue = '14:00';
+    $endTimeValue = set_value('enddatetype');
+    if ($endTimeValue == '' || $endTimeValue == 'Afternoon') $endTimeValue = '18:00';
+    if ($endTimeValue == 'Morning') $endTimeValue = '13:00';
+    ?>
+
     <label for="viz_startdate"><?php echo lang('leaves_create_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php echo set_value('startdate'); ?>" autocomplete="off" />
     <input type="hidden" name="startdate" id="startdate" />
-    <select name="startdatetype" id="startdatetype">
-        <option value="Morning" selected><?php echo lang('Morning');?></option>
-        <option value="Afternoon"><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" /><br />
 
     <label for="viz_enddate"><?php echo lang('leaves_create_field_end');?></label>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php echo set_value('enddate'); ?>" autocomplete="off" />
     <input type="hidden" name="enddate" id="enddate" />
-    <select name="enddatetype" id="enddatetype">
-        <option value="Morning"><?php echo lang('Morning');?></option>
-        <option value="Afternoon" selected><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" /><br />
 
     <label for="duration"><?php echo lang('leaves_create_field_duration');?> <span id="tooltipDayOff"></span></label>
     <?php if ($this->config->item('disable_edit_leave_duration') == TRUE) { ?>

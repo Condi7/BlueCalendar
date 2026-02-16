@@ -148,10 +148,10 @@
                 <?php } ?>
             </div>
         </td>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($leave['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($leave['enddatetype']) . ')'; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($leave['startdate'], $leave['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo formatLeaveDateTime($leave['enddate'], $leave['enddatetype'], lang('global_date_format')); ?></td>
         <td><?php echo $leave['cause']; ?></td>
-        <td><?php echo $leave['duration']; ?></td>
+        <td><?php echo formatLeaveDurationHours($leave['duration']); ?></td>
         <td><?php echo $leave['type_name']; ?></td>
         <?php
         switch ($leave['status']) {

@@ -14,36 +14,11 @@ function getLeaveLength(refreshInfos) {
     var startType = $('#startdatetype option:selected').val();
     var endType = $('#enddatetype option:selected').val();
 
-    if (start.isValid() && end.isValid()) {
-        if (start.isSame(end)) {
-            if (startType == "Morning" && endType == "Morning") {
-                $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_1d_MM.png' />");
-            }
-            if (startType == "Afternoon" && endType == "Afternoon") {
-                $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_1d_AA.png' />");
-            }
-            if (startType == "Morning" && endType == "Afternoon") {
-                $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_1d_MA.png' />");
-            }
-            if (startType == "Afternoon" && endType == "Morning") {
-                $("#spnDayType").html("<img src='" + baseURL + "assets/images/date_error.png' />");
-            }
-        } else {
-             if (start.isBefore(end)) {
-                if (startType == "Morning" && endType == "Morning") {
-                    $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_2d_MM.png' />");
-                }
-                if (startType == "Afternoon" && endType == "Afternoon") {
-                    $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_2d_AA.png' />");
-                }
-                if (startType == "Morning" && endType == "Afternoon") {
-                    $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_2d_MA.png' />");
-                }
-                if (startType == "Afternoon" && endType == "Morning") {
-                    $("#spnDayType").html("<img src='" + baseURL + "assets/images/leave_2d_AM.png' />");
-                }
-             }
-        }
+    startType = $('#startdatetype').val();
+    endType = $('#enddatetype').val();
+
+    if (start.isValid() && end.isValid() && startType !== '' && endType !== '') {
+        $("#spnDayType").text(startType + " → " + endType);
         if (refreshInfos) getLeaveInfos(false);
     }
 }
