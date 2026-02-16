@@ -74,11 +74,11 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost;dbname=jorani',
+	'dsn'	=> 'mysql:host=localhost;dbname=bluecalendar',
 	'hostname' => '',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'jorani',
+	'database' => 'bluecalendar',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -1,6 +1,6 @@
 <h1>Gestire richieste di ferie</h1>
 
-<p>Benvenuti a Jorani. Se sei un dipendente, si potrebbe ora : </p>
+<p>Benvenuti in BlueCalendar. Se sei un dipendente, si potrebbe ora : </p>
 <ul>
     <li>Vedere i vostri  <a href="<?php echo base_url();?>leaves/counters">equilibrio congedo</a>.</li>
     <li>Vedi le <a href="<?php echo base_url();?>leaves">elenco delle richieste di ferie che avete presentato</a>.</li>

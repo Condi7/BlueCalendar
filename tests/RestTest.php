@@ -68,7 +68,7 @@ class RestTest extends TestCase
         $this->assertObjectHasAttribute('requestsByManager', $data);
         $this->assertObjectHasAttribute('extraStatusRequested', $data);
         $this->assertObjectHasAttribute('disableEditLeaveDuration', $data);
-        $this->assertObjectHasAttribute('versionOfJorani', $data);
+        $this->assertObjectHasAttribute('versionOfBlueCalendar', $data);
     }
 
     /**
