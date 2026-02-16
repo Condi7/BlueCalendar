@@ -7,13 +7,13 @@
  */
 
 //Material Design Icons
-@import '@mdi/font/css/materialdesignicons.min.css';
+@import "@mdi/font/css/materialdesignicons.min.css";
 
-//JsTree 
-@import 'jstree/dist/themes/default/style.min.css';
+//JsTree
+@import "jstree/dist/themes/default/style.min.css";
 
 //Select2
-@import 'select2/dist/css/select2.css';
+@import "select2/dist/css/select2.css";
 
 .anchor {
     color: #3097d1;
@@ -24,21 +24,13 @@
 }
 
 /*Sticky footer*/
-html, body {
+html,
+body {
     height: 100%;
 }
-#push,
 #footer {
     height: 30px;
-}
-#footer {
-    background-color: #f5f5f5;
-}
-#wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -30px;
+    background-color: transparent;
 }
 
 /*Background color of the navbar*/
@@ -68,9 +60,9 @@ html, body {
     background-color: white;
     color: #dddada;
 }
-.navbar-inverse .nav li.dropdown.open>.dropdown-toggle,
-.navbar-inverse .nav li.dropdown.active>.dropdown-toggle,
-.navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
     background-color: #3097d1;
     color: #dddada;
 }
@@ -84,7 +76,9 @@ html, body {
     border-radius: 1;
     border-color: black;
 }
-.btn:focus, .btn:active:focus, .btn.active:focus {
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
     outline: 0 none;
 }
 
@@ -93,10 +87,16 @@ html, body {
     border-color: #3097d1;
     color: white;
 }
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
     background: #3097d1;
 }
-.btn-primary:active, .btn-primary.active, .btn-group.open .btn-primary.dropdown-toggle {
+.btn-primary:active,
+.btn-primary.active,
+.btn-group.open .btn-primary.dropdown-toggle {
     background: #3097d1;
     box-shadow: none;
 }
@@ -106,10 +106,15 @@ html, body {
     border-color: #bd362f;
     color: white;
 }
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open > .dropdown-toggle.btn-danger {
     background: #bd362f;
 }
-.btn-danger:active, .btn-danger.active {
+.btn-danger:active,
+.btn-danger.active {
     background: #bd362f;
     box-shadow: none;
 }
@@ -119,10 +124,15 @@ html, body {
     border-color: #49afcd;
     color: white;
 }
-.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
     background: #49afcd;
 }
-.btn-info:active, .btn-info.active {
+.btn-info:active,
+.btn-info.active {
     background: #49afcd;
     box-shadow: none;
 }
@@ -132,10 +142,15 @@ html, body {
     border-color: #f5811e;
     color: white;
 }
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open > .dropdown-toggle.btn-warning {
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.open > .dropdown-toggle.btn-warning {
     background: #f5811e;
 }
-.btn-warning:active, .btn-warning.active {
+.btn-warning:active,
+.btn-warning.active {
     background: #f5811e;
     box-shadow: none;
 }
@@ -149,28 +164,27 @@ html, body {
 }
 
 /* Modal History of changes */
-#frmShowHistory
-{
+#frmShowHistory {
     width: 80%;
-    margin-left:  -35% !important;
+    margin-left: -35% !important;
 }
 
 /* Dropdown colors depending on the status */
 .dropdown-planned {
-  color: white;
-  background-color: #999 !important;
+    color: white;
+    background-color: #999 !important;
 }
 .dropdown-requested {
-  color: white;
-  background-color: #f89406 !important;
+    color: white;
+    background-color: #f89406 !important;
 }
 .dropdown-accepted {
-  color: white;
-  background-color: #468847 !important;
+    color: white;
+    background-color: #468847 !important;
 }
 .dropdown-rejected {
-  color: white;
-  background-color: #ff0000 !important;
+    color: white;
+    background-color: #ff0000 !important;
 }
 
 .input-centered {
@@ -178,7 +192,7 @@ html, body {
 }
 
 /*Always put Jquery datepicker on the top layer */
-.ui-datepicker{
+.ui-datepicker {
     z-index: 9999 !important;
 }
 
@@ -205,7 +219,7 @@ html, body {
 }
 .working {
     background-color: white;
-    color:black;
+    color: black;
 }
 .dayoff {
     background-color: black;
@@ -217,102 +231,194 @@ html, body {
 .amdayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #000000 50%, #ffffff 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#000000), color-stop(50%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #000000 50%,#ffffff 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #000000 50%,#ffffff 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #000000 50%,#ffffff 50%); /* IE10+ */
-    background: linear-gradient(135deg, #000000 50%,#ffffff 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #000000),
+        color-stop(50%, #ffffff)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #000000 50%,
+        #ffffff 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #000000 50%, #ffffff 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #000000 50%, #ffffff 50%); /* IE10+ */
+    background: linear-gradient(135deg, #000000 50%, #ffffff 50%); /* W3C */
 }
 
 .pmdayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #ffffff 50%, #000000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ffffff), color-stop(50%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ffffff 50%,#000000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ffffff 50%,#000000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ffffff 50%,#000000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ffffff 50%,#000000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ffffff),
+        color-stop(50%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ffffff 50%,
+        #000000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffffff 50%, #000000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffffff 50%, #000000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ffffff 50%, #000000 50%); /* W3C */
 }
 
 /*Day off and leave*/
 .planneddayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #999 50%, #000000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#999), color-stop(50%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #999 50%,#000000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #999 50%,#000000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #999 50%,#000000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #999 50%,#000000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #999),
+        color-stop(50%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #999 50%, #000000 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #999 50%, #000000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #999 50%, #000000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #999 50%, #000000 50%); /* W3C */
 }
 
 .requesteddayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #f89406 50%, #000000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#f89406), color-stop(50%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #f89406 50%,#000000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #f89406 50%,#000000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #f89406 50%,#000000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #f89406 50%,#000000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #f89406),
+        color-stop(50%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #f89406 50%,
+        #000000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #f89406 50%, #000000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #f89406 50%, #000000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #f89406 50%, #000000 50%); /* W3C */
 }
 
 .accepteddayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #468847 50%, #000000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#468847), color-stop(50%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #468847 50%,#000000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #468847 50%,#000000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #468847 50%,#000000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #468847 50%,#000000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #468847),
+        color-stop(50%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #468847 50%,
+        #000000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #468847 50%, #000000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #468847 50%, #000000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #468847 50%, #000000 50%); /* W3C */
 }
 
 .rejecteddayoff {
     color: white;
     background: -moz-linear-gradient(-45deg, #ff0000 50%, #000000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ff0000), color-stop(50%,#000000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ff0000 50%,#000000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ff0000 50%,#000000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ff0000 50%,#000000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ff0000 50%,#000000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ff0000),
+        color-stop(50%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ff0000 50%,
+        #000000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ff0000 50%, #000000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ff0000 50%, #000000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ff0000 50%, #000000 50%); /* W3C */
 }
 
 .dayoffplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #000000 50%, #999 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#000000), color-stop(50%,#999)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #000000 50%,#999 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #000000 50%,#999 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #000000 50%,#999 50%); /* IE10+ */
-    background: linear-gradient(135deg, #000000 50%,#999 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #000000),
+        color-stop(50%, #999)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #000000 50%, #999 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #000000 50%, #999 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #000000 50%, #999 50%); /* IE10+ */
+    background: linear-gradient(135deg, #000000 50%, #999 50%); /* W3C */
 }
 
 .dayoffrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #000000 50%, #f89406 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#000000), color-stop(50%,#f89406)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #000000 50%,#f89406 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #000000 50%,#f89406 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #000000 50%,#f89406 50%); /* IE10+ */
-    background: linear-gradient(135deg, #000000 50%,#f89406 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #000000),
+        color-stop(50%, #f89406)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #000000 50%,
+        #f89406 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #000000 50%, #f89406 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #000000 50%, #f89406 50%); /* IE10+ */
+    background: linear-gradient(135deg, #000000 50%, #f89406 50%); /* W3C */
 }
 
 .dayoffaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #000000 50%, #468847 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#000000), color-stop(50%,#468847)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #000000 50%,#468847 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #000000 50%,#468847 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #000000 50%,#468847 50%); /* IE10+ */
-    background: linear-gradient(135deg, #000000 50%,#468847 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #000000),
+        color-stop(50%, #468847)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #000000 50%,
+        #468847 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #000000 50%, #468847 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #000000 50%, #468847 50%); /* IE10+ */
+    background: linear-gradient(135deg, #000000 50%, #468847 50%); /* W3C */
 }
 
 .dayoffrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #000000 50%, #ff0000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#000000), color-stop(50%,#ff0000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #000000 50%,#ff0000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #000000 50%,#ff0000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #000000 50%,#ff0000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #000000 50%,#ff0000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #000000),
+        color-stop(50%, #ff0000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #000000 50%,
+        #ff0000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #000000 50%, #ff0000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #000000 50%, #ff0000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #000000 50%, #ff0000 50%); /* W3C */
 }
 
 /*Single day*/
@@ -320,207 +426,375 @@ html, body {
 .amplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #999 50%, #ffffff 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#999), color-stop(50%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #999 50%,#ffffff 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #999 50%,#ffffff 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #999 50%,#ffffff 50%); /* IE10+ */
-    background: linear-gradient(135deg, #999 50%,#ffffff 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #999),
+        color-stop(50%, #ffffff)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #999 50%, #ffffff 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #999 50%, #ffffff 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #999 50%, #ffffff 50%); /* IE10+ */
+    background: linear-gradient(135deg, #999 50%, #ffffff 50%); /* W3C */
 }
 
 .amrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #f89406 50%, #ffffff 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#f89406), color-stop(50%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #f89406 50%,#ffffff 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #f89406 50%,#ffffff 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #f89406 50%,#ffffff 50%); /* IE10+ */
-    background: linear-gradient(135deg, #f89406 50%,#ffffff 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #f89406),
+        color-stop(50%, #ffffff)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #f89406 50%,
+        #ffffff 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #f89406 50%, #ffffff 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #f89406 50%, #ffffff 50%); /* IE10+ */
+    background: linear-gradient(135deg, #f89406 50%, #ffffff 50%); /* W3C */
 }
 
 .amaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #468847 50%, #ffffff 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#468847), color-stop(50%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #468847 50%,#ffffff 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #468847 50%,#ffffff 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #468847 50%,#ffffff 50%); /* IE10+ */
-    background: linear-gradient(135deg, #468847 50%,#ffffff 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #468847),
+        color-stop(50%, #ffffff)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #468847 50%,
+        #ffffff 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #468847 50%, #ffffff 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #468847 50%, #ffffff 50%); /* IE10+ */
+    background: linear-gradient(135deg, #468847 50%, #ffffff 50%); /* W3C */
 }
 
 .amrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #ff0000 50%, #ffffff 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ff0000), color-stop(50%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ff0000 50%,#ffffff 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ff0000 50%,#ffffff 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ff0000 50%,#ffffff 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ff0000 50%,#ffffff 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ff0000),
+        color-stop(50%, #ffffff)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ff0000 50%,
+        #ffffff 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ff0000 50%, #ffffff 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ff0000 50%, #ffffff 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ff0000 50%, #ffffff 50%); /* W3C */
 }
 
 .pmplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #ffffff 50%, #999 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ffffff), color-stop(50%,#999)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ffffff 50%,#999 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ffffff 50%,#999 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ffffff 50%,#999 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ffffff 50%,#999 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ffffff),
+        color-stop(50%, #999)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #ffffff 50%, #999 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffffff 50%, #999 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffffff 50%, #999 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ffffff 50%, #999 50%); /* W3C */
 }
 
 .pmrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #ffffff 50%, #f89406 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ffffff), color-stop(50%,#f89406)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ffffff 50%,#f89406 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ffffff 50%,#f89406 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ffffff 50%,#f89406 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ffffff 50%,#f89406 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ffffff),
+        color-stop(50%, #f89406)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ffffff 50%,
+        #f89406 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffffff 50%, #f89406 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffffff 50%, #f89406 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ffffff 50%, #f89406 50%); /* W3C */
 }
 
 .pmaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #ffffff 50%, #468847 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ffffff), color-stop(50%,#468847)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ffffff 50%,#468847 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ffffff 50%,#468847 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ffffff 50%,#468847 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ffffff 50%,#468847 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ffffff),
+        color-stop(50%, #468847)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ffffff 50%,
+        #468847 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffffff 50%, #468847 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffffff 50%, #468847 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ffffff 50%, #468847 50%); /* W3C */
 }
 
 .pmrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #ffffff 50%, #ff0000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ffffff), color-stop(50%,#ff0000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ffffff 50%,#ff0000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ffffff 50%,#ff0000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ffffff 50%,#ff0000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ffffff 50%,#ff0000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ffffff),
+        color-stop(50%, #ff0000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ffffff 50%,
+        #ff0000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ffffff 50%, #ff0000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ffffff 50%, #ff0000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ffffff 50%, #ff0000 50%); /* W3C */
 }
 
 /*Overlapping*/
 .plannedrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #999 50%, #f89406 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#999), color-stop(50%,#f89406)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #999 50%,#f89406 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #999 50%,#f89406 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #999 50%,#f89406 50%); /* IE10+ */
-    background: linear-gradient(135deg, #999 50%,#f89406 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #999),
+        color-stop(50%, #f89406)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #999 50%, #f89406 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #999 50%, #f89406 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #999 50%, #f89406 50%); /* IE10+ */
+    background: linear-gradient(135deg, #999 50%, #f89406 50%); /* W3C */
 }
 
 .plannedaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #999 50%, #468847 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#999), color-stop(50%,#468847)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #999 50%,#468847 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #999 50%,#468847 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #999 50%,#468847 50%); /* IE10+ */
-    background: linear-gradient(135deg, #999 50%,#468847 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #999),
+        color-stop(50%, #468847)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #999 50%, #468847 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #999 50%, #468847 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #999 50%, #468847 50%); /* IE10+ */
+    background: linear-gradient(135deg, #999 50%, #468847 50%); /* W3C */
 }
 
 .plannedrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #999 50%, #ff0000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#999), color-stop(50%,#ff0000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #999 50%,#ff0000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #999 50%,#ff0000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #999 50%,#ff0000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #999 50%,#ff0000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #999),
+        color-stop(50%, #ff0000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #999 50%, #ff0000 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #999 50%, #ff0000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #999 50%, #ff0000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #999 50%, #ff0000 50%); /* W3C */
 }
 
 .requestedplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #f89406 50%, #999 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#f89406), color-stop(50%,#999)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #f89406 50%,#999 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #f89406 50%,#999 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #f89406 50%,#999 50%); /* IE10+ */
-    background: linear-gradient(135deg, #f89406 50%,#999 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #f89406),
+        color-stop(50%, #999)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #f89406 50%, #999 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #f89406 50%, #999 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #f89406 50%, #999 50%); /* IE10+ */
+    background: linear-gradient(135deg, #f89406 50%, #999 50%); /* W3C */
 }
 
 .requestedaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #f89406 50%, #468847 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#f89406), color-stop(50%,#468847)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #f89406 50%,#468847 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #f89406 50%,#468847 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #f89406 50%,#468847 50%); /* IE10+ */
-    background: linear-gradient(135deg, #f89406 50%,#468847 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #f89406),
+        color-stop(50%, #468847)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #f89406 50%,
+        #468847 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #f89406 50%, #468847 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #f89406 50%, #468847 50%); /* IE10+ */
+    background: linear-gradient(135deg, #f89406 50%, #468847 50%); /* W3C */
 }
 
 .requestedrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #f89406 50%, #ff0000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#f89406), color-stop(50%,#ff0000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #f89406 50%,#ff0000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #f89406 50%,#ff0000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #f89406 50%,#ff0000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #f89406 50%,#ff0000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #f89406),
+        color-stop(50%, #ff0000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #f89406 50%,
+        #ff0000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #f89406 50%, #ff0000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #f89406 50%, #ff0000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #f89406 50%, #ff0000 50%); /* W3C */
 }
 
 .acceptedplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #468847 50%, #999 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#468847), color-stop(50%,#999)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #468847 50%,#999 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #468847 50%,#999 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #468847 50%,#999 50%); /* IE10+ */
-    background: linear-gradient(135deg, #468847 50%,#999 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #468847),
+        color-stop(50%, #999)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #468847 50%, #999 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #468847 50%, #999 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #468847 50%, #999 50%); /* IE10+ */
+    background: linear-gradient(135deg, #468847 50%, #999 50%); /* W3C */
 }
 
 .acceptedrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #468847 50%, #f89406 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#468847), color-stop(50%,#f89406)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #468847 50%,#f89406 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #468847 50%,#f89406 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #468847 50%,#f89406 50%); /* IE10+ */
-    background: linear-gradient(135deg, #468847 50%,#f89406 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #468847),
+        color-stop(50%, #f89406)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #468847 50%,
+        #f89406 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #468847 50%, #f89406 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #468847 50%, #f89406 50%); /* IE10+ */
+    background: linear-gradient(135deg, #468847 50%, #f89406 50%); /* W3C */
 }
 
 .acceptedrejected {
     color: white;
     background: -moz-linear-gradient(-45deg, #468847 50%, #ff0000 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#468847), color-stop(50%,#ff0000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #468847 50%,#ff0000 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #468847 50%,#ff0000 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #468847 50%,#ff0000 50%); /* IE10+ */
-    background: linear-gradient(135deg, #468847 50%,#ff0000 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #468847),
+        color-stop(50%, #ff0000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #468847 50%,
+        #ff0000 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #468847 50%, #ff0000 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #468847 50%, #ff0000 50%); /* IE10+ */
+    background: linear-gradient(135deg, #468847 50%, #ff0000 50%); /* W3C */
 }
 
 .rejectedplanned {
     color: white;
     background: -moz-linear-gradient(-45deg, #ff0000 50%, #999 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ff0000), color-stop(50%,#999)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ff0000 50%,#999 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ff0000 50%,#999 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ff0000 50%,#999 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ff0000 50%,#999 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ff0000),
+        color-stop(50%, #999)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, #ff0000 50%, #999 50%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ff0000 50%, #999 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ff0000 50%, #999 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ff0000 50%, #999 50%); /* W3C */
 }
 
 .rejectedrequested {
     color: white;
     background: -moz-linear-gradient(-45deg, #ff0000 50%, #f89406 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ff0000), color-stop(50%,#f89406)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ff0000 50%,#f89406 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ff0000 50%,#f89406 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ff0000 50%,#f89406 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ff0000 50%,#f89406 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ff0000),
+        color-stop(50%, #f89406)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ff0000 50%,
+        #f89406 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ff0000 50%, #f89406 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ff0000 50%, #f89406 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ff0000 50%, #f89406 50%); /* W3C */
 }
 
 .rejectedaccepted {
     color: white;
     background: -moz-linear-gradient(-45deg, #ff0000 50%, #468847 50%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#ff0000), color-stop(50%,#468847)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #ff0000 50%,#468847 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #ff0000 50%,#468847 50%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #ff0000 50%,#468847 50%); /* IE10+ */
-    background: linear-gradient(135deg, #ff0000 50%,#468847 50%); /* W3C */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right bottom,
+        color-stop(50%, #ff0000),
+        color-stop(50%, #468847)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+        -45deg,
+        #ff0000 50%,
+        #468847 50%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, #ff0000 50%, #468847 50%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, #ff0000 50%, #468847 50%); /* IE10+ */
+    background: linear-gradient(135deg, #ff0000 50%, #468847 50%); /* W3C */
 }
 
 /* Calendar/Tabular Current Day */
 td.currentday-bg {
-    background-color: #FCF8E3;
+    background-color: #fcf8e3;
 }
 td.currentday-border {
     border-left: 1px dashed #666;
@@ -529,26 +803,26 @@ td.currentday-border {
 
 /*Styles for HR/Contracts/Calendar*/
 .currentDay {
-    background:#FFC;
-    color:red;
+    background: #ffc;
+    color: red;
 }
 .days:hover {
-    background:#999;
-    border-color:#000;
-    cursor:pointer;
+    background: #999;
+    border-color: #000;
+    cursor: pointer;
 }
 .day6 {
-    background:#ECECFF;
+    background: #ececff;
 }
 .day7 {
-    background:#ECECFF;
+    background: #ececff;
 }
 .monthName {
-    text-align:left;
-    vertical-align:middle;
+    text-align: left;
+    vertical-align: middle;
 }
 .monthName div {
-    padding-left:10px;
+    padding-left: 10px;
 }
 
 /*Selectize control is vertically aligned*/
@@ -567,7 +841,7 @@ td.currentday-border {
 }
 
 /*Better position of checkbox*/
-.filterStatus{
-  position: relative;
-  top: -2px;
+.filterStatus {
+    position: relative;
+    top: -2px;
 }
