@@ -155,7 +155,7 @@ class Reports extends CI_Controller {
                      "<button type='button' class='close' data-dismiss='alert'>&times;</button>" .
                      "<a href='" . base_url() . "admin/diagnostic#balance'>" .
                      "<i class='mdi mdi-alert'></i>" .
-                     "&nbsp;Error</a>" .
+                     "&nbsp;" . lang('Error') . "</a>" .
                      "</div>";
         }
         $table .= '<table class="table table-bordered table-hover">' .
@@ -339,10 +339,10 @@ class Reports extends CI_Controller {
                         $enddate = $date->format(lang('global_date_format'));
                         $tbody .= '<tr>';
                         $tbody .= '<td><a href="' . base_url() . 'leaves/view/'. $request['id']. '" target="_blank">'. $request['id']. '</a></td>';
-                        $tbody .= '<td>'. $startdate . ' (' . lang($request['startdatetype']). ')</td>';
-                        $tbody .= '<td>'. $enddate . ' (' . lang($request['enddatetype']). ')</td>';
+                        $tbody .= '<td>'. $startdate . ' (' . leaveTimeLabel($request['startdatetype']) . ')</td>';
+                        $tbody .= '<td>'. $enddate . ' (' . leaveTimeLabel($request['enddatetype']) . ')</td>';
                         $tbody .= '<td>'. $request['type'] . '</td>';
-                        $tbody .= '<td>'. $request['duration'] . '</td>';
+                        $tbody .= '<td>'. formatLeaveDurationHours($request['duration']) . '</td>';
                         $tbody .= '</tr>';
                     }
                     $tbody .= '</tbody>';

@@ -248,7 +248,7 @@ $(document).ready(function() {
                location.reload();
             });
         } else { //Oups
-            bootbox.alert("Unexpected Ajax Error");
+            bootbox.alert("<?php echo lang('global_ajax_error');?>");
         }
     });
 

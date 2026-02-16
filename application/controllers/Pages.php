@@ -30,7 +30,7 @@ class Pages extends CI_Controller {
      */
     public function notfound() {
         $data = getUserContext($this);
-        $data['title'] = 'Error';
+        $data['title'] = lang('Error');
         $this->load->view('templates/header', $data);
         $this->load->view('menu/index', $data);
         $this->load->view('pages/notfound', $data);

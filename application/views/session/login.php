@@ -177,7 +177,7 @@
       });
     } else {
       // There was an error.
-      bootbox.alert("Unknown OAuth2 error");
+      bootbox.alert("<?php echo lang('session_login_oauth2_unknown_error'); ?>");
     }
   }
 

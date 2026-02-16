@@ -15,15 +15,15 @@ $lang['menu_banner_tip_myprofile'] = 'Vedo le mie informazioni personali';
 $lang['menu_banner_tip_reset'] = 'reimposta password';
 $lang['menu_password_popup_title'] = 'Cambio password';
 $lang['menu_password_popup_button_cancel'] = 'Annulla';
-$lang['menu_leaves_request_button'] = 'New request';
+$lang['menu_leaves_request_button'] = 'Nuova richiesta';
 
-$lang['menu_admin_title'] = 'Admin';
+$lang['menu_admin_title'] = 'Amministrazione';
 $lang['menu_admin_list_users'] = 'Elenco utenti';
 $lang['menu_admin_add_user'] = 'Crea utente';
 $lang['menu_admin_settings_divider'] = 'Impostazioni';
 $lang['menu_admin_settings'] = 'Impostazioni';
-$lang['menu_admin_diagnostic'] = 'Diagnostic';
-$lang['menu_admin_oauth_clients'] = 'OAuth Clients';
+$lang['menu_admin_diagnostic'] = 'Diagnostica';
+$lang['menu_admin_oauth_clients'] = 'Client OAuth';
 
 $lang['menu_hr_title'] = 'RU';
 $lang['menu_hr_employees_divider'] = 'Dipendenti';
@@ -36,7 +36,7 @@ $lang['menu_hr_leaves_type_divider'] = 'Ferie';
 $lang['menu_hr_list_leaves_type'] = 'Elenco tipologie';
 $lang['menu_hr_reports_divider'] = 'Report';
 $lang['menu_hr_report_leave_balance'] = 'Saldo ferie';
-$lang['menu_hr_report_leaves'] = 'Leave requests';
+$lang['menu_hr_report_leaves'] = 'Richieste di ferie';
 
 $lang['menu_validation_title'] = 'Validazione';
 $lang['menu_validation_delegations'] = 'Deleghe';
@@ -55,7 +55,7 @@ $lang['menu_leaves_list_requests'] = 'Elenco richieste di ferie';
 $lang['menu_leaves_create_request'] = 'Richiedi ferie';
 
 $lang['menu_calendar_title'] = 'Calendari';
-$lang['menu_calendar_year'] = 'Yearly calendar';
+$lang['menu_calendar_year'] = 'Calendario annuale';
 $lang['menu_calendar_individual'] = 'Il mio calendario';
 $lang['menu_calendar_workmates'] = 'I miei colleghi';
 $lang['menu_calendar_collaborators'] = 'I miei collaboratori';
