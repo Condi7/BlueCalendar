@@ -273,6 +273,7 @@ CREATE TABLE IF NOT EXISTS `organization` (
   `name` varchar(512) DEFAULT NULL COMMENT 'Name of the department',
   `parent_id` int(11) DEFAULT NULL COMMENT 'Parent department (or -1 if root)',
   `supervisor` INT NULL DEFAULT NULL COMMENT 'This user will receive a copy of accepted and rejected leave requests',
+  `supervisor2` INT NULL DEFAULT NULL COMMENT 'Second user receiving a copy of accepted and rejected leave requests',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tree of the organization' AUTO_INCREMENT=1 ;
 

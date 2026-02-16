@@ -355,7 +355,7 @@ class Requests extends CI_Controller {
         $this->load->model('organization_model');
         $leave = $this->leaves_model->getLeaves($id);
         $employee = $this->users_model->getUsers($leave['employee']);
-        $supervisor = $this->organization_model->getSupervisor($employee['organization']);
+        $supervisorsCc = $this->organization_model->getSupervisorsMails($employee['organization']);
 
         //Send an e-mail to the employee
         $this->load->library('email');
@@ -423,13 +423,13 @@ class Requests extends CI_Controller {
                 break;
             case LMS_CANCELLATION_REQUESTED:
                 $message = $this->parser->parse('emails/' . $employee['language'] . '/cancel_rejected', $data, TRUE);
-                $supervisor = NULL; //No need to warn the supervisor as nothing changes
+                $supervisorsCc = ''; //No need to warn supervisors as nothing changes
                 break;
             case LMS_CANCELLATION_CANCELED:
                 $message = $this->parser->parse('emails/' . $employee['language'] . '/cancel_accepted', $data, TRUE);
                 break;
         }
-        sendMailByWrapper($this, $subject, $message, $employee['email'], is_null($supervisor)?NULL:$supervisor->email);
+        sendMailByWrapper($this, $subject, $message, $employee['email'], ($supervisorsCc === '') ? NULL : $supervisorsCc);
     }
 
     /**

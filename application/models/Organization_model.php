@@ -263,12 +263,58 @@ class Organization_model extends CI_Model {
      * @return int result of the query
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
-    public function setSupervisor($id, $entity) {
+    public function setSupervisor($id, $entity, $slot = 1) {
+        $field = ((int) $slot === 2) ? 'supervisor2' : 'supervisor';
         $data = array(
-            'supervisor' => $id
+            $field => $id
         );
         $this->db->where('id', $entity);
         return $this->db->update('organization', $data);
+    }
+
+    /**
+     * Returns the supervisors of an entity
+     * @param int $entity identifier of the entity
+     * @return array identifiers, names and emails of supervisors
+     */
+    public function getSupervisors($entity) {
+        $this->db->select("organization.supervisor as supervisor1_id, CONCAT(u1.firstname, ' ', u1.lastname) as supervisor1_name, u1.email as supervisor1_email", FALSE);
+        $this->db->select("organization.supervisor2 as supervisor2_id, CONCAT(u2.firstname, ' ', u2.lastname) as supervisor2_name, u2.email as supervisor2_email", FALSE);
+        $this->db->from('organization');
+        $this->db->join('users as u1', 'u1.id = organization.supervisor', 'left');
+        $this->db->join('users as u2', 'u2.id = organization.supervisor2', 'left');
+        $this->db->where('organization.id', $entity);
+        $result = $this->db->get()->row_array();
+
+        if (empty($result)) {
+            return array(
+                'supervisor1' => NULL,
+                'supervisor2' => NULL
+            );
+        }
+
+        $supervisor1 = NULL;
+        if (!empty($result['supervisor1_id'])) {
+            $supervisor1 = array(
+                'id' => $result['supervisor1_id'],
+                'username' => $result['supervisor1_name'],
+                'email' => $result['supervisor1_email']
+            );
+        }
+
+        $supervisor2 = NULL;
+        if (!empty($result['supervisor2_id'])) {
+            $supervisor2 = array(
+                'id' => $result['supervisor2_id'],
+                'username' => $result['supervisor2_name'],
+                'email' => $result['supervisor2_email']
+            );
+        }
+
+        return array(
+            'supervisor1' => $supervisor1,
+            'supervisor2' => $supervisor2
+        );
     }
 
     /**
@@ -278,15 +324,35 @@ class Organization_model extends CI_Model {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function getSupervisor($entity) {
-        $this->db->select('users.id, CONCAT(users.firstname, \' \', users.lastname) as username, email', FALSE);
-        $this->db->from('organization');
-        $this->db->join('users', 'users.id = organization.supervisor');
-        $this->db->where('organization.id', $entity);
-        $result = $this->db->get()->result();
-        if (count($result) > 0) {
-            return $result[0];
-        } else {
-            return NULL;
+        $supervisors = $this->getSupervisors($entity);
+        if (array_key_exists('supervisor1', $supervisors)) {
+            if (!is_null($supervisors['supervisor1'])) {
+                return (object) $supervisors['supervisor1'];
+            }
         }
+        return NULL;
+    }
+
+    /**
+     * Returns a comma-separated list of e-mails of supervisors (1 and 2)
+     * @param int $entity identifier of the entity
+     * @return string comma-separated e-mail list
+     */
+    public function getSupervisorsMails($entity) {
+        $supervisors = $this->getSupervisors($entity);
+        $mails = array();
+
+        if (!is_null($supervisors['supervisor1']) && !empty($supervisors['supervisor1']['email'])) {
+            $mails[] = $supervisors['supervisor1']['email'];
+        }
+        if (!is_null($supervisors['supervisor2']) && !empty($supervisors['supervisor2']['email'])) {
+            $mails[] = $supervisors['supervisor2']['email'];
+        }
+
+        $mails = array_values(array_unique($mails));
+        if (count($mails) == 0) {
+            return '';
+        }
+        return implode(',', $mails);
     }
 }

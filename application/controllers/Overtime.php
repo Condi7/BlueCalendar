@@ -128,7 +128,7 @@ class Overtime extends CI_Controller {
         $extra = $this->overtime_model->getExtras($id);
         //Load details about the employee (manager, supervisor of entity)
         $employee = $this->users_model->getUsers($extra['employee']);
-        $supervisor = $this->organization_model->getSupervisor($employee['organization']);
+        $supervisorsCc = $this->organization_model->getSupervisorsMails($employee['organization']);
 
         //Send an e-mail to the employee
         $this->load->library('email');
@@ -160,7 +160,7 @@ class Overtime extends CI_Controller {
             $message = $this->parser->parse('emails/' . $employee['language'] . '/overtime_rejected', $data, TRUE);
             $subject = $lang_mail->line('email_overtime_request_reject_subject');
         }
-        sendMailByWrapper($this, $subject, $message, $employee['email'], is_null($supervisor)?NULL:$supervisor->email);
+        sendMailByWrapper($this, $subject, $message, $employee['email'], ($supervisorsCc === '') ? NULL : $supervisorsCc);
     }
 
     /**

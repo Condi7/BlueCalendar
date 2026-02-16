@@ -40,9 +40,14 @@
         <h3><?php echo lang('organization_index_title_supervisor');?></h3>
         <p><?php echo lang('organization_index_description_supervisor');?></p>
         <div class="input-append">
-            <input type="text" id="txtSupervisor" />
-            <button id="cmdDeleteSupervisor" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
-            <button id="cmdSelectSupervisor" class="btn btn-primary"><?php echo lang('organization_index_button_select_supervisor');?></button>
+            <input type="text" id="txtSupervisor1" placeholder="Supervisor 1" />
+            <button id="cmdDeleteSupervisor1" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+            <button id="cmdSelectSupervisor1" class="btn btn-primary"><?php echo lang('organization_index_button_select_supervisor');?></button>
+        </div>
+        <div class="input-append" style="margin-top:6px;">
+            <input type="text" id="txtSupervisor2" placeholder="Supervisor 2" />
+            <button id="cmdDeleteSupervisor2" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+            <button id="cmdSelectSupervisor2" class="btn btn-primary"><?php echo lang('organization_index_button_select_supervisor');?></button>
         </div>
         <br /><br />
     </div>
@@ -122,6 +127,14 @@
     var oTable;
     //Mutex to prevent rename the root node
     var createMtx = false;
+    var activeSupervisorSlot = 1;
+
+    function supervisorFieldSelector(slot) {
+        if (slot === 2) {
+            return '#txtSupervisor2';
+        }
+        return '#txtSupervisor1';
+    }
 
     function add_employee() {
         var employees = $('#employees').DataTable();
@@ -153,26 +166,26 @@
         $.ajax({
             type: "GET",
             url: "<?php echo base_url(); ?>organization/setsupervisor",
-            data: { 'user': id, 'entity': entity }
+                        data: { 'user': id, 'entity': entity, 'slot': activeSupervisorSlot }
           })
           .done(function(msg) {
             //Update field with the name of employee (the supervisor)
-            $('#txtSupervisor').val(text);
+                        $(supervisorFieldSelector(activeSupervisorSlot)).val(text);
             $('#frmModalAjaxWait').modal('hide');
           });
     }
 
-    function delete_supervisor() {
+        function delete_supervisor(slot) {
         $('#frmModalAjaxWait').modal('show');
         var entity = $('#organization').jstree('get_selected')[0];
         $.ajax({
             type: "GET",
             url: "<?php echo base_url(); ?>organization/setsupervisor",
-            data: { 'user': null, 'entity': entity }
+                        data: { 'user': null, 'entity': entity, 'slot': slot }
           })
           .done(function(msg) {
             //Update field with the name of employee (the supervisor)
-            $('#txtSupervisor').val("");
+                        $(supervisorFieldSelector(slot)).val("");
             $('#frmModalAjaxWait').modal('hide');
           });
     }
@@ -219,9 +232,10 @@
             }
         });
 
-        //Select the supervisor of the entity
-        $("#cmdSelectSupervisor").click(function() {
+        //Select the first supervisor of the entity
+        $("#cmdSelectSupervisor1").click(function() {
             if ($("#organization").jstree('get_selected').length == 1) {
+                activeSupervisorSlot = 1;
                 $("#frmSelectSupervisor").modal('show');
                 $("#frmSelectSupervisorBody").load('<?php echo base_url(); ?>users/employees');
             } else {
@@ -230,10 +244,32 @@
             }
         });
 
-        //Delete the supervisor of the entity
-        $("#cmdDeleteSupervisor").click(function() {
+        //Select the second supervisor of the entity
+        $("#cmdSelectSupervisor2").click(function() {
             if ($("#organization").jstree('get_selected').length == 1) {
-                delete_supervisor();
+                activeSupervisorSlot = 2;
+                $("#frmSelectSupervisor").modal('show');
+                $("#frmSelectSupervisorBody").load('<?php echo base_url(); ?>users/employees');
+            } else {
+                $("#lblError").text("<?php echo lang('organization_index_error_msg_select_entity');?>");
+                $("#frmError").modal('show');
+            }
+        });
+
+        //Delete the first supervisor of the entity
+        $("#cmdDeleteSupervisor1").click(function() {
+            if ($("#organization").jstree('get_selected').length == 1) {
+                delete_supervisor(1);
+            } else {
+                $("#lblError").text("<?php echo lang('organization_index_error_msg_select_entity');?>");
+                $("#frmError").modal('show');
+            }
+        });
+
+        //Delete the second supervisor of the entity
+        $("#cmdDeleteSupervisor2").click(function() {
+            if ($("#organization").jstree('get_selected').length == 1) {
+                delete_supervisor(2);
             } else {
                 $("#lblError").text("<?php echo lang('organization_index_error_msg_select_entity');?>");
                 $("#frmError").modal('show');
@@ -438,9 +474,19 @@
                     .done(function(data) {
                         //Update field with the name of employee (the supervisor)
                         if (data != null && typeof data === 'object') {
-                            $('#txtSupervisor').val(data.username);
+                            if (data.supervisor1 != null && typeof data.supervisor1 === 'object') {
+                                $('#txtSupervisor1').val(data.supervisor1.username);
+                            } else {
+                                $('#txtSupervisor1').val("");
+                            }
+                            if (data.supervisor2 != null && typeof data.supervisor2 === 'object') {
+                                $('#txtSupervisor2').val(data.supervisor2.username);
+                            } else {
+                                $('#txtSupervisor2').val("");
+                            }
                         } else {
-                            $('#txtSupervisor').val("");
+                            $('#txtSupervisor1').val("");
+                            $('#txtSupervisor2').val("");
                         }
                         $.when(isTableLoaded, isTableLoaded).done(function() {
                             $("#frmModalAjaxWait").modal('hide');
