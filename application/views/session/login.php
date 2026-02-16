@@ -90,8 +90,11 @@
         </form>
         <input type="hidden" name="salt" id="salt" value="<?php echo $salt; ?>" />
         <label for="password"><?php echo lang('session_login_field_password'); ?></label>
-        <input class="input-medium" type="password" name="password" id="password"
-          value="<?php echo (ENVIRONMENT == 'demo') ? 'bbalet' : ''; ?>" /><br />
+        <div class="input-append">
+          <input class="input-medium" type="password" name="password" id="password"
+            value="<?php echo (ENVIRONMENT == 'demo') ? 'bbalet' : ''; ?>" />
+          <button type="button" class="btn" id="cmdTogglePassword" tabindex="-1"><i class="mdi mdi-eye"></i></button>
+        </div><br />
         <br />
         <button id="send" class="btn btn-primary"><i
             class="mdi mdi-login"></i>&nbsp;<?php echo lang('session_login_button_login'); ?></button>
@@ -216,6 +219,18 @@
 
     $('#send').click(function () {
       submit_form();
+    });
+
+    $('#cmdTogglePassword').click(function () {
+      var passwordField = $('#password');
+      var icon = $(this).find('i');
+      if (passwordField.attr('type') === 'password') {
+        passwordField.attr('type', 'text');
+        icon.removeClass('mdi-eye').addClass('mdi-eye-off');
+      } else {
+        passwordField.attr('type', 'password');
+        icon.removeClass('mdi-eye-off').addClass('mdi-eye');
+      }
     });
 
     //If the user has forgotten his password, send an e-mail

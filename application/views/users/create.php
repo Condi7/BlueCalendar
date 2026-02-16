@@ -94,7 +94,7 @@ echo form_open('users/create', $attributes); ?>
         <div class="control-group">
             <label class="control-label" for="role[]"><?php echo lang('users_create_field_role');?></label>
             <div class="controls">
-                <select name="role[]" multiple="multiple" size="3" required>
+                <select name="role[]" id="role" class="selectized input-xlarge" required>
                 <?php foreach ($roles as $roles_item): ?>
                     <option value="<?php echo $roles_item['id'] ?>" <?php if ($roles_item['id'] == 2) echo "selected"; ?>><?php echo $roles_item['name'] ?></option>
                 <?php endforeach ?>
@@ -121,6 +121,7 @@ echo form_open('users/create', $attributes); ?>
                 <div class="input-append">
                     <input type="password" name="password" id="password" required />
                     <a class="btn" id="cmdGeneratePassword"><i class="mdi mdi-refresh"></i>&nbsp;<?php echo lang('users_create_button_generate_password');?></a>
+                    <button type="button" class="btn" id="cmdTogglePassword" tabindex="-1"><i class="mdi mdi-eye"></i></button>
                 </div>
             </div>
         </div>
@@ -476,9 +477,22 @@ echo form_open('users/create', $attributes); ?>
         //Transform SELECT tags in richer controls
         $('#timezone').select2();
         $('#contract').select2();
+        $('#role').select2();
 
         $("#cmdGeneratePassword").click(function() {
             $("#password").val(password_generator(<?php echo $this->config->item('password_length');?>));
+        });
+
+        $('#cmdTogglePassword').click(function() {
+            var passwordField = $('#password');
+            var icon = $(this).find('i');
+            if (passwordField.attr('type') === 'password') {
+                passwordField.attr('type', 'text');
+                icon.removeClass('mdi-eye').addClass('mdi-eye-off');
+            } else {
+                passwordField.attr('type', 'password');
+                icon.removeClass('mdi-eye-off').addClass('mdi-eye');
+            }
         });
 
         //On any change on firstname or lastname fields, automatically build the

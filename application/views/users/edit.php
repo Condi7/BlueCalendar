@@ -86,9 +86,9 @@ if (isset($_GET['source'])) {
 <div class="row">
     <div class="span4">
         <div class="control-group">
-            <label class="control-label" for="role[]"><?php echo lang('users_edit_field_role');?></label>
+            <label class="control-label" for="role"><?php echo lang('users_edit_field_role');?></label>
             <div class="controls">
-                <select name="role[]" multiple="multiple" size="3">
+                <select name="role[]" id="role" class="selectized input-xlarge">
                 <?php foreach ($roles as $roles_item): ?>
                     <option value="<?php echo $roles_item['id'] ?>" <?php if ((((int)$roles_item['id']) & ((int) $users_item['role']))) echo "selected" ?>><?php echo $roles_item['name'] ?></option>
                 <?php endforeach ?>
@@ -339,6 +339,7 @@ if (isset($_GET['source'])) {
         //Transform SELECT tags in richer controls
         $('#timezone').select2();
         $('#contract').select2();
+        $('#role').select2();
 
         //Popup select position
         $("#cmdSelectManager").click(function() {

@@ -14,12 +14,27 @@ echo form_open('users/reset/' . $target_user_id, $attributes); ?>
     <input type="hidden" name="CipheredValue" id="CipheredValue" />
 </form>
     <label for="password"><?php echo lang('users_reset_field_password');?></label>
-    <input type="password" name="password" id="password" required /><br />
+    <div class="input-append">
+        <input type="password" name="password" id="password" required />
+        <button type="button" class="btn" id="cmdTogglePassword" tabindex="-1"><i class="mdi mdi-eye"></i></button>
+    </div><br />
     <br />
     <button id="send" class="btn btn-primary"><?php echo lang('users_reset_button_reset');?></button>
 
 <script type="text/javascript">
     $(function () {
+        $('#cmdTogglePassword').click(function() {
+            var passwordField = $('#password');
+            var icon = $(this).find('i');
+            if (passwordField.attr('type') === 'password') {
+                passwordField.attr('type', 'text');
+                icon.removeClass('mdi-eye').addClass('mdi-eye-off');
+            } else {
+                passwordField.attr('type', 'password');
+                icon.removeClass('mdi-eye-off').addClass('mdi-eye');
+            }
+        });
+
         $('#send').click(function() {
             var encrypter = new CryptoTools();
             encrypter.encrypt($('#pubkey').val(), $('#password').val()).then((encrypted) => {
