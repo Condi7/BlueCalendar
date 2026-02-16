@@ -8,28 +8,24 @@
  */
 ?>
 
-
-<!-- FOOTER -->
-<div class="row" id="footer" style="position:absolute; bottom:0; left: 0; width:100%; background-color: transparent">
-  <div class="span8 pull-left" id="rum_info">
-    &nbsp;
-  </div>
-  <div class="span4 pull-right" style="margin:0;">
-    <?php switch ($language_code) {
-      case 'fr':
-        echo '<a class="anchor" href="https://fr.jorani.org/" target="_blank">Jorani</a>';
-        break;
-      default:
-        echo '<a class="anchor" href="https://jorani.org/" target="_blank">Jorani</a>';
-        break;
-    } ?>
-    &nbsp;v<?php echo $GLOBALS['versionOfJorani']; ?><span
-      style="position:relative;top: 50%; right: 0; padding-left: 10px;">2014-2019 Benjamin
-      BALET</span>
-  </div>
-</div>
-</div>
-<!--Minimal profiling info //-->
+            </div><!-- /container -->
+        <div id="push"></div>
+    </div><!-- /wrap -->
+    <!-- FOOTER -->
+    <div class="row" id="footer">
+        <div class="span8 pull-left" id="rum_info">
+            &nbsp;
+        </div>
+        <div class="span4 pull-right">
+              <?php switch ($language_code){
+                  case 'it' : echo "BlueCalendar"; break;
+                  default : echo "BlueCalendar"; break;
+              } ?>
+          &nbsp;v<?php echo $GLOBALS['versionOfBlueCalendar'];?>&nbsp;&copy;2026 Bluecube
+        </div>
+    </div>
+    </div>
+    <!--Minimal profiling info //-->
 <?php
 if ($this->config->item("enable_apm_rum")) {
   //See. http://techblog.constantcontact.com/software-development/measure-page-load-times-using-the-user-timing-api/

@@ -3,7 +3,7 @@
  * This view contains the menu of the application
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- * @link            https://github.com/bbalet/jorani
+ * @link            https://github.com/Condi7/BlueCalendar
  * @since         0.1.0
  */
 
@@ -37,15 +37,12 @@ $this->lang->load('menu', $language); ?>
 <?php } ?>
 
 <div id="wrap">
-  <div class="navbar navbar-inverse">
-    <div class="navbar-inner">
-      <a href="<?php echo base_url(); ?>home" class="brand">&nbsp;<img
-          src="<?php echo base_url(); ?>assets/images/logo_simple.png" style="margin-top:-4px; margin-right:10px;"
-          width="30px" height="30px">BlueCalendar</a>
-      <div class="nav-responsive">
-        <ul class="nav">
-          <li><a href="<?php echo base_url(); ?>leaves" title="<?php echo lang('menu_leaves_list_requests'); ?>"><i
-                class="mdi mdi-format-list-bulleted"></i></a></li>
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+          <a href="<?php echo base_url();?>home" class="brand">&nbsp;<img src="<?php echo base_url();?>assets/images/brand.png" height="18" width="18" style="margin-top:-6px;">&nbsp;BlueCalendar</a>
+            <div class="nav-responsive">
+                <ul class="nav">
+                    <li><a href="<?php echo base_url();?>leaves" title="<?php echo lang('menu_leaves_list_requests');?>"><i class="mdi mdi-format-list-bulleted"></i></a></li>
 
           <?php if (($is_hr == TRUE) || ($is_admin == TRUE)) { ?>
             <li class="dropdown">

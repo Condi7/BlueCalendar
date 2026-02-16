@@ -3,26 +3,25 @@
  * This view displays a simplified login form for OAtuh2 authorization.
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- * @link       https://github.com/bbalet/jorani
+ * @link       https://github.com/Condi7/BlueCalendar
  * @since      0.6.0
  */
 ?><!DOCTYPE html>
 <html lang="<?php echo $language_code; ?>">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta charset="utf-8">
-  <title><?php echo $title ?> - Jorani</title>
-  <meta
-    description="Jorani a free and open source leave management system. Workflow of approval; e-mail notifications; calendars; reports; export to Excel and more.">
-  <meta name="version" content="1.0.1">
-  <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/legacy.css">
-  <?php CI_Controller::get_instance()->load->helper('language');
-  $this->lang->load('global', $language); ?>
-  <!--[if lte IE 9]>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <title><?php echo $title ?> - BlueCalendar</title>
+    <meta description="BlueCalendar è un gestionale per le ferie realizzato in PHP.">
+    <meta name="version" content="1.0.1">
+    <link href="<?php echo base_url();?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/legacy.css">
+<?php CI_Controller::get_instance()->load->helper('language');
+$this->lang->load('global', $language);?>
+    <!--[if lte IE 9]>
     <script type="text/javascript">
     alert("<?php echo lang('global_msg_old_browser'); ?>");
     </script>
