@@ -1,5 +1,7 @@
+version: "3.9"
+
 services:
-    bluecalendar:
+    web:
         build: .
         ports:
             - "80:80"
@@ -10,11 +12,17 @@ services:
             - MYSQL_PASSWORD=bluecalendar
             - SMTP_HOST=mailhog
             - SMTP_PORT=1025
-            - SMTP_USER=
-            - SMTP_PASSWORD=
-            - SMTP_CRYPTO=
             - FROM_NAME=Bluecube
-            - SUBJECT_PREFIX=[BlueCalendar] 
+            - SUBJECT_PREFIX=[BlueCalendar]
+        develop:
+            watch:
+                - action: sync
+                  path: .
+                  target: /var/www/html
+                  ignore:
+                      - vendor/
+                      - .git/
+                      - node_modules/
     mysql:
         image: mysql:8
         ports:
