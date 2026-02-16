@@ -1,6 +1,7 @@
-version: "3.4"
+version: "3.9"
+
 services:
-    jorani:
+    web:
         build: .
         ports:
             - "80:80"
@@ -11,11 +12,17 @@ services:
             - MYSQL_PASSWORD=jorani
             - SMTP_HOST=mailhog
             - SMTP_PORT=1025
-            - SMTP_USER=
-            - SMTP_PASSWORD=
-            - SMTP_CRYPTO=
             - FROM_NAME=Bluecube
-            - SUBJECT_PREFIX=[Gestionale ferie] 
+            - SUBJECT_PREFIX=[Gestionale ferie]
+        develop:
+            watch:
+                - action: sync
+                  path: .
+                  target: /var/www/html
+                  ignore:
+                      - vendor/
+                      - .git/
+                      - node_modules/
     mysql:
         image: mysql:8
         ports:
