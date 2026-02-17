@@ -25,9 +25,9 @@ $lang['menu_admin_settings'] = 'Impostazioni';
 $lang['menu_admin_diagnostic'] = 'Diagnostica';
 $lang['menu_admin_oauth_clients'] = 'Client OAuth';
 
-$lang['menu_hr_title'] = 'RU';
+$lang['menu_hr_title'] = 'HR';
 $lang['menu_hr_employees_divider'] = 'Dipendenti';
-$lang['menu_hr_list_organization'] = 'Organizzazione';
+$lang['menu_hr_list_organization'] = 'Organigramma';
 $lang['menu_hr_list_employees'] = 'Elenco dipendenti';
 $lang['menu_hr_contracts_divider'] = 'Contratti';
 $lang['menu_hr_list_contracts'] = 'Elenco dei contratti';
@@ -47,18 +47,18 @@ $lang['menu_validation_overtime'] = 'Straordinario';
 $lang['menu_requests_title'] = 'Richieste';
 $lang['menu_requests_leaves'] = 'Ferie';
 $lang['menu_requests_overtime'] = 'Straordinario';
-$lang['menu_requests_list_extras'] = 'Elenco extra';
-$lang['menu_requests_request_extra'] = 'Richiedi extra';
+$lang['menu_requests_list_extras'] = 'Elenco straordinari';
+$lang['menu_requests_request_extra'] = 'Richiedi straordinario';
 
 $lang['menu_leaves_counters'] = 'Contatori';
 $lang['menu_leaves_list_requests'] = 'Elenco richieste di ferie';
 $lang['menu_leaves_create_request'] = 'Richiedi ferie';
 
 $lang['menu_calendar_title'] = 'Calendari';
-$lang['menu_calendar_year'] = 'Calendario annuale';
+$lang['menu_calendar_year'] = 'Calendario annuale personale';
 $lang['menu_calendar_individual'] = 'Il mio calendario';
 $lang['menu_calendar_workmates'] = 'I miei colleghi';
 $lang['menu_calendar_collaborators'] = 'I miei collaboratori';
 $lang['menu_calendar_department'] = 'Reparto';
 $lang['menu_calendar_organization'] = 'Globale';
-$lang['menu_calendar_tabular'] = 'Tabellare';
+$lang['menu_calendar_tabular'] = 'Globale tabellare';

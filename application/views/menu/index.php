@@ -154,9 +154,6 @@ $this->lang->load('menu', $language); ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_calendar_title'); ?> <b
                 class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a
-                  href="<?php echo base_url(); ?>calendar/individual"><?php echo lang('menu_calendar_individual'); ?></a>
-              </li>
               <li><a href="<?php echo base_url(); ?>calendar/year"><?php echo lang('menu_calendar_year'); ?></a></li>
               <?php if ($this->config->item('disable_workmates_calendar') == FALSE) { ?>
                 <li><a
@@ -169,14 +166,6 @@ $this->lang->load('menu', $language); ?>
                 </li>
               <?php } ?>
               <?php if (($is_hr == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
-                <?php if ($this->config->item('disable_department_calendar') == FALSE) { ?>
-                  <li><a
-                      href="<?php echo base_url(); ?>calendar/department"><?php echo lang('menu_calendar_department'); ?></a>
-                  </li>
-                <?php } ?>
-                <li><a
-                    href="<?php echo base_url(); ?>calendar/organization"><?php echo lang('menu_calendar_organization'); ?></a>
-                </li>
                 <li><a href="<?php echo base_url(); ?>calendar/tabular"><?php echo lang('menu_calendar_tabular'); ?></a>
                 </li>
               <?php } ?>
