@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.4.0
  */
 
 if (!defined('BASEPATH')) {exit('No direct script access allowed');}
@@ -30,7 +29,7 @@ class Pages extends CI_Controller {
      */
     public function notfound() {
         $data = getUserContext($this);
-        $data['title'] = 'Error';
+        $data['title'] = lang('Error');
         $this->load->view('templates/header', $data);
         $this->load->view('menu/index', $data);
         $this->load->view('pages/notfound', $data);

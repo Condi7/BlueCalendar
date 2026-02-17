@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  * @author       dario brignone <brignone@unitec.it>
  */
 
@@ -13,27 +12,27 @@ $lang['global_link_tooltip_documentation'] = 'Documentazione';
 $lang['global_msg_error_forbidden'] = 'L\'operazione (%s) non è garantita';
 $lang['global_msg_wait'] = 'Attendere prego';
 $lang['global_msg_old_browser'] = 'Internet Explorer 8 e vecchi browser non sono supportati. Si prega di aggiornare a IE9 o di utilizzare Firefox, Chrome, etc.';
-$lang['global_msg_not_found'] = 'Object not found. Maybe that you are trying to access to an object that was deleted.';
+$lang['global_msg_not_found'] = 'Oggetto non trovato. Potresti star cercando di accedere a un elemento che è stato eliminato.';
 $lang['global_date_format'] = 'd/m/Y';
 $lang['global_date_js_format'] = 'dd/mm/yy';
 $lang['global_date_momentjs_format'] = 'DD/MM/YYYY';
 
-$lang['global_msg_new_version_available'] = 'A new version is available.';
-$lang['global_msg_your_version_is_dev'] = 'You are using a development version.';
-$lang['global_msg_your_version_is_up_to_date'] = 'Your version is up to date.';
+$lang['global_msg_new_version_available'] = 'È disponibile una nuova versione.';
+$lang['global_msg_your_version_is_dev'] = 'Stai utilizzando una versione di sviluppo.';
+$lang['global_msg_your_version_is_up_to_date'] = 'La tua versione è aggiornata.';
 
 $lang['global_true'] = 'VERO';
 $lang['global_false'] = 'FALSO';
 
 $lang['footer_link_go_top'] = 'Torna su';
-$lang['footer_copyright_notice'] = '&copy; 2014 Jorani Authors';
+$lang['footer_copyright_notice'] = '&copy; 2014 Autori Jorani';
 
-$lang['Requested'] = 'Richiesto';
-$lang['Planned'] = 'Pianificato';
-$lang['Accepted'] = 'Accettato';
-$lang['Rejected'] = 'Rifiutato';
-$lang['Cancellation'] = 'Cancellation';
-$lang['Canceled'] = 'Canceled';
+$lang['Requested'] = 'Richiesta';
+$lang['Planned'] = 'Pianificata';
+$lang['Accepted'] = 'Accettata';
+$lang['Rejected'] = 'Rifiutata';
+$lang['Cancellation'] = 'Annullamento richiesto';
+$lang['Canceled'] = 'Annullata';
 
 $lang['global_link_doc_page_calendar_individual'] = '';
 $lang['global_link_doc_page_calendar_yearly'] = '';
@@ -92,13 +91,15 @@ $lang['contract'] = 'contratto';
 $lang['day off'] = 'giorno libero';
 $lang['leave'] = 'ferie';
 
-$lang['All'] = 'All';
+$lang['All'] = 'Tutti';
 $lang['OK'] = 'OK';
-$lang['Cancel'] = 'Cancel';
+$lang['Cancel'] = 'Annulla';
 $lang['copied'] = 'copiato';
 
-$lang['oauth2_authorize_question'] = 'Do You Authorize %s application?';
-$lang['Yes'] = 'Yes';
+$lang['Error'] = 'Errore';
+
+$lang['oauth2_authorize_question'] = 'Autorizzi l\'applicazione %s?';
+$lang['Yes'] = 'Sì';
 $lang['No'] = 'No';
 
 $lang['global_ajax_timeout'] = 'La sessione è scaduta, effettua nuovamente l\'accesso';

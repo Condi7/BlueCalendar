@@ -4,13 +4,12 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  * @author       dario brignone <brignone@unitec.it>
  */
 
 $lang['entitleddays_contract_index_title'] = 'Giorni spettanti per contratto';
 $lang['entitleddays_contract_index_thead_tip_delete'] = 'Elimina';
-$lang['entitleddays_contract_index_thead_tip_copy'] = 'Copy';
+$lang['entitleddays_contract_index_thead_tip_copy'] = 'Copia';
 $lang['entitleddays_contract_index_thead_tip_edit'] = 'Modifica';
 $lang['entitleddays_contract_index_thead_start'] = 'Inizio';
 $lang['entitleddays_contract_index_thead_end'] = 'Fine';

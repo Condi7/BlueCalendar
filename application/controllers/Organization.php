@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -273,7 +272,7 @@ class Organization extends CI_Controller {
         $entity = $this->input->get('entity', TRUE);
         if (isset($entity)) {
             $this->load->model('organization_model');
-            echo json_encode($this->organization_model->getSupervisor($entity));
+            echo json_encode($this->organization_model->getSupervisors($entity));
         } else {
             $this->output->set_header("HTTP/1.1 422 Unprocessable entity");
         }
@@ -296,8 +295,12 @@ class Organization extends CI_Controller {
                 $id = $this->input->get('user', TRUE);
             }
             $entity = $this->input->get('entity', TRUE);
+            $slot = (int) $this->input->get('slot', TRUE);
+            if (($slot !== 1) && ($slot !== 2)) {
+                $slot = 1;
+            }
             $this->load->model('organization_model');
-            echo json_encode($this->organization_model->setSupervisor($id, $entity));
+            echo json_encode($this->organization_model->setSupervisor($id, $entity, $slot));
         }
     }
 

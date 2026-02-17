@@ -273,6 +273,7 @@ CREATE TABLE IF NOT EXISTS `organization` (
   `name` varchar(512) DEFAULT NULL COMMENT 'Name of the department',
   `parent_id` int(11) DEFAULT NULL COMMENT 'Parent department (or -1 if root)',
   `supervisor` INT NULL DEFAULT NULL COMMENT 'This user will receive a copy of accepted and rejected leave requests',
+  `supervisor2` INT NULL DEFAULT NULL COMMENT 'Second user receiving a copy of accepted and rejected leave requests',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tree of the organization' AUTO_INCREMENT=1 ;
 
@@ -409,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Content of table `users`
 --
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `login`, `email`, `password`, `role`, `manager`, `country`, `organization`, `contract`, `position`, `datehired`, `identifier`, `language`, `random_hash`) VALUES
-(1, 'Benjamin', 'BALET', 'bbalet', 'benjamin.balet@gmail.com', '$2a$08$LeUbaGFqJjLSAN7to9URsuHB41zcmsMBgBhpZuFp2y2OTxtVcMQ.C', 8, 1, NULL, 0, 1, 1, '2013-10-28', 'PNC0025', 'en', '5g5VUm5ZKf5TkK08yMtuKxe5');
+(1, 'Admin', 'BC', 'adminbc', 'adminbluecube@gmail.com', '$2a$08$LeUbaGFqJjLSAN7to9URsuHB41zcmsMBgBhpZuFp2y2OTxtVcMQ.C', 8, 1, NULL, 0, 1, 1, '2026-02-16', 'BC001', 'it', '5g5VUm5ZKf5TkK08yMtuKxe5');
 
 --
 -- Structure of table `delegations`

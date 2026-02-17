@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -591,10 +590,10 @@ class Leaves extends CI_Controller {
             'Lastname' => $user['lastname'],
             'StartDate' => $startdate,
             'EndDate' => $enddate,
-            'StartDateType' => $lang_mail->line($leave['startdatetype']),
-            'EndDateType' => $lang_mail->line($leave['enddatetype']),
+            'StartDateType' => leaveTimeLabel($leave['startdatetype'], $lang_mail),
+            'EndDateType' => leaveTimeLabel($leave['enddatetype'], $lang_mail),
             'Type' => $this->types_model->getName($leave['type']),
-            'Duration' => $leave['duration'],
+            'Duration' => formatLeaveDurationHours($leave['duration']),
             'Balance' => $this->leaves_model->getLeavesTypeBalanceForEmployee($leave['employee'] , $leave['type_name'], $leave['startdate']),
             'Reason' => $leave['cause'],
             'BaseUrl' => $this->config->base_url(),
@@ -828,8 +827,14 @@ class Leaves extends CI_Controller {
         $d = DateTime::createFromFormat('Y-m-d', $date);
         $enddate = ($d && $d->format('Y-m-d') === $date)?$date:'1970-01-01';
         $enddate = preg_replace("([^0-9-])", "", $enddate);
-        $startdatetype = $this->input->post('startdatetype', TRUE);     //Mandatory field checked by frontend
-        $enddatetype = $this->input->post('enddatetype', TRUE);       //Mandatory field checked by frontend
+        $startdatetype = $this->input->post('startdatetype', TRUE);
+        if ($startdatetype == NULL || $startdatetype === '') {
+            $startdatetype = '09:00';
+        }
+        $enddatetype = $this->input->post('enddatetype', TRUE);
+        if ($enddatetype == NULL || $enddatetype === '') {
+            $enddatetype = '18:00';
+        }
         $leave_id = intval($this->input->post('leave_id', TRUE));
         $leaveValidator = new stdClass;
         $deductDayOff = FALSE;

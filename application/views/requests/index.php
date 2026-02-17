@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 ?>
 <h2><?php echo lang('requests_index_title');?><?php echo $help;?></h2>
@@ -108,9 +107,9 @@ if ($showAll == FALSE) {
             </div>
         </td>
         <td><?php echo $request['firstname'] . ' ' . $request['lastname']; ?></td>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($request['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo$tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($request['enddatetype']) . ')'; ?></td>
-        <td><?php echo $request['duration']; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($request['startdate'], $request['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo$tmpEndDate; ?>"><?php echo formatLeaveDateTime($request['enddate'], $request['enddatetype'], lang('global_date_format')); ?></td>
+        <td><?php echo formatLeaveDurationHours($request['duration']); ?></td>
         <td><?php echo $request['type_name']; ?></td>
         <?php
         switch ($request['status']) {

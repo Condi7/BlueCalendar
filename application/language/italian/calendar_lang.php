@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  * @author       dario brignone <brignone@unitec.it>
  */
 
@@ -42,14 +41,14 @@ $lang['calendar_tabular_title'] = 'Calendario tabellare';
 $lang['calendar_tabular_field_select_entity'] = 'Seleziona l\'entità';
 $lang['calendar_tabular_field_month'] = 'Mese';
 $lang['calendar_tabular_field_year'] = 'Anno';
-$lang['calendar_tabular_button_previous'] = 'Previous';
-$lang['calendar_tabular_button_next'] = 'Next';
-$lang['calendar_tabular_button_select_entity'] = 'Select an entity';
-$lang['calendar_tabular_button_select_list'] = 'Select a list';
+$lang['calendar_tabular_button_previous'] = 'Precedente';
+$lang['calendar_tabular_button_next'] = 'Successivo';
+$lang['calendar_tabular_button_select_entity'] = 'Seleziona un\'entità';
+$lang['calendar_tabular_button_select_list'] = 'Seleziona un elenco';
 $lang['calendar_tabular_button_select_entity'] = 'Seleziona';
 $lang['calendar_tabular_button_export'] = 'Esporta';
 $lang['calendar_tabular_check_include_subdept'] = 'Includi sotto-reparti';
-$lang['calendar_tabular_check_display_types'] = 'Display leave types';
+$lang['calendar_tabular_check_display_types'] = 'Mostra tipologie di ferie';
 $lang['calendar_tabular_popup_entity_title'] = 'Seleziona un\'entità';
 $lang['calendar_tabular_popup_entity_button_ok'] = 'OK';
 $lang['calendar_tabular_popup_entity_button_cancel'] = 'Annulla';

@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -177,6 +176,55 @@ function columnName($number) {
     } else {
         return substr("AAABACADAEAFAGAHAIAJAKALAMANAOAPAQARASATAUAVAWAXAYAZ", (($number -27) * 2), 2);
     }
+}
+
+/**
+ * Return a readable label for leave time value.
+ * Supports legacy values (Morning/Afternoon) and HH:MM.
+ * @param string $value Leave time value
+ * @param CI_Lang|null $lang Language instance (optional)
+ * @return string
+ */
+function leaveTimeLabel($value, $lang = NULL) {
+    if ($value === 'Morning' || $value === 'Afternoon') {
+        if (!is_null($lang)) {
+            $translated = $lang->line($value);
+            return ($translated === FALSE) ? $value : $translated;
+        }
+        $translated = lang($value);
+        return ($translated === FALSE) ? $value : $translated;
+    }
+    if (preg_match('/^([01][0-9]|2[0-3]):[0-5][0-9]$/', (string) $value)) {
+        return $value;
+    }
+    return (string) $value;
+}
+
+/**
+ * Format date + leave time label.
+ * @param string $date Date in Y-m-d format
+ * @param string $timeValue Time value or legacy date type
+ * @param string $dateFormat Date display format
+ * @param CI_Lang|null $lang Language instance (optional)
+ * @return string
+ */
+function formatLeaveDateTime($date, $timeValue, $dateFormat, $lang = NULL) {
+    $dateObj = new DateTime($date);
+    return $dateObj->format($dateFormat) . ' (' . leaveTimeLabel($timeValue, $lang) . ')';
+}
+
+/**
+ * Format a leave duration as hours.
+ * @param mixed $duration Duration value
+ * @return string
+ */
+function formatLeaveDurationHours($duration) {
+    $value = number_format((float) $duration, 3, '.', '');
+    $value = rtrim(rtrim($value, '0'), '.');
+    if ($value === '') {
+        $value = '0';
+    }
+    return $value . ' h';
 }
 
 //Function cal_days_in_month might not exist with HHVM and FreeBSD without proper config

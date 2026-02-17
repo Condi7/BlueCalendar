@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 ?>
 
@@ -34,21 +33,24 @@ if (isset($_GET['source'])) {
     <?php endforeach ?>
     </select>
 
+    <?php
+    $startTimeValue = $leave['startdatetype'];
+    if ($startTimeValue == 'Morning') $startTimeValue = '09:00';
+    if ($startTimeValue == 'Afternoon') $startTimeValue = '14:00';
+    $endTimeValue = $leave['enddatetype'];
+    if ($endTimeValue == 'Morning') $endTimeValue = '13:00';
+    if ($endTimeValue == 'Afternoon') $endTimeValue = '18:00';
+    ?>
+
     <label for="viz_startdate"><?php echo lang('leaves_edit_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php $date = new DateTime($leave['startdate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="startdate" id="startdate" value="<?php echo $leave['startdate'];?>" />
-    <select name="startdatetype" id="startdatetype">
-        <option value="Morning" <?php if ($leave['startdatetype'] == "Morning") {echo "selected";}?>><?php echo lang('Morning');?></option>
-        <option value="Afternoon" <?php if ($leave['startdatetype'] == "Afternoon") {echo "selected";}?>><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" /><br />
 
     <label for="viz_enddate"><?php echo lang('leaves_edit_field_end');?></label>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php $date = new DateTime($leave['enddate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="enddate" id="enddate" value="<?php echo $leave['enddate'];?>" />
-    <select name="enddatetype" id="enddatetype">
-        <option value="Morning" <?php if ($leave['enddatetype'] == "Morning") {echo "selected";}?>><?php echo lang('Morning');?></option>
-        <option value="Afternoon" <?php if ($leave['enddatetype'] == "Afternoon") {echo "selected";}?>><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" /><br />
     <label for="duration"><?php echo lang('leaves_edit_field_duration');?> <span id="tooltipDayOff"></span></label>
 
     <?php if ($this->config->item('disable_edit_leave_duration') == TRUE) { ?>
