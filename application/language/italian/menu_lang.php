@@ -43,21 +43,21 @@ $lang['menu_validation_collaborators'] = 'I miei collaboratori';
 $lang['menu_validation_leaves'] = 'Ferie';
 $lang['menu_validation_overtime'] = 'Straordinario';
 
-$lang['menu_requests_title'] = 'Ferie/Permessi';
+$lang['menu_requests_title'] = 'La mia area';
 $lang['menu_requests_leaves'] = 'Ferie';
 $lang['menu_requests_overtime'] = 'Straordinario';
 $lang['menu_requests_list_extras'] = 'Elenco straordinari';
 $lang['menu_requests_request_extra'] = 'Richiedi straordinario';
 
-$lang['menu_leaves_counters'] = 'Contatori';
-$lang['menu_leaves_list_requests'] = 'Elenco richieste di ferie';
+$lang['menu_leaves_counters'] = 'Saldo ferie';
+$lang['menu_leaves_list_requests'] = 'Le mie richieste';
 $lang['menu_leaves_create_request'] = 'Richiedi ferie';
 
 $lang['menu_calendar_title'] = 'Calendari';
-$lang['menu_calendar_year'] = 'Calendario annuale personale';
+$lang['menu_calendar_year'] = 'Calendario personale';
 $lang['menu_calendar_individual'] = 'Il mio calendario';
 $lang['menu_calendar_workmates'] = 'I miei colleghi';
 $lang['menu_calendar_collaborators'] = 'I miei collaboratori';
 $lang['menu_calendar_department'] = 'Reparto';
 $lang['menu_calendar_organization'] = 'Globale';
-$lang['menu_calendar_tabular'] = 'Globale tabellare';
+$lang['menu_calendar_tabular'] = 'Calendario globale';

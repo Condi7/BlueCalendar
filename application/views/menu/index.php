@@ -141,7 +141,7 @@ $this->lang->load('menu', $language); ?>
               <li><a href="<?php echo base_url(); ?>leaves/counters"><?php echo lang('menu_leaves_counters'); ?></a>
               </li>
               <li><a href="<?php echo base_url(); ?>leaves"><?php echo lang('menu_leaves_list_requests'); ?></a></li>
-              <li><a href="<?php echo base_url(); ?>leaves/create"><?php echo lang('menu_leaves_create_request'); ?></a>
+              <!-- COMMENTATA LA RICHIESTA FERIE <li><a href="<?php /* echo base_url(); ?>leaves/create"><?php echo lang('menu_leaves_create_request'); */ ?></a> -->
               </li>
               <?php /* COMMENTATA LA PARTE STRAORDINARI
               if ($this->config->item('disable_overtime') === FALSE) { ?>
@@ -159,7 +159,8 @@ $this->lang->load('menu', $language); ?>
                 class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="<?php echo base_url(); ?>calendar/year"><?php echo lang('menu_calendar_year'); ?></a></li>
-              <?php if ($this->config->item('disable_workmates_calendar') == FALSE) { ?>
+              <?php /* COMMENTATI CALENDARI COLLEGHI E COLLABORATORI
+               if ($this->config->item('disable_workmates_calendar') == FALSE) { ?>
                 <li><a
                     href="<?php echo base_url(); ?>calendar/workmates"><?php echo lang('menu_calendar_workmates'); ?></a>
                 </li>
@@ -168,7 +169,7 @@ $this->lang->load('menu', $language); ?>
                 <li><a
                     href="<?php echo base_url(); ?>calendar/collaborators"><?php echo lang('menu_calendar_collaborators'); ?></a>
                 </li>
-              <?php } ?>
+              <?php } */?>
               <?php if (($is_hr == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
                 <li><a href="<?php echo base_url(); ?>calendar/tabular"><?php echo lang('menu_calendar_tabular'); ?></a>
                 </li>
