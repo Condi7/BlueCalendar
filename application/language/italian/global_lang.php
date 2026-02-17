@@ -28,11 +28,11 @@ $lang['global_false'] = 'FALSO';
 $lang['footer_link_go_top'] = 'Torna su';
 $lang['footer_copyright_notice'] = '&copy; 2014 Autori Jorani';
 
-$lang['Requested'] = 'Richiesto';
-$lang['Planned'] = 'Pianificato';
-$lang['Accepted'] = 'Accettato';
-$lang['Rejected'] = 'Rifiutato';
-$lang['Cancellation'] = 'Annullamento';
+$lang['Requested'] = 'Richiesta';
+$lang['Planned'] = 'Pianificata';
+$lang['Accepted'] = 'Accettata';
+$lang['Rejected'] = 'Rifiutata';
+$lang['Cancellation'] = 'Annullamento richiesto';
 $lang['Canceled'] = 'Annullata';
 
 $lang['global_link_doc_page_calendar_individual'] = '';
