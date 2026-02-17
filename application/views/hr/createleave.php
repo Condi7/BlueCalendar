@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 ?>
 
@@ -29,21 +28,24 @@ echo form_open($form_action, $attributes) ?>
     <?php endforeach ?>
     </select>
 
+    <?php
+    $startTimeValue = set_value('startdatetype');
+    if ($startTimeValue == '' || $startTimeValue == 'Morning') $startTimeValue = '09:00';
+    if ($startTimeValue == 'Afternoon') $startTimeValue = '14:00';
+    $endTimeValue = set_value('enddatetype');
+    if ($endTimeValue == '' || $endTimeValue == 'Afternoon') $endTimeValue = '18:00';
+    if ($endTimeValue == 'Morning') $endTimeValue = '13:00';
+    ?>
+
     <label for="viz_startdate" required><?php echo lang('hr_leaves_create_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php echo set_value('startdate'); ?>" />
     <input type="hidden" name="startdate" id="startdate" />
-    <select name="startdatetype" id="startdatetype">
-        <option value="Morning" selected><?php echo lang('Morning');?></option>
-        <option value="Afternoon"><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" /><br />
 
     <label for="viz_enddate" required><?php echo lang('hr_leaves_create_field_end');?></label>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php echo set_value('enddate'); ?>" />
     <input type="hidden" name="enddate" id="enddate" />
-    <select name="enddatetype" id="enddatetype">
-        <option value="Morning"><?php echo lang('Morning');?></option>
-        <option value="Afternoon" selected><?php echo lang('Afternoon');?></option>
-    </select><br />
+    <input type="time" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" /><br />
 
     <label for="duration" required><?php echo lang('hr_leaves_create_field_duration');?> <span id="tooltipDayOff"></span></label>
     <input type="text" name="duration" id="duration" value="<?php echo set_value('duration'); ?>" />

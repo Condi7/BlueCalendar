@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -39,10 +38,10 @@ foreach ($leaves as $leave) {
     $enddate = $date->format(lang('global_date_format'));
     $sheet->setCellValue('A' . $line, $leave['id']);
     $sheet->setCellValue('B' . $line, $startdate);
-    $sheet->setCellValue('C' . $line, lang($leave['startdatetype']));
+    $sheet->setCellValue('C' . $line, leaveTimeLabel($leave['startdatetype']));
     $sheet->setCellValue('D' . $line, $enddate);
-    $sheet->setCellValue('E' . $line, lang($leave['enddatetype']));
-    $sheet->setCellValue('F' . $line, $leave['duration']);
+    $sheet->setCellValue('E' . $line, leaveTimeLabel($leave['enddatetype']));
+    $sheet->setCellValue('F' . $line, formatLeaveDurationHours($leave['duration']));
     $sheet->setCellValue('G' . $line, $leave['type_name']);
     $sheet->setCellValue('H' . $line, lang($leave['status_name']));
     $sheet->setCellValue('I' . $line, $leave['cause']);

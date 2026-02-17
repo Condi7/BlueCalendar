@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -355,7 +354,7 @@ class Requests extends CI_Controller {
         $this->load->model('organization_model');
         $leave = $this->leaves_model->getLeaves($id);
         $employee = $this->users_model->getUsers($leave['employee']);
-        $supervisor = $this->organization_model->getSupervisor($employee['organization']);
+        $supervisorsCc = $this->organization_model->getSupervisorsMails($employee['organization']);
 
         //Send an e-mail to the employee
         $this->load->library('email');
@@ -407,10 +406,11 @@ class Requests extends CI_Controller {
             'Lastname' => $employee['lastname'],
             'StartDate' => $startdate,
             'EndDate' => $enddate,
-            'StartDateType' => $lang_mail->line($leave['startdatetype']),
-            'EndDateType' => $lang_mail->line($leave['enddatetype']),
+            'StartDateType' => leaveTimeLabel($leave['startdatetype'], $lang_mail),
+            'EndDateType' => leaveTimeLabel($leave['enddatetype'], $lang_mail),
             'Cause' => $leave['cause'],
             'Type' => $leave['type_name'],
+            'Duration' => formatLeaveDurationHours($leave['duration']),
             'Comments' => $comment
         );
         $this->load->library('parser');
@@ -423,13 +423,13 @@ class Requests extends CI_Controller {
                 break;
             case LMS_CANCELLATION_REQUESTED:
                 $message = $this->parser->parse('emails/' . $employee['language'] . '/cancel_rejected', $data, TRUE);
-                $supervisor = NULL; //No need to warn the supervisor as nothing changes
+                $supervisorsCc = ''; //No need to warn supervisors as nothing changes
                 break;
             case LMS_CANCELLATION_CANCELED:
                 $message = $this->parser->parse('emails/' . $employee['language'] . '/cancel_accepted', $data, TRUE);
                 break;
         }
-        sendMailByWrapper($this, $subject, $message, $employee['email'], is_null($supervisor)?NULL:$supervisor->email);
+        sendMailByWrapper($this, $subject, $message, $employee['email'], ($supervisorsCc === '') ? NULL : $supervisorsCc);
     }
 
     /**

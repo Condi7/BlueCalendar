@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 ?>
 
@@ -113,37 +112,52 @@ $(document).ready(function() {
         eventAfterRender: function(event, element, view) {
             //Add tooltip to the element
             $(element).attr('title', event.title);
-            
-            if (event.enddatetype == "Morning" || event.startdatetype == "Afternoon") {
-                var nb_days = event.end.diff(event.start, "days");
-                var duration = 0.5;
-                var halfday_length = 0;
-                var length = 0;
-                var width = parseInt(jQuery(element).css('width'));
-                if (nb_days > 0) {
-                    if (event.enddatetype == "Afternoon") {
-                        duration = nb_days + 0.5;
-                    } else {
-                        duration = nb_days;
-                    }
-                    nb_days++;
-                    halfday_length = Math.round((width / nb_days) / 2);
-                    if (event.startdatetype == "Afternoon" && event.enddatetype == "Morning") {
-                        length = width - (halfday_length * 2);
-                    } else {
-                        length = width - halfday_length;
-                    }
-                } else {
-                    halfday_length = Math.round(width / 2);   //Average width of a day divided by 2
-                    length = halfday_length;
-                }
+
+            if (typeof event.startdatetype === 'undefined' || typeof event.enddatetype === 'undefined') {
+                return;
             }
-            $(element).css('width', length + "px");
-            
-            //Starting afternoon : shift the position of event to the right
-            if (event.startdatetype == "Afternoon") {
-                $(element).css('margin-left', halfday_length + "px");
+
+            if (view.name !== 'month' && view.name.indexOf('basic') !== 0) {
+                return;
             }
+
+            var width = parseInt(jQuery(element).css('width'), 10);
+            if (isNaN(width) || width <= 0 || !event.start || !event.end) {
+                return;
+            }
+
+            var toMinutes = function(value, isStart) {
+                if (value === 'Morning') return isStart ? 9 * 60 : 13 * 60;
+                if (value === 'Afternoon') return isStart ? 14 * 60 : 18 * 60;
+                var match = /^([01][0-9]|2[0-3]):([0-5][0-9])$/.exec(String(value));
+                if (match) return parseInt(match[1], 10) * 60 + parseInt(match[2], 10);
+                return isStart ? 9 * 60 : 18 * 60;
+            };
+
+            var workedBefore = function(minutes) {
+                var morning = Math.max(0, Math.min(minutes, 13 * 60) - 9 * 60);
+                var afternoon = Math.max(0, Math.min(minutes, 18 * 60) - 14 * 60);
+                return morning + afternoon;
+            };
+
+            var startMinutes = toMinutes(event.startdatetype, true);
+            var endMinutes = toMinutes(event.enddatetype, false);
+            var startFraction = workedBefore(startMinutes) / 480;
+            var endFraction = workedBefore(endMinutes) / 480;
+
+            var startDay = event.start.clone().startOf('day');
+            var endDay = event.end.clone().startOf('day');
+            var dayCount = endDay.diff(startDay, 'days') + 1;
+            if (dayCount < 1) dayCount = 1;
+
+            var dayWidth = width / dayCount;
+            var marginLeft = dayWidth * startFraction;
+            var marginRight = dayWidth * (1 - endFraction);
+            var newWidth = width - marginLeft - marginRight;
+            if (newWidth < 1) newWidth = 1;
+
+            $(element).css('width', Math.round(newWidth) + 'px');
+            $(element).css('margin-left', Math.round(marginLeft) + 'px');
         },
         windowResize: function(view) {
             $('#calendar').fullCalendar( 'rerenderEvents' );

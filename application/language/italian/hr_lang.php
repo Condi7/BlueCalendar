@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  * @author       dario brignone <brignone@unitec.it>
  */
 
@@ -15,7 +14,7 @@ $lang['hr_employees_thead_link_leaves'] = 'Ferie';
 $lang['hr_employees_thead_link_extra'] = 'Extra';
 $lang['hr_employees_thead_link_balance'] = 'Saldo ferie';
 $lang['hr_employees_thead_link_create_leave'] = 'Inserisci una richiesta di ferie';
-$lang['hr_employees_thead_link_calendar'] = 'Yearly calendar';
+$lang['hr_employees_thead_link_calendar'] = 'Calendario annuale';
 $lang['hr_employees_thead_link_presence'] = 'Report presenze';
 $lang['hr_employees_thead_link_delegation'] = 'Deleghe';
 $lang['hr_employees_thead_id'] = 'ID';
@@ -41,21 +40,21 @@ $lang['hr_employees_popup_entity_button_cancel'] = 'Annulla';
 $lang['hr_employees_description'] = 'Click tasto destro / pressione lunga';
 $lang['hr_employees_field_subdepts'] = 'Includi sotto-reparti';
 
-$lang['hr_employees_button_all'] = 'All';
+$lang['hr_employees_button_all'] = 'Tutti';
 $lang['hr_employees_button_active'] = 'Attivo';
 $lang['hr_employees_button_inactive'] = 'Inattivo';
-$lang['hr_employees_button_selection'] = 'Selection';
-$lang['hr_employees_button_select_all'] = 'Select all';
-$lang['hr_employees_button_deselect_all'] = 'Deselect all';
-$lang['hr_employees_button_select_manager'] = 'Select Manager';
-$lang['hr_employees_button_select_contract'] = 'Select Contract';
-$lang['hr_employees_button_select_entity'] = 'Select Entity';
-$lang['hr_employees_popup_contract_title'] = 'Select Contract';
-$lang['hr_employees_button_entitleddays'] = 'Entitled days';
-$lang['hr_employees_button_create_request'] = 'Submit a leave request';
+$lang['hr_employees_button_selection'] = 'Selezione';
+$lang['hr_employees_button_select_all'] = 'Seleziona tutti';
+$lang['hr_employees_button_deselect_all'] = 'Deseleziona tutti';
+$lang['hr_employees_button_select_manager'] = 'Seleziona manager';
+$lang['hr_employees_button_select_contract'] = 'Seleziona contratto';
+$lang['hr_employees_button_select_entity'] = 'Seleziona entità';
+$lang['hr_employees_popup_contract_title'] = 'Seleziona contratto';
+$lang['hr_employees_button_entitleddays'] = 'Giorni spettanti';
+$lang['hr_employees_button_create_request'] = 'Invia richiesta ferie';
 
-$lang['hr_employees_popup_manager_title'] = 'Select the manager';
-$lang['hr_employees_multiple_edit_selection_msg'] = 'You must select at least one employee into the table';
+$lang['hr_employees_popup_manager_title'] = 'Seleziona il manager';
+$lang['hr_employees_multiple_edit_selection_msg'] = 'Devi selezionare almeno un dipendente nella tabella';
 
 $lang['hr_export_employees_title'] = 'Elenco dipendenti';
 $lang['hr_export_employees_thead_id'] = 'ID';
@@ -72,7 +71,7 @@ $lang['hr_leaves_thead_tip_edit'] = 'modifica';
 $lang['hr_leaves_thead_tip_accept'] = 'accetta';
 $lang['hr_leaves_thead_tip_reject'] = 'rifiuta';
 $lang['hr_leaves_thead_tip_delete'] = 'elimina';
-$lang['hr_leaves_thead_tip_history'] = 'show history';
+$lang['hr_leaves_thead_tip_history'] = 'mostra cronologia';
 $lang['hr_leaves_thead_id'] = 'ID';
 $lang['hr_leaves_thead_status'] = 'Stato';
 $lang['hr_leaves_thead_start'] = 'Data inizio';
@@ -86,7 +85,7 @@ $lang['hr_leaves_popup_delete_message'] = 'Stai per cancellare una richiesta di 
 $lang['hr_leaves_popup_delete_question'] = 'Vuoi proseguire?';
 $lang['hr_leaves_popup_delete_button_yes'] = 'Si';
 $lang['hr_leaves_popup_delete_button_no'] = 'No';
-$lang['hr_leaves_deleted_title'] = 'List of deleted leave requests';
+$lang['hr_leaves_deleted_title'] = 'Elenco delle richieste ferie eliminate';
 
 $lang['hr_export_leaves_title'] = 'Elenco ferie richieste';
 $lang['hr_export_leaves_thead_id'] = 'ID';
@@ -109,8 +108,8 @@ $lang['hr_leaves_create_button_create'] = 'Richiedi ferie';
 $lang['hr_leaves_create_button_cancel'] = 'Annulla';
 $lang['hr_leaves_create_flash_msg_success'] = 'La richiesta di ferie è stata creata con successo';
 $lang['hr_leaves_create_flash_msg_error'] = 'La richiesta di ferie è stata creata con successo oppure aggiornata, ma non hai un manager.';
-$lang['hr_leaves_flash_spn_list_days_off'] = '%s non-working days in the period';
-$lang['hr_leaves_flash_msg_overlap_dayoff'] = 'Your leave request matches with a non-working day.';
+$lang['hr_leaves_flash_spn_list_days_off'] = '%s giorni non lavorativi nel periodo';
+$lang['hr_leaves_flash_msg_overlap_dayoff'] = 'La richiesta di ferie coincide con un giorno non lavorativo.';
 $lang['hr_leaves_validate_mandatory_js_msg'] = '"Il campo " + fieldname + " è obbligatorio."';
 $lang['hr_leaves_validate_flash_msg_no_contract'] = 'Sembra che tu non abbia un contratto. Sei pregato di contattare il tuo responsabile delle Risorse Umane / Manager';
 $lang['hr_leaves_validate_flash_msg_overlap_period'] = 'Non è possibile creare una richiesta di congedo per due periodi di ferie annuali. Si prega di creare due diverse richieste di ferie.';

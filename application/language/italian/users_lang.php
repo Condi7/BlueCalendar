@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  * @author       dario brignone <brignone@unitec.it>
  */
 
@@ -18,7 +17,7 @@ $lang['users_index_thead_tip_reset'] = 'reimposta password';
 $lang['users_index_thead_id'] = 'ID';
 $lang['users_index_thead_firstname'] = 'Nome';
 $lang['users_index_thead_lastname'] = 'Cognome';
-$lang['users_index_thead_login'] = 'Login';
+$lang['users_index_thead_login'] = 'Nome utente';
 $lang['users_index_thead_email'] = 'E-mail';
 $lang['users_index_thead_role'] = 'Ruolo';
 $lang['users_index_thead_manager'] = 'Gestore';
@@ -53,7 +52,7 @@ $lang['users_edit_title'] = 'Modifica utente #';
 $lang['users_edit_html_title'] = 'Modifica utente';
 $lang['users_edit_field_firstname'] = 'Nome';
 $lang['users_edit_field_lastname'] = 'Cognome';
-$lang['users_edit_field_login'] = 'Login';
+$lang['users_edit_field_login'] = 'Nome utente';
 $lang['users_edit_field_email'] = 'E-mail';
 $lang['users_edit_field_role'] = 'Ruolo';
 $lang['users_edit_field_manager'] = 'Gestore';
@@ -88,9 +87,9 @@ $lang['users_reset_flash_msg_success'] = 'La password è stata cambiata con succ
 $lang['users_create_title'] = 'Crea un nuovo utente';
 $lang['users_create_field_firstname'] = 'Nome';
 $lang['users_create_field_lastname'] = 'Cognome';
-$lang['users_create_field_login'] = 'Login';
+$lang['users_create_field_login'] = 'Nome utente';
 $lang['users_create_field_email'] = 'E-mail';
-$lang['users_create_field_password'] = 'Password';
+$lang['users_create_field_password'] = 'Parola d\'ordine';
 $lang['users_create_field_role'] = 'Ruolo';
 $lang['users_create_field_manager'] = 'Gestore';
 $lang['users_create_button_self'] = 'Io';
@@ -127,10 +126,10 @@ $lang['users_employees_thead_id'] = 'ID';
 $lang['users_employees_thead_firstname'] = 'Nome';
 $lang['users_employees_thead_lastname'] = 'Cognome';
 $lang['users_employees_thead_email'] = 'E-mail';
-$lang['users_employees_thead_entity'] = 'Entity';
+$lang['users_employees_thead_entity'] = 'Entità';
 
-$lang['users_reset_field_password'] = 'Password';
-$lang['users_reset_button_reset'] = 'Reset';
+$lang['users_reset_field_password'] = 'Parola d\'ordine';
+$lang['users_reset_button_reset'] = 'Reimposta';
 
 $lang['users_export_title'] = 'Elenco utenti';
 $lang['users_export_thead_id'] = 'ID';

@@ -5,7 +5,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 ?>
 
@@ -85,9 +84,9 @@
             case 3: echo "<td><span class='label label-success'>" . lang($leave['status_name']) . "</span></td>"; break;
             default: echo "<td><span class='label label-important' style='background-color: #ff0000;'>" . lang($leave['status_name']) . "</span></td>"; break;
         }?>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($leave['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($leave['enddatetype']) . ')'; ?></td>
-        <td><?php echo $leave['duration']; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($leave['startdate'], $leave['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo formatLeaveDateTime($leave['enddate'], $leave['enddatetype'], lang('global_date_format')); ?></td>
+        <td><?php echo formatLeaveDurationHours($leave['duration']); ?></td>
         <td><?php echo $leave['type_name']; ?></td>
     </tr>
 <?php endforeach ?>
@@ -133,9 +132,9 @@
             </div>
         </td>
         <td><?php echo lang($leave['status_name']); ?></td>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($leave['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($leave['enddatetype']) . ')'; ?></td>
-        <td><?php echo $leave['duration']; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($leave['startdate'], $leave['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo formatLeaveDateTime($leave['enddate'], $leave['enddatetype'], lang('global_date_format')); ?></td>
+        <td><?php echo formatLeaveDurationHours($leave['duration']); ?></td>
         <td><?php echo $leave['type_name']; ?></td>
     </tr>
 <?php endforeach ?>

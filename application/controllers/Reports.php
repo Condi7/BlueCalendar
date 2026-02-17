@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -155,7 +154,7 @@ class Reports extends CI_Controller {
                      "<button type='button' class='close' data-dismiss='alert'>&times;</button>" .
                      "<a href='" . base_url() . "admin/diagnostic#balance'>" .
                      "<i class='mdi mdi-alert'></i>" .
-                     "&nbsp;Error</a>" .
+                     "&nbsp;" . lang('Error') . "</a>" .
                      "</div>";
         }
         $table .= '<table class="table table-bordered table-hover">' .
@@ -191,7 +190,6 @@ class Reports extends CI_Controller {
     /**
      * Landing page of the shipped-in leaves report
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function leaves() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');
@@ -208,7 +206,6 @@ class Reports extends CI_Controller {
      * Report leaves request for a month and an entity
      * This report is inspired by the monthly presence report, but applicable to a set of employee.
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function executeLeavesReport() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');
@@ -339,10 +336,10 @@ class Reports extends CI_Controller {
                         $enddate = $date->format(lang('global_date_format'));
                         $tbody .= '<tr>';
                         $tbody .= '<td><a href="' . base_url() . 'leaves/view/'. $request['id']. '" target="_blank">'. $request['id']. '</a></td>';
-                        $tbody .= '<td>'. $startdate . ' (' . lang($request['startdatetype']). ')</td>';
-                        $tbody .= '<td>'. $enddate . ' (' . lang($request['enddatetype']). ')</td>';
+                        $tbody .= '<td>'. $startdate . ' (' . leaveTimeLabel($request['startdatetype']) . ')</td>';
+                        $tbody .= '<td>'. $enddate . ' (' . leaveTimeLabel($request['enddatetype']) . ')</td>';
                         $tbody .= '<td>'. $request['type'] . '</td>';
-                        $tbody .= '<td>'. $request['duration'] . '</td>';
+                        $tbody .= '<td>'. formatLeaveDurationHours($request['duration']) . '</td>';
                         $tbody .= '</tr>';
                     }
                     $tbody .= '</tbody>';
@@ -370,7 +367,6 @@ class Reports extends CI_Controller {
     /**
      * Export the leaves report into Excel
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function exportLeavesReport() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');

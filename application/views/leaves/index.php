@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 ?>
 
@@ -148,10 +147,10 @@
                 <?php } ?>
             </div>
         </td>
-        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo $startdate . ' (' . lang($leave['startdatetype']). ')'; ?></td>
-        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo $enddate . ' (' . lang($leave['enddatetype']) . ')'; ?></td>
+        <td data-order="<?php echo $tmpStartDate; ?>"><?php echo formatLeaveDateTime($leave['startdate'], $leave['startdatetype'], lang('global_date_format')); ?></td>
+        <td data-order="<?php echo $tmpEndDate; ?>"><?php echo formatLeaveDateTime($leave['enddate'], $leave['enddatetype'], lang('global_date_format')); ?></td>
         <td><?php echo $leave['cause']; ?></td>
-        <td><?php echo $leave['duration']; ?></td>
+        <td><?php echo formatLeaveDurationHours($leave['duration']); ?></td>
         <td><?php echo $leave['type_name']; ?></td>
         <?php
         switch ($leave['status']) {

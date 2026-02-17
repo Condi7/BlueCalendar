@@ -5,7 +5,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.4.3
  */
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -135,10 +134,10 @@ foreach ($result as $user_id => $row) {
                 $startdate = $date->format(lang('global_date_format'));
                 $date = new DateTime($request['enddate']);
                 $enddate = $date->format(lang('global_date_format'));
-                $sheet->setCellValue('A' . $line, $startdate . ' (' . lang($request['startdatetype']). ')');
-                $sheet->setCellValue('B' . $line, $enddate . ' (' . lang($request['enddatetype']). ')');
+                $sheet->setCellValue('A' . $line, $startdate . ' (' . leaveTimeLabel($request['startdatetype']) . ')');
+                $sheet->setCellValue('B' . $line, $enddate . ' (' . leaveTimeLabel($request['enddatetype']) . ')');
                 $sheet->setCellValue('C' . $line, $request['type']);
-                $sheet->setCellValue('D' . $line, $request['duration']);
+                $sheet->setCellValue('D' . $line, formatLeaveDurationHours($request['duration']));
                 $line++;
             }
         } else {
