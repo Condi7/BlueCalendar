@@ -57,12 +57,13 @@ $this->lang->load('menu', $language); ?>
                 <li class="nav-header"><?php echo lang('menu_admin_settings_divider'); ?></li>
                 <li><a href="<?php echo base_url(); ?>admin/diagnostic"><?php echo lang('menu_admin_diagnostic'); ?></a>
                 </li>
-                <?php if ($is_admin == TRUE) { ?>
+                <?php /* COMMENTATE LE SEZIONI IMPOSTAZIONI E OAUTH 
+                if ($is_admin == TRUE) { ?>
                   <li><a href="<?php echo base_url(); ?>admin/settings"><?php echo lang('menu_admin_settings'); ?></a></li>
                   <li><a
                       href="<?php echo base_url(); ?>admin/oauthclients"><?php echo lang('menu_admin_oauth_clients'); ?></a>
                   </li>
-                <?php } ?>
+                <?php } */ ?>
               </ul>
             </li>
           <?php } ?>
