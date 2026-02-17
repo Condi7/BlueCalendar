@@ -84,14 +84,14 @@
         <?php } ?>
         <label for="login"><?php echo lang('session_login_field_login'); ?></label>
         <input type="text" class="input-medium" name="login" id="login"
-          value="<?php echo (ENVIRONMENT == 'demo') ? 'bbalet' : set_value('login'); ?>" required />
+          value="<?php echo (ENVIRONMENT == 'demo') ? 'adminbc' : set_value('login'); ?>" required />
         <input type="hidden" name="CipheredValue" id="CipheredValue" />
         </form>
         <input type="hidden" name="salt" id="salt" value="<?php echo $salt; ?>" />
         <label for="password"><?php echo lang('session_login_field_password'); ?></label>
         <div class="input-append">
           <input class="input-medium" type="password" name="password" id="password"
-            value="<?php echo (ENVIRONMENT == 'demo') ? 'bbalet' : ''; ?>" />
+            value="<?php echo (ENVIRONMENT == 'demo') ? 'adminbc' : ''; ?>" />
           <button type="button" class="btn" id="cmdTogglePassword" tabindex="-1"><i class="mdi mdi-eye"></i></button>
         </div><br />
         <br />
