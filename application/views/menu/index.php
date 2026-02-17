@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/Condi7/BlueCalendar
- * @since         0.1.0
  */
 
 CI_Controller::get_instance()->load->helper('language');
@@ -39,7 +38,7 @@ $this->lang->load('menu', $language); ?>
 <div id="wrap">
 <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
-          <a href="<?php echo base_url();?>home" class="brand">&nbsp;<img src="<?php echo base_url();?>assets/images/brand.png" height="18" width="18" style="margin-top:-6px;">&nbsp;BlueCalendar</a>
+          <a href="<?php echo base_url();?>home" class="brand">&nbsp;<img src="<?php echo base_url();?>assets/images/logo_simple.png" height="18" width="18" style="margin-top:-6px;">&nbsp;BlueCalendar</a>
             <div class="nav-responsive">
                 <ul class="nav">
                     <li><a href="<?php echo base_url();?>leaves" title="<?php echo lang('menu_leaves_list_requests');?>"><i class="mdi mdi-format-list-bulleted"></i></a></li>
@@ -154,9 +153,6 @@ $this->lang->load('menu', $language); ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_calendar_title'); ?> <b
                 class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a
-                  href="<?php echo base_url(); ?>calendar/individual"><?php echo lang('menu_calendar_individual'); ?></a>
-              </li>
               <li><a href="<?php echo base_url(); ?>calendar/year"><?php echo lang('menu_calendar_year'); ?></a></li>
               <?php if ($this->config->item('disable_workmates_calendar') == FALSE) { ?>
                 <li><a
@@ -169,14 +165,6 @@ $this->lang->load('menu', $language); ?>
                 </li>
               <?php } ?>
               <?php if (($is_hr == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
-                <?php if ($this->config->item('disable_department_calendar') == FALSE) { ?>
-                  <li><a
-                      href="<?php echo base_url(); ?>calendar/department"><?php echo lang('menu_calendar_department'); ?></a>
-                  </li>
-                <?php } ?>
-                <li><a
-                    href="<?php echo base_url(); ?>calendar/organization"><?php echo lang('menu_calendar_organization'); ?></a>
-                </li>
                 <li><a href="<?php echo base_url(); ?>calendar/tabular"><?php echo lang('menu_calendar_tabular'); ?></a>
                 </li>
               <?php } ?>

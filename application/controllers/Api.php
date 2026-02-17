@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link       https://github.com/bbalet/jorani
- * @since      0.3.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -623,7 +622,6 @@ class Api extends CI_Controller {
      * Accept a leave request
      * @param int $leaveId identifier of the leave request to accept
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.4
      */
     public function acceptleave($leaveId) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -666,7 +664,6 @@ class Api extends CI_Controller {
      * Reject a leave request
      * @param int $leaveId identifier of leave request to reject
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.4
      */
     public function rejectleave($leaveId) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1000,7 +997,6 @@ class Api extends CI_Controller {
      * @param int $month Month number [1-12]
      * @param int $year Year number (XXXX)
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.0
      */
     public function monthlypresence($employeeId, $month, $year) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1063,7 +1059,6 @@ class Api extends CI_Controller {
      * This is not recommended. Consider moving it into an archive entity of your organization
      * @param int $userId Unique identifier of an employee
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.0
      */
     public function deleteuser($userId) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1134,7 +1129,6 @@ class Api extends CI_Controller {
      * Note that for PATCH method, you need to send a compliant content type (multipart/x-www-form-urlencoded)
      * @param int $userId Unique identifier of an employee
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.0
      */
     public function updateuser($userId) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1339,7 +1333,6 @@ class Api extends CI_Controller {
      * Returns the new inserted id
      * @param bool $sendEmail Send an Email to the new employee (FALSE by default)
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.0
      */
     public function createuser($sendEmail = FALSE) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1475,7 +1468,6 @@ class Api extends CI_Controller {
      * This function doesn't send e-mails and it is used for imposed leaves
      * Returns the new inserted id.
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.0
      */
     public function createleave() {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1580,7 +1572,6 @@ class Api extends CI_Controller {
      * @param int $entityId Identifier of the entity
      * @param bool $children If TRUE, we include sub-entities, FALSE otherwise
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function getListOfEmployeesInEntity($entityId, $children) {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
@@ -1608,7 +1599,6 @@ class Api extends CI_Controller {
      * Requires scope users (see tests/rest/api3.php)
      * Not documented with OpenAPI, might be deprecated in a near future
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.6.0
      */
     public function usersExt() {
         $request = OAuth2\Request::createFromGlobals();

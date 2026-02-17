@@ -9981,7 +9981,6 @@
 		 *
 		 *  @dtopt Option
 		 *  @name DataTable.defaults.ajax
-		 *  @since 1.10.0
 		 *
 		 * @example
 		 *   // Get JSON data from a file via Ajax.

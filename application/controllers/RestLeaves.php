@@ -6,7 +6,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.3.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }

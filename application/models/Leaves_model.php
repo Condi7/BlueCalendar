@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.1.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -19,6 +18,123 @@ class Leaves_model extends CI_Model {
      */
     public function __construct() {
 
+    }
+
+    private function normalizeLeaveTimeValue($value, $isStart = TRUE) {
+        if ($value === 'Morning') {
+            return $isStart ? '09:00' : '13:00';
+        }
+        if ($value === 'Afternoon') {
+            return $isStart ? '14:00' : '18:00';
+        }
+        if (preg_match('/^([01][0-9]|2[0-3]):[0-5][0-9]$/', (string) $value)) {
+            return $value;
+        }
+        return $isStart ? '09:00' : '18:00';
+    }
+
+    private function buildLeaveDateTime($date, $timeValue, $isStart = TRUE) {
+        $time = $this->normalizeLeaveTimeValue($timeValue, $isStart);
+        $dt = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $time . ':00');
+        return ($dt === FALSE) ? NULL : $dt;
+    }
+
+    private function overlapSeconds($startA, $endA, $startB, $endB) {
+        $start = max($startA, $startB);
+        $end = min($endA, $endB);
+        return max(0, $end - $start);
+    }
+
+    private function calculateHoursBetween(DateTime $startDateTime, DateTime $endDateTime) {
+        $startTs = $startDateTime->getTimestamp();
+        $endTs = $endDateTime->getTimestamp();
+        if ($endTs <= $startTs) {
+            return 0;
+        }
+
+        $workedSeconds = 0;
+
+        $currentDate = clone $startDateTime;
+        $currentDate->setTime(0, 0, 0);
+        $endDate = clone $endDateTime;
+        $endDate->setTime(0, 0, 0);
+
+        while ($currentDate <= $endDate) {
+            $day = $currentDate->format('Y-m-d');
+            $morningStart = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 09:00:00')->getTimestamp();
+            $morningEnd = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 13:00:00')->getTimestamp();
+            $afternoonStart = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 14:00:00')->getTimestamp();
+            $afternoonEnd = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 18:00:00')->getTimestamp();
+
+            $workedSeconds += $this->overlapSeconds($startTs, $endTs, $morningStart, $morningEnd);
+            $workedSeconds += $this->overlapSeconds($startTs, $endTs, $afternoonStart, $afternoonEnd);
+            $currentDate->modify('+1 day');
+        }
+
+        return round($workedSeconds / 3600, 3);
+    }
+
+    private function calculateDayOffOverlapHours(DateTime $startDateTime, DateTime $endDateTime, $dayOff) {
+        if (!isset($dayOff['date']) || !isset($dayOff['type'])) {
+            return 0;
+        }
+
+        switch ((int) $dayOff['type']) {
+            case 1:
+                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 09:00:00');
+                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 18:00:00');
+                break;
+            case 2:
+                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 09:00:00');
+                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 13:00:00');
+                break;
+            case 3:
+                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 14:00:00');
+                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 18:00:00');
+                break;
+            default:
+                return 0;
+        }
+
+        if ($offStart === FALSE || $offEnd === FALSE) {
+            return 0;
+        }
+
+        $overlapStartTs = max($startDateTime->getTimestamp(), $offStart->getTimestamp());
+        $overlapEndTs = min($endDateTime->getTimestamp(), $offEnd->getTimestamp());
+        if ($overlapEndTs <= $overlapStartTs) {
+            return 0;
+        }
+
+        $overlapStart = (new DateTime())->setTimestamp($overlapStartTs);
+        $overlapEnd = (new DateTime())->setTimestamp($overlapEndTs);
+        return $this->calculateHoursBetween($overlapStart, $overlapEnd);
+    }
+
+    private function eventDateTimeString($date, $timeValue, $isStart = TRUE) {
+        return $date . 'T' . $this->normalizeLeaveTimeValue($timeValue, $isStart) . ':00';
+    }
+
+    private function getContractDailyHours($employeeId, $contractId = NULL) {
+        if (is_null($contractId)) {
+            $this->db->select('contract');
+            $this->db->from('users');
+            $this->db->where('id', $employeeId);
+            $user = $this->db->get()->row_array();
+            if (empty($user) || !isset($user['contract'])) {
+                return 8;
+            }
+            $contractId = $user['contract'];
+        }
+
+        $this->db->select('daily_duration');
+        $this->db->from('contracts');
+        $this->db->where('id', $contractId);
+        $contract = $this->db->get()->row_array();
+        if (empty($contract) || empty($contract['daily_duration'])) {
+            return 8;
+        }
+        return round(((float) $contract['daily_duration']) / 60, 3);
     }
 
     /**
@@ -116,28 +232,12 @@ class Leaves_model extends CI_Model {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function length($employee, $start, $end, $startdatetype, $enddatetype) {
-        $this->db->select('sum(CASE `type` WHEN 1 THEN 1 WHEN 2 THEN 0.5 WHEN 3 THEN 0.5 END) as days');
-        $this->db->from('users');
-        $this->db->join('dayoffs', 'users.contract = dayoffs.contract');
-        $this->db->where('users.id', $employee);
-        $this->db->where('date >=', $start);
-        $this->db->where('date <=', $end);
-        $result = $this->db->get()->result_array();
-        $startTimeStamp = strtotime($start." UTC");
-        $endTimeStamp = strtotime($end." UTC");
-        $timeDiff = abs($endTimeStamp - $startTimeStamp);
-        $numberDays = $timeDiff / 86400;  // 86400 seconds in one day
-        if (count($result) != 0) { //Test if some non working days are defined on a contract
-            return $numberDays - $result[0]['days'];
-        } else {
-            //Special case when the leave request is half a day long,
-            //we assume that the non-working day is not at the same time than the leave request
-            if ($startdatetype == $enddatetype) {
-                return 0.5;
-            } else {
-                return $numberDays;
-            }
+        $startDateTime = $this->buildLeaveDateTime($start, $startdatetype, TRUE);
+        $endDateTime = $this->buildLeaveDateTime($end, $enddatetype, FALSE);
+        if (is_null($startDateTime) || is_null($endDateTime)) {
+            return 0;
         }
+        return $this->calculateHoursBetween($startDateTime, $endDateTime);
     }
 
     /**
@@ -155,82 +255,35 @@ class Leaves_model extends CI_Model {
      */
     public function actualLengthAndDaysOff($employee, $startdate, $enddate,
             $startdatetype, $enddatetype, $daysoff, $deductDayOff = FALSE) {
-        $startDateObject = DateTime::createFromFormat('Y-m-d H:i:s', $startdate . ' 00:00:00');
-        $endDateObject = DateTime::createFromFormat('Y-m-d H:i:s', $enddate . ' 00:00:00');
-        $iDate = clone $startDateObject;
-
-        //Simplify the reading (and logic) by decomposing into atomic variables
-        if ($startdate == $enddate) $oneDay = TRUE; else $oneDay = FALSE;
-        if ($startdatetype == 'Morning') $start_morning = TRUE; else $start_morning = FALSE;
-        if ($startdatetype == 'Afternoon') $start_afternoon = TRUE; else $start_afternoon = FALSE;
-        if ($enddatetype == 'Morning') $end_morning = TRUE; else $end_morning = FALSE;
-        if ($enddatetype == 'Afternoon') $end_afternoon = TRUE; else $end_afternoon = FALSE;
-
-        //Iteration between start and end dates of the leave request
-        $lengthDaysOff = 0;
-        $length = 0;
-        $hasDayOff = FALSE;
-        $overlapDayOff = FALSE;
-        while ($iDate <= $endDateObject)
-        {
-            if ($iDate == $startDateObject) $first_day = TRUE; else $first_day = FALSE;
-            $isDayOff = FALSE;
-            //Iterate on the list of days off with two objectives:
-            // - Compute sum of days off between the two dates
-            // - Detect if the leave request exactly overlaps with a day off
-            foreach ($daysoff as $dayOff) {
-                $dayOffObject = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 00:00:00');
-                if ($dayOffObject == $iDate) {
-                    $lengthDaysOff+=$dayOff['length'];
-                    $isDayOff = TRUE;
-                    $hasDayOff = TRUE;
-                    switch ($dayOff['type']) {
-                        case 1: //1 : All day
-                            if ($oneDay && $start_morning && $end_afternoon && $first_day)
-                                $overlapDayOff = TRUE;
-                                if ($deductDayOff) $length++;
-                            break;
-                        case 2: //2 : Morning
-                            if ($oneDay && $start_morning && $end_morning && $first_day)
-                                $overlapDayOff = TRUE;
-                            else
-                                if ($deductDayOff) $length++; else $length+=0.5;
-                            break;
-                        case 3: //3 : Afternnon
-                            if ($oneDay && $start_afternoon && $end_afternoon && $first_day)
-                                $overlapDayOff = TRUE;
-                            else
-                                if ($deductDayOff) $length++; else $length+=0.5;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                }
-            }
-            if (!$isDayOff) {
-                if ($oneDay) {
-                    if ($start_morning && $end_afternoon) $length++;
-                    if ($start_morning && $end_morning) $length+=0.5;
-                    if ($start_afternoon && $end_afternoon) $length+=0.5;
-                } else {
-                    if ($iDate == $endDateObject) $last_day = TRUE; else $last_day = FALSE;
-                    if (!$first_day && !$last_day) $length++;
-                    if ($first_day && $start_morning) $length++;
-                    if ($first_day && $start_afternoon) $length+=0.5;
-                    if ($last_day && $end_morning) $length+=0.5;
-                    if ($last_day && $end_afternoon) $length++;
-                }
-                $overlapDayOff = FALSE;
-            }
-            $iDate->modify('+1 day');   //Next day
+        $startDateTime = $this->buildLeaveDateTime($startdate, $startdatetype, TRUE);
+        $endDateTime = $this->buildLeaveDateTime($enddate, $enddatetype, FALSE);
+        if (is_null($startDateTime) || is_null($endDateTime)) {
+            return array('length' => 0, 'daysoff' => 0, 'overlapping' => FALSE);
         }
 
-        //Other obvious cases of overlapping
-        if ($hasDayOff && ($length == 0)) {
-            $overlapDayOff = TRUE;
+        $totalHours = $this->calculateHoursBetween($startDateTime, $endDateTime);
+        $dayOffHours = 0;
+        $hasDayOffOverlap = FALSE;
+
+        foreach ($daysoff as $dayOff) {
+            $hours = $this->calculateDayOffOverlapHours($startDateTime, $endDateTime, $dayOff);
+            if ($hours > 0) {
+                $hasDayOffOverlap = TRUE;
+                $dayOffHours += $hours;
+            }
         }
-        return array('length' => $length, 'daysoff' => $lengthDaysOff, 'overlapping' => $overlapDayOff);
+
+        $length = $totalHours;
+        if ($deductDayOff) {
+            $length = max(0, $totalHours - $dayOffHours);
+        }
+
+        $overlapDayOff = ($hasDayOffOverlap && $length <= 0);
+        return array(
+            'length' => round($length, 3),
+            'daysoff' => round($dayOffHours, 3),
+            'overlapping' => $overlapDayOff
+        );
     }
 
     /**
@@ -296,6 +349,7 @@ class Leaves_model extends CI_Model {
             //Get the sum of entitled days
             $user = $this->users_model->getUsers($id);
             $entitlements = $this->getSumEntitledDays($id, $user['contract'], $refDate);
+            $dailyHours = $this->getContractDailyHours($id, $user['contract']);
 
             foreach ($entitlements as $entitlement) {
                 //Get the total of taken leaves grouped by type
@@ -315,7 +369,7 @@ class Leaves_model extends CI_Model {
                 }
                 //Report the number of available days
                 $summary[$entitlement['type_name']][3] = $entitlement['type_id'];
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'];
+                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
             }
             
             //List all planned leaves in a third column
@@ -339,7 +393,7 @@ class Leaves_model extends CI_Model {
                     $summary[$planned['type']][2] = 'x'; //Planned
                 }
                 //Report the number of available days
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'];
+                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
             }
 
             //List all requested leaves in a fourth column
@@ -363,7 +417,7 @@ class Leaves_model extends CI_Model {
                     $summary[$requested['type']][2] = 'x'; //requested
                 }
                 //Report the number of available days
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'];
+                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
             }
 
             //Remove all lines having taken and entitled set to set to 0
@@ -421,29 +475,26 @@ class Leaves_model extends CI_Model {
         }
         $leaves = $this->db->get('leaves')->result();
 
-        if ($startdatetype == "Morning") {
-            $startTmp = strtotime($startdate." 08:00:00 UTC");
-        } else {
-            $startTmp = strtotime($startdate." 12:01:00 UTC");
+        $startDateTime = $this->buildLeaveDateTime($startdate, $startdatetype, TRUE);
+        $endDateTime = $this->buildLeaveDateTime($enddate, $enddatetype, FALSE);
+        if (is_null($startDateTime) || is_null($endDateTime)) {
+            return FALSE;
         }
-        if ($enddatetype == "Morning") {
-            $endTmp = strtotime($enddate." 12:00:00 UTC");
-        } else {
-            $endTmp = strtotime($enddate." 18:00:00 UTC");
+        $startTmp = $startDateTime->getTimestamp();
+        $endTmp = $endDateTime->getTimestamp();
+        if ($endTmp <= $startTmp) {
+            return TRUE;
         }
 
         foreach ($leaves as $leave) {
-            if ($leave->startdatetype == "Morning") {
-                $startTmpDB = strtotime($leave->startdate." 08:00:00 UTC");
-            } else {
-                $startTmpDB = strtotime($leave->startdate." 12:01:00 UTC");
+            $startDateTimeDB = $this->buildLeaveDateTime($leave->startdate, $leave->startdatetype, TRUE);
+            $endDateTimeDB = $this->buildLeaveDateTime($leave->enddate, $leave->enddatetype, FALSE);
+            if (is_null($startDateTimeDB) || is_null($endDateTimeDB)) {
+                continue;
             }
-            if ($leave->enddatetype == "Morning") {
-                $endTmpDB = strtotime($leave->enddate." 12:00:00 UTC");
-            } else {
-                $endTmpDB = strtotime($leave->enddate." 18:00:00 UTC");
-            }
-            if (($startTmpDB <= $endTmp) && ($endTmpDB >= $startTmp)) {
+            $startTmpDB = $startDateTimeDB->getTimestamp();
+            $endTmpDB = $endDateTimeDB->getTimestamp();
+            if (($startTmpDB < $endTmp) && ($endTmpDB > $startTmp)) {
                 $overlapping = TRUE;
             }
         }
@@ -457,11 +508,13 @@ class Leaves_model extends CI_Model {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function setLeaves($employeeId) {
+        $startdatetype = $this->normalizeLeaveTimeValue($this->input->post('startdatetype'), TRUE);
+        $enddatetype = $this->normalizeLeaveTimeValue($this->input->post('enddatetype'), FALSE);
         $data = array(
             'startdate' => $this->input->post('startdate'),
-            'startdatetype' => $this->input->post('startdatetype'),
+            'startdatetype' => $startdatetype,
             'enddate' => $this->input->post('enddate'),
-            'enddatetype' => $this->input->post('enddatetype'),
+            'enddatetype' => $enddatetype,
             'duration' => abs($this->input->post('duration')),
             'type' => $this->input->post('type'),
             'cause' => $this->input->post('cause'),
@@ -496,6 +549,8 @@ class Leaves_model extends CI_Model {
      */
     public function createRequestForUserList($type, $duration, $startdate, $enddate, $startdatetype, $enddatetype, $cause, $status, $employees) {
         $affectedRows = 0;
+        $startdatetype = $this->normalizeLeaveTimeValue($this->input->post('startdatetype'), TRUE);
+        $enddatetype = $this->normalizeLeaveTimeValue($this->input->post('enddatetype'), FALSE);
         if ($this->config->item('enable_history') === TRUE) {
             foreach ($employees as $id) {
                 $this->createLeaveByApi($this->input->post('startdate'),
@@ -514,9 +569,9 @@ class Leaves_model extends CI_Model {
             foreach ($employees as $id) {
                 $data[] = array(
                     'startdate' => $this->input->post('startdate'),
-                    'startdatetype' => $this->input->post('startdatetype'),
+                    'startdatetype' => $startdatetype,
                     'enddate' => $this->input->post('enddate'),
-                    'enddatetype' => $this->input->post('enddatetype'),
+                    'enddatetype' => $enddatetype,
                     'duration' => abs($this->input->post('duration')),
                     'type' => $this->input->post('type'),
                     'cause' => $this->input->post('cause'),
@@ -548,6 +603,8 @@ class Leaves_model extends CI_Model {
             $startdatetype, $enddatetype, $duration, $type,
             $comments = NULL,
             $document = NULL) {
+        $startdatetype = $this->normalizeLeaveTimeValue($startdatetype, TRUE);
+        $enddatetype = $this->normalizeLeaveTimeValue($enddatetype, FALSE);
 
         $data = array(
             'startdate' => $startdate,
@@ -598,11 +655,13 @@ class Leaves_model extends CI_Model {
           }
           $json = json_encode($jsonDecode);
         }
+        $startdatetype = $this->normalizeLeaveTimeValue($this->input->post('startdatetype'), TRUE);
+        $enddatetype = $this->normalizeLeaveTimeValue($this->input->post('enddatetype'), FALSE);
         $data = array(
             'startdate' => $this->input->post('startdate'),
-            'startdatetype' => $this->input->post('startdatetype'),
+            'startdatetype' => $startdatetype,
             'enddate' => $this->input->post('enddate'),
-            'enddatetype' => $this->input->post('enddatetype'),
+            'enddatetype' => $enddatetype,
             'duration' => abs($this->input->post('duration')),
             'type' => $this->input->post('type'),
             'cause' => $this->input->post('cause'),
@@ -743,18 +802,8 @@ class Leaves_model extends CI_Model {
 
         $jsonevents = array();
         foreach ($events as $entry) {
-
-            if ($entry->startdatetype == "Morning") {
-                $startdate = $entry->startdate . 'T07:00:00';
-            } else {
-                $startdate = $entry->startdate . 'T12:00:00';
-            }
-
-            if ($entry->enddatetype == "Morning") {
-                $enddate = $entry->enddate . 'T12:00:00';
-            } else {
-                $enddate = $entry->enddate . 'T18:00:00';
-            }
+            $startdate = $this->eventDateTimeString($entry->startdate, $entry->startdatetype, TRUE);
+            $enddate = $this->eventDateTimeString($entry->enddate, $entry->enddatetype, FALSE);
 
             $imageUrl = '';
             $allDay = FALSE;
@@ -762,10 +811,10 @@ class Leaves_model extends CI_Model {
             $enddatetype = $entry->enddatetype;
             if ($startdate == $enddate) { //Deal with invalid start/end date
                 $imageUrl = base_url() . 'assets/images/date_error.png';
-                $startdate = $entry->startdate . 'T07:00:00';
-                $enddate = $entry->enddate . 'T18:00:00';
-                $startdatetype = "Morning";
-                $enddatetype = "Afternoon";
+                $startdate = $this->eventDateTimeString($entry->startdate, '09:00', TRUE);
+                $enddate = $this->eventDateTimeString($entry->enddate, '18:00', FALSE);
+                $startdatetype = '09:00';
+                $enddatetype = '18:00';
                 $allDay = TRUE;
             }
 
@@ -812,17 +861,8 @@ class Leaves_model extends CI_Model {
 
         $jsonevents = array();
         foreach ($events as $entry) {
-            if ($entry->startdatetype == "Morning") {
-                $startdate = $entry->startdate . 'T07:00:00';
-            } else {
-                $startdate = $entry->startdate . 'T12:00:00';
-            }
-
-            if ($entry->enddatetype == "Morning") {
-                $enddate = $entry->enddate . 'T12:00:00';
-            } else {
-                $enddate = $entry->enddate . 'T18:00:00';
-            }
+            $startdate = $this->eventDateTimeString($entry->startdate, $entry->startdatetype, TRUE);
+            $enddate = $this->eventDateTimeString($entry->enddate, $entry->enddatetype, FALSE);
 
             $imageUrl = '';
             $allDay = FALSE;
@@ -830,10 +870,10 @@ class Leaves_model extends CI_Model {
             $enddatetype = $entry->enddatetype;
             if ($startdate == $enddate) { //Deal with invalid start/end date
                 $imageUrl = base_url() . 'assets/images/date_error.png';
-                $startdate = $entry->startdate . 'T07:00:00';
-                $enddate = $entry->enddate . 'T18:00:00';
-                $startdatetype = "Morning";
-                $enddatetype = "Afternoon";
+                $startdate = $this->eventDateTimeString($entry->startdate, '09:00', TRUE);
+                $enddate = $this->eventDateTimeString($entry->enddate, '18:00', FALSE);
+                $startdatetype = '09:00';
+                $enddatetype = '18:00';
                 $allDay = TRUE;
             }
 
@@ -879,17 +919,8 @@ class Leaves_model extends CI_Model {
 
         $jsonevents = array();
         foreach ($events as $entry) {
-            if ($entry->startdatetype == "Morning") {
-                $startdate = $entry->startdate . 'T07:00:00';
-            } else {
-                $startdate = $entry->startdate . 'T12:00:00';
-            }
-
-            if ($entry->enddatetype == "Morning") {
-                $enddate = $entry->enddate . 'T12:00:00';
-            } else {
-                $enddate = $entry->enddate . 'T18:00:00';
-            }
+            $startdate = $this->eventDateTimeString($entry->startdate, $entry->startdatetype, TRUE);
+            $enddate = $this->eventDateTimeString($entry->enddate, $entry->enddatetype, FALSE);
 
             $imageUrl = '';
             $allDay = FALSE;
@@ -897,10 +928,10 @@ class Leaves_model extends CI_Model {
             $enddatetype = $entry->enddatetype;
             if ($startdate == $enddate) { //Deal with invalid start/end date
                 $imageUrl = base_url() . 'assets/images/date_error.png';
-                $startdate = $entry->startdate . 'T07:00:00';
-                $enddate = $entry->enddate . 'T18:00:00';
-                $startdatetype = "Morning";
-                $enddatetype = "Afternoon";
+                $startdate = $this->eventDateTimeString($entry->startdate, '09:00', TRUE);
+                $enddate = $this->eventDateTimeString($entry->enddate, '18:00', FALSE);
+                $startdatetype = '09:00';
+                $enddatetype = '18:00';
                 $allDay = TRUE;
             }
 
@@ -972,27 +1003,18 @@ class Leaves_model extends CI_Model {
         $jsonevents = array();
         foreach ($events as $entry) {
             //Date of event
-            if ($entry->startdatetype == "Morning") {
-                $startdate = $entry->startdate . 'T07:00:00';
-            } else {
-                $startdate = $entry->startdate . 'T12:00:00';
-            }
-
-            if ($entry->enddatetype == "Morning") {
-                $enddate = $entry->enddate . 'T12:00:00';
-            } else {
-                $enddate = $entry->enddate . 'T18:00:00';
-            }
+            $startdate = $this->eventDateTimeString($entry->startdate, $entry->startdatetype, TRUE);
+            $enddate = $this->eventDateTimeString($entry->enddate, $entry->enddatetype, FALSE);
             $imageUrl = '';
             $allDay = FALSE;
             $startdatetype =  $entry->startdatetype;
             $enddatetype = $entry->enddatetype;
             if ($startdate == $enddate) { //Deal with invalid start/end date
                 $imageUrl = base_url() . 'assets/images/date_error.png';
-                $startdate = $entry->startdate . 'T07:00:00';
-                $enddate = $entry->enddate . 'T18:00:00';
-                $startdatetype = "Morning";
-                $enddatetype = "Afternoon";
+                $startdate = $this->eventDateTimeString($entry->startdate, '09:00', TRUE);
+                $enddate = $this->eventDateTimeString($entry->enddate, '18:00', FALSE);
+                $startdatetype = '09:00';
+                $enddatetype = '18:00';
                 $allDay = TRUE;
             }
 
@@ -1076,27 +1098,18 @@ class Leaves_model extends CI_Model {
       $jsonevents = array();
       foreach ($events as $entry) {
           //Date of event
-          if ($entry->startdatetype == "Morning") {
-              $startdate = $entry->startdate . 'T07:00:00';
-          } else {
-              $startdate = $entry->startdate . 'T12:00:00';
-          }
-
-          if ($entry->enddatetype == "Morning") {
-              $enddate = $entry->enddate . 'T12:00:00';
-          } else {
-              $enddate = $entry->enddate . 'T18:00:00';
-          }
+          $startdate = $this->eventDateTimeString($entry->startdate, $entry->startdatetype, TRUE);
+          $enddate = $this->eventDateTimeString($entry->enddate, $entry->enddatetype, FALSE);
           $imageUrl = '';
           $allDay = FALSE;
           $startdatetype =  $entry->startdatetype;
           $enddatetype = $entry->enddatetype;
           if ($startdate == $enddate) { //Deal with invalid start/end date
               $imageUrl = base_url() . 'assets/images/date_error.png';
-              $startdate = $entry->startdate . 'T07:00:00';
-              $enddate = $entry->enddate . 'T18:00:00';
-              $startdatetype = "Morning";
-              $enddatetype = "Afternoon";
+              $startdate = $this->eventDateTimeString($entry->startdate, '09:00', TRUE);
+              $enddate = $this->eventDateTimeString($entry->enddate, '18:00', FALSE);
+              $startdatetype = '09:00';
+              $enddatetype = '18:00';
               $allDay = TRUE;
           }
 
@@ -1560,10 +1573,12 @@ class Leaves_model extends CI_Model {
 
                 //Simplify the reading (and logic) by using atomic variables
                 if ($eventStartDate == $eventEndDate) $oneDay = TRUE; else $oneDay = FALSE;
-                if ($entry->startdatetype == 'Morning') $start_morning = TRUE; else $start_morning = FALSE;
-                if ($entry->startdatetype == 'Afternoon') $start_afternoon = TRUE; else $start_afternoon = FALSE;
-                if ($entry->enddatetype == 'Morning') $end_morning = TRUE; else $end_morning = FALSE;
-                if ($entry->enddatetype == 'Afternoon') $end_afternoon = TRUE; else $end_afternoon = FALSE;
+                $startTime = $this->normalizeLeaveTimeValue($entry->startdatetype, TRUE);
+                $endTime = $this->normalizeLeaveTimeValue($entry->enddatetype, FALSE);
+                if ($startTime < '13:00') $start_morning = TRUE; else $start_morning = FALSE;
+                if ($startTime >= '13:00') $start_afternoon = TRUE; else $start_afternoon = FALSE;
+                if ($endTime <= '13:00') $end_morning = TRUE; else $end_morning = FALSE;
+                if ($endTime > '13:00') $end_afternoon = TRUE; else $end_afternoon = FALSE;
                 if ($iDate == $eventStartDate) $first_day = TRUE; else $first_day = FALSE;
                 if ($iDate == $eventEndDate) $last_day = TRUE; else $last_day = FALSE;
 

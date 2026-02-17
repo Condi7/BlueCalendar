@@ -31,7 +31,6 @@
  * @copyright	Copyright (c) 2021, cikov, opensourcepos.org
  * @license	https://opensource.org/licenses/MIT	MIT License
  * @link	https://opensourcepos.org
- * @since	Version 3.1.11
  * @filesource
  */
 defined('BASEPATH') OR exit('Nije dozvoljen direktan pristup');
