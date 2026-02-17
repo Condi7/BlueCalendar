@@ -33,7 +33,6 @@
  * @copyright	Copyright (c) 2019 - 2022, CodeIgniter Foundation (https://codeigniter.com/)
  * @license	https://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
- * @since	Version 1.4.1
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');

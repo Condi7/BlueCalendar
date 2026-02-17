@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license      http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link            https://github.com/bbalet/jorani
- * @since         0.2.0
  */
 
 if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
@@ -191,7 +190,6 @@ class Reports extends CI_Controller {
     /**
      * Landing page of the shipped-in leaves report
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function leaves() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');
@@ -208,7 +206,6 @@ class Reports extends CI_Controller {
      * Report leaves request for a month and an entity
      * This report is inspired by the monthly presence report, but applicable to a set of employee.
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function executeLeavesReport() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');
@@ -370,7 +367,6 @@ class Reports extends CI_Controller {
     /**
      * Export the leaves report into Excel
      * @author Benjamin BALET <benjamin.balet@gmail.com>
-     * @since 0.4.3
      */
     public function exportLeavesReport() {
         $this->auth->checkIfOperationIsAllowed('native_report_leaves');

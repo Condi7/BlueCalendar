@@ -4,7 +4,6 @@
  * @copyright  Copyright (c) 2014-2023 Benjamin BALET
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  * @link       https://github.com/Condi7/BlueCalendar
- * @since      0.6.0
  */
 ?><!DOCTYPE html>
 <html lang="<?php echo $language_code; ?>">
