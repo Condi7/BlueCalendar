@@ -11,13 +11,39 @@ $currentMonth = (int)date('m');
 $currentDay = (int)date('d');
 ?>
 
+<style type="text/css">
+.allrequested { background-color: #f1c40f !important; color: #fff; }
+.allcancellation { background-color: #3a87ad !important; color: #fff; }
+.allcanceled { background-color: #f89406 !important; color: #fff; }
+
+.amrequested { color: #fff; background: linear-gradient(135deg, #f1c40f 50%, #fff 50%) !important; }
+.pmrequested { color: #fff; background: linear-gradient(135deg, #fff 50%, #f1c40f 50%) !important; }
+.requesteddayoff { color: #fff; background: linear-gradient(135deg, #f1c40f 50%, #000 50%) !important; }
+.dayoffrequested { color: #fff; background: linear-gradient(135deg, #000 50%, #f1c40f 50%) !important; }
+
+.amcancellation { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #fff 50%) !important; }
+.pmcancellation { color: #fff; background: linear-gradient(135deg, #fff 50%, #3a87ad 50%) !important; }
+.cancellationdayoff { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #000 50%) !important; }
+.dayoffcancellation { color: #fff; background: linear-gradient(135deg, #000 50%, #3a87ad 50%) !important; }
+
+.amcanceled { color: #fff; background: linear-gradient(135deg, #f89406 50%, #fff 50%) !important; }
+.pmcanceled { color: #fff; background: linear-gradient(135deg, #fff 50%, #f89406 50%) !important; }
+.canceleddayoff { color: #fff; background: linear-gradient(135deg, #f89406 50%, #000 50%) !important; }
+.dayoffcanceled { color: #fff; background: linear-gradient(135deg, #000 50%, #f89406 50%) !important; }
+
+.cancellationcanceled { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #f89406 50%) !important; }
+.canceledcancellation { color: #fff; background: linear-gradient(135deg, #f89406 50%, #3a87ad 50%) !important; }
+</style>
+
 <h2><?php echo lang('calendar_year_title');?>&nbsp;<span class="muted">(<?php echo $employee_name;?>)</span>&nbsp;<?php echo $help;?></h2>
 
 <div class="row-fluid">
     <div class="span4">
         <span class="label"><?php echo lang('Planned');?></span>&nbsp;
         <span class="label label-success"><?php echo lang('Accepted');?></span>&nbsp;
-        <span class="label label-warning"><?php echo lang('Requested');?></span>&nbsp;
+        <span class="label" style="background-color: #f1c40f;"><?php echo lang('Requested');?></span>&nbsp;
+        <span class="label" style="background-color: #f89406;"><?php echo lang('Canceled');?></span>&nbsp;
+        <span class="label" style="background-color: #3a87ad;"><?php echo lang('Cancellation');?></span>&nbsp;
         <span class="label label-important" style="background-color: #ff0000;"><?php echo lang('Rejected');?></span>
     </div>
     <div class="span4">
@@ -57,9 +83,9 @@ $currentDay = (int)date('d');
           case 1: return 'planned';
           case 2: return 'requested';
           case 3: return 'accepted';
-          case 4:
-          case 5:
-          case 6: return 'rejected';
+          case 4: return 'rejected';
+          case 5: return 'cancellation';
+          case 6: return 'canceled';
           default: return '';
       }
   };

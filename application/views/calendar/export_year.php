@@ -32,18 +32,18 @@ $employee_name = $this->users_model->getName($employee);
 //Load the leaves for all the months of the selected year
 
 $months = array(
-    lang('January') => $this->leaves_model->linear($employee, 1, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('February') => $this->leaves_model->linear($employee, 2, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('March') => $this->leaves_model->linear($employee, 3, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('April') => $this->leaves_model->linear($employee, 4, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('May') => $this->leaves_model->linear($employee, 5, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('June') => $this->leaves_model->linear($employee, 6, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('July') => $this->leaves_model->linear($employee, 7, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('August') => $this->leaves_model->linear($employee, 8, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('September') => $this->leaves_model->linear($employee, 9, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('October') => $this->leaves_model->linear($employee, 10, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('November') => $this->leaves_model->linear($employee, 11, $year, TRUE, TRUE, TRUE, TRUE),
-    lang('December') => $this->leaves_model->linear($employee, 12, $year, TRUE, TRUE, TRUE, TRUE),
+    lang('January') => $this->leaves_model->linear($employee, 1, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('February') => $this->leaves_model->linear($employee, 2, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('March') => $this->leaves_model->linear($employee, 3, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('April') => $this->leaves_model->linear($employee, 4, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('May') => $this->leaves_model->linear($employee, 5, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('June') => $this->leaves_model->linear($employee, 6, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('July') => $this->leaves_model->linear($employee, 7, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('August') => $this->leaves_model->linear($employee, 8, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('September') => $this->leaves_model->linear($employee, 9, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('October') => $this->leaves_model->linear($employee, 10, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('November') => $this->leaves_model->linear($employee, 11, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+    lang('December') => $this->leaves_model->linear($employee, 12, $year, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
 );
 
 //Print the header with the values of the export parameters
@@ -102,7 +102,7 @@ $styleBgPlanned = array(
 $styleBgRequested = array(
     'fill' => array(
         'fillType' => Fill::FILL_SOLID,
-        'startColor' => array('rgb' => 'F89406')
+        'startColor' => array('rgb' => 'F1C40F')
     )
 );
 $styleBgAccepted = array(
@@ -115,6 +115,18 @@ $styleBgRejected = array(
     'fill' => array(
         'fillType' => Fill::FILL_SOLID,
         'startColor' => array('rgb' => 'FF0000')
+    )
+);
+$styleBgCancellation = array(
+    'fill' => array(
+        'fillType' => Fill::FILL_SOLID,
+        'startColor' => array('rgb' => '3A87AD')
+    )
+);
+$styleBgCanceled = array(
+    'fill' => array(
+        'fillType' => Fill::FILL_SOLID,
+        'startColor' => array('rgb' => 'F89406')
     )
 );
 $styleBgDayOff = array(
@@ -156,8 +168,8 @@ foreach ($months as $month_name => $month) {
                 case 2: $sheet->getStyle($col . $line)->applyFromArray($styleBgRequested); break;  // Requested
                 case 3: $sheet->getStyle($col . $line)->applyFromArray($styleBgAccepted); break;  // Accepted
                 case 4: $sheet->getStyle($col . $line)->applyFromArray($styleBgRejected); break;  // Rejected
-                case '5': $sheet->getStyle($col . $line)->applyFromArray($styleBgDayOff); break;    //Day off
-                case '6': $sheet->getStyle($col . $line)->applyFromArray($styleBgDayOff); break;    //Day off
+                                case 5: $sheet->getStyle($col . $line)->applyFromArray($styleBgCancellation); break;  // Cancellation requested
+                                case 6: $sheet->getStyle($col . $line)->applyFromArray($styleBgCanceled); break;  // Canceled
               }
               switch (intval($statuses[0]))
               {
@@ -165,8 +177,8 @@ foreach ($months as $month_name => $month) {
                 case 2: $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgRequested); break;  // Requested
                 case 3: $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgAccepted); break;  // Accepted
                 case 4: $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgRejected); break;  // Rejected
-                case '5': $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgDayOff); break;    //Day off
-                case '6': $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgDayOff); break;    //Day off
+                                case 5: $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgCancellation); break;  // Cancellation requested
+                                case 6: $sheet->getStyle($col . ($line + 1))->applyFromArray($styleBgCanceled); break;  // Canceled
               }//Two statuses in the cell
         } else {//Only one status in the cell
             switch ($day->display) {
@@ -179,10 +191,14 @@ foreach ($months as $month_name => $month) {
                             // 2 : 'Requested';
                             // 3 : 'Accepted';
                             // 4 : 'Rejected';
+                            // 5 : 'Cancellation';
+                            // 6 : 'Canceled';
                             case 1: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgPlanned); break;  // Planned
                             case 2: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgRequested); break; // Requested
                             case 3: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgAccepted); break;  // Accepted
                             case 4: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgRejected); break;  // Rejected
+                            case 5: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgCancellation); break;  // Cancellation requested
+                            case 6: $sheet->getStyle($col . $line . ':' . $col . ($line + 1))->applyFromArray($styleBgCanceled); break;  // Canceled
                         }
                         break;
                 case '2':   //AM

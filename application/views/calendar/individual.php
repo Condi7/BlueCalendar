@@ -34,14 +34,21 @@
 <div class="row-fluid">
     <div class="span2"><span class="label"><?php echo lang('Planned');?></span></div>
     <div class="span2"><span class="label label-success"><?php echo lang('Accepted');?></span></div>
-    <div class="span2"><span class="label label-warning"><?php echo lang('Requested');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #f1c40f;"><?php echo lang('Requested');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #f89406;"><?php echo lang('Canceled');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #3a87ad;"><?php echo lang('Cancellation');?></span></div>
     <div class="span2"><span class="label label-important" style="background-color: #ff0000;"><?php echo lang('Rejected');?></span></div>
-    <div class="span4">
-        <?php if ($this->config->item('ics_enabled') == FALSE) {?>
-        &nbsp;
-        <?php } else {?>
-        <span class="pull-right"><a id="lnkICS" href="#"><i class="mdi mdi-earth nolink"></i> ICS</a></span>
-        <?php }?>
+  </div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="pull-right">
+            <?php if ($this->config->item('ics_enabled') == FALSE) {?>
+            &nbsp;
+            <?php } else {?>
+            <span class="pull-right"><a id="lnkICS" href="#"><i class="mdi mdi-earth nolink"></i> ICS</a></span>
+            <?php }?>
+        </div>
     </div>
 </div>
 
