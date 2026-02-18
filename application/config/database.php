@@ -73,12 +73,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+$dbHost = getenv('MYSQL_HOST') ?: '127.0.0.1';
+$dbName = getenv('MYSQL_DATABASE') ?: 'bluecalendar';
+$dbUser = getenv('MYSQL_USER') ?: 'root';
+$dbPass = getenv('MYSQL_PASSWORD');
+if ($dbPass === FALSE) {
+    $dbPass = '';
+}
+
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=127.0.0.1;dbname=bluecalendar',
-	'hostname' => '',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'bluecalendar',
+	'dsn'	=> 'mysql:host=' . $dbHost . ';dbname=' . $dbName,
+	'hostname' => $dbHost,
+	'username' => $dbUser,
+	'password' => $dbPass,
+	'database' => $dbName,
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

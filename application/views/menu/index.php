@@ -7,7 +7,17 @@
  */
 
 CI_Controller::get_instance()->load->helper('language');
-$this->lang->load('menu', $language); ?>
+$this->lang->load('menu', $language);
+
+$show_admin_settings = ($this->config->item('menu_show_admin_settings') === TRUE);
+$show_admin_oauth_clients = ($this->config->item('menu_show_admin_oauth_clients') === TRUE);
+$show_validation_overtime = ($this->config->item('menu_show_validation_overtime') === TRUE);
+$show_requests_leaves_header = ($this->config->item('menu_show_requests_leaves_header') === TRUE);
+$show_requests_create_leave = ($this->config->item('menu_show_requests_create_leave') === TRUE);
+$show_requests_overtime = ($this->config->item('menu_show_requests_overtime') === TRUE);
+$show_calendar_workmates = ($this->config->item('menu_show_calendar_workmates') === TRUE);
+$show_calendar_collaborators = ($this->config->item('menu_show_calendar_collaborators') === TRUE);
+?>
 
 <?php if ($this->config->item('ldap_enabled') === FALSE) { ?>
   <div id="frmChangeMyPwd" class="modal hide fade">
@@ -57,13 +67,14 @@ $this->lang->load('menu', $language); ?>
                 <li class="nav-header"><?php echo lang('menu_admin_settings_divider'); ?></li>
                 <li><a href="<?php echo base_url(); ?>admin/diagnostic"><?php echo lang('menu_admin_diagnostic'); ?></a>
                 </li>
-                <?php /* COMMENTATE LE SEZIONI IMPOSTAZIONI E OAUTH 
-                if ($is_admin == TRUE) { ?>
+                <?php if ($is_admin == TRUE && $show_admin_settings) { ?>
                   <li><a href="<?php echo base_url(); ?>admin/settings"><?php echo lang('menu_admin_settings'); ?></a></li>
+                <?php } ?>
+                <?php if ($is_admin == TRUE && $show_admin_oauth_clients) { ?>
                   <li><a
                       href="<?php echo base_url(); ?>admin/oauthclients"><?php echo lang('menu_admin_oauth_clients'); ?></a>
                   </li>
-                <?php } */ ?>
+                <?php } ?>
               </ul>
             </li>
           <?php } ?>
@@ -119,15 +130,13 @@ $this->lang->load('menu', $language); ?>
                       <span class="badge badge-info"><?php echo $requested_leaves_count; ?></span>
                     <?php } ?>
                     <?php echo lang('menu_validation_leaves'); ?></a></li>
-                <?php /* COMMENTATA LA PARTE STRAORDINARI
-                 if ($this->config->item('disable_overtime') === FALSE) { ?>
+                <?php if ($this->config->item('disable_overtime') === FALSE && $show_validation_overtime) { ?>
                   <li><a href="<?php echo base_url(); ?>overtime">
                       <?php if ($requested_extra_count > 0) { ?>
                         <span class="badge badge-info"><?php echo $requested_extra_count; ?></span>
                       <?php } ?>
                       <?php echo lang('menu_validation_overtime'); ?></a></li>
                 <?php } ?>
-                */ ?>
               </ul>
             </li>
           <?php } ?>
@@ -136,21 +145,22 @@ $this->lang->load('menu', $language); ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_requests_title'); ?> <b
                 class="caret"></b></a>
             <ul class="dropdown-menu">
-              <!-- COMMENTATO IL TITOLO FERIE
-               <li class="nav-header"><?php /* echo lang('menu_requests_leaves'); */ ?></li> -->
+              <?php if ($show_requests_leaves_header) { ?>
+                <li class="nav-header"><?php echo lang('menu_requests_leaves'); ?></li>
+              <?php } ?>
               <li><a href="<?php echo base_url(); ?>leaves/counters"><?php echo lang('menu_leaves_counters'); ?></a>
               </li>
               <li><a href="<?php echo base_url(); ?>leaves"><?php echo lang('menu_leaves_list_requests'); ?></a></li>
-              <!-- COMMENTATA LA RICHIESTA FERIE <li><a href="<?php /* echo base_url(); ?>leaves/create"><?php echo lang('menu_leaves_create_request'); */ ?></a> -->
-              </li>
-              <?php /* COMMENTATA LA PARTE STRAORDINARI
-              if ($this->config->item('disable_overtime') === FALSE) { ?>
+              <?php if ($show_requests_create_leave) { ?>
+                <li><a href="<?php echo base_url(); ?>leaves/create"><?php echo lang('menu_leaves_create_request'); ?></a></li>
+              <?php } ?>
+              <?php if ($this->config->item('disable_overtime') === FALSE && $show_requests_overtime) { ?>
                 <li class="divider"></li>
                 <li class="nav-header"><?php echo lang('menu_requests_overtime'); ?></li>
                 <li><a href="<?php echo base_url(); ?>extra"><?php echo lang('menu_requests_list_extras'); ?></a></li>
                 <li><a href="<?php echo base_url(); ?>extra/create"><?php echo lang('menu_requests_request_extra'); ?></a>
                 </li>
-              <?php } */ ?>
+              <?php } ?>
             </ul>
           </li>
 
@@ -159,17 +169,16 @@ $this->lang->load('menu', $language); ?>
                 class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="<?php echo base_url(); ?>calendar/year"><?php echo lang('menu_calendar_year'); ?></a></li>
-              <?php /* COMMENTATI CALENDARI COLLEGHI E COLLABORATORI
-               if ($this->config->item('disable_workmates_calendar') == FALSE) { ?>
+              <?php if ($this->config->item('disable_workmates_calendar') == FALSE && $show_calendar_workmates) { ?>
                 <li><a
                     href="<?php echo base_url(); ?>calendar/workmates"><?php echo lang('menu_calendar_workmates'); ?></a>
                 </li>
               <?php } ?>
-              <?php if ($is_manager == TRUE) { ?>
+              <?php if ($is_manager == TRUE && $show_calendar_collaborators) { ?>
                 <li><a
                     href="<?php echo base_url(); ?>calendar/collaborators"><?php echo lang('menu_calendar_collaborators'); ?></a>
                 </li>
-              <?php } */?>
+              <?php } ?>
               <?php if (($is_hr == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
                 <li><a href="<?php echo base_url(); ?>calendar/tabular"><?php echo lang('menu_calendar_tabular'); ?></a>
                 </li>

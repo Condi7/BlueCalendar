@@ -56,23 +56,37 @@ class Calendar extends CI_Controller {
 
         $data['employee_id'] = $employee;
         $data['employee_name'] =  $user['firstname'] . ' ' . $user['lastname'];
+        $statusesFilter = $this->input->get('statuses', TRUE);
+        $allowedStatuses = array('1', '2', '3', '4', '5', '6');
+        if ($statusesFilter === NULL || $statusesFilter === '') {
+            $selectedStatuses = $allowedStatuses;
+        } else {
+            $selectedStatuses = array_values(array_intersect($allowedStatuses, explode('|', $statusesFilter)));
+        }
+        $showPlanned = in_array('1', $selectedStatuses);
+        $showRequested = in_array('2', $selectedStatuses);
+        $showAccepted = in_array('3', $selectedStatuses);
+        $showRejected = in_array('4', $selectedStatuses);
+        $showCancellation = in_array('5', $selectedStatuses);
+        $showCanceled = in_array('6', $selectedStatuses);
         //Load the leaves for all the months of the selected year
         $this->load->model('leaves_model');
         $months = array(
-            lang('January') => $this->leaves_model->linear($employee, 1, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('February') => $this->leaves_model->linear($employee, 2, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('March') => $this->leaves_model->linear($employee, 3, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('April') => $this->leaves_model->linear($employee, 4, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('May') => $this->leaves_model->linear($employee, 5, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('June') => $this->leaves_model->linear($employee, 6, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('July') => $this->leaves_model->linear($employee, 7, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('August') => $this->leaves_model->linear($employee, 8, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('September') => $this->leaves_model->linear($employee, 9, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('October') => $this->leaves_model->linear($employee, 10, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('November') => $this->leaves_model->linear($employee, 11, $year, TRUE, TRUE, TRUE, TRUE),
-            lang('December') => $this->leaves_model->linear($employee, 12, $year, TRUE, TRUE, TRUE, TRUE),
+            lang('January') => $this->leaves_model->linear($employee, 1, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('February') => $this->leaves_model->linear($employee, 2, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('March') => $this->leaves_model->linear($employee, 3, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('April') => $this->leaves_model->linear($employee, 4, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('May') => $this->leaves_model->linear($employee, 5, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('June') => $this->leaves_model->linear($employee, 6, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('July') => $this->leaves_model->linear($employee, 7, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('August') => $this->leaves_model->linear($employee, 8, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('September') => $this->leaves_model->linear($employee, 9, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('October') => $this->leaves_model->linear($employee, 10, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('November') => $this->leaves_model->linear($employee, 11, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
+            lang('December') => $this->leaves_model->linear($employee, 12, $year, $showPlanned, $showRequested, $showAccepted, $showRejected, $showCancellation, $showCanceled),
         );
         $data['months'] = $months;
+        $data['statusesFilter'] = implode('|', $selectedStatuses);
         $data['year'] = $year;
         $data['title'] = lang('calendar_year_title');
         $data['help'] = $this->help->create_help_link('global_link_doc_page_calendar_yearly');

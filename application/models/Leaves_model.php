@@ -20,6 +20,25 @@ class Leaves_model extends CI_Model {
 
     }
 
+    private function getStatusColor($status) {
+        switch ((int) $status) {
+            case LMS_PLANNED:
+                return '#999999';
+            case LMS_REQUESTED:
+                return '#f1c40f';
+            case LMS_ACCEPTED:
+                return '#468847';
+            case LMS_REJECTED:
+                return '#ff0000';
+            case LMS_CANCELED:
+                return '#f89406';
+            case LMS_CANCELLATION:
+                return '#3a87ad';
+            default:
+                return '#ff0000';
+        }
+    }
+
     private function normalizeLeaveTimeValue($value, $isStart = TRUE) {
         if ($value === 'Morning') {
             return $isStart ? '09:00' : '13:00';
@@ -813,10 +832,16 @@ class Leaves_model extends CI_Model {
      * @return string JSON encoded list of full calendar events
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
-    public function individual($user_id, $start = "", $end = "") {
+    public function individual($user_id, $start = "", $end = "", $statusFilter = NULL) {
         $this->db->select('leaves.*, types.name as type');
         $this->db->join('types', 'leaves.type = types.id');
         $this->db->where('employee', $user_id);
+        if ($statusFilter != NULL) {
+            $statuses = explode('|', $statusFilter);
+            if (!empty($statuses)) {
+                $this->db->where_in('status', $statuses);
+            }
+        }
         $this->db->where('(leaves.startdate <= DATE(' . $this->db->escape($end) . ') AND leaves.enddate >= DATE(' . $this->db->escape($start) . '))');
         $this->db->order_by('startdate', 'desc');
         $this->db->limit(1024);  //Security limit
@@ -840,14 +865,7 @@ class Leaves_model extends CI_Model {
                 $allDay = TRUE;
             }
 
-            $color = '#ff0000';
-            switch ($entry->status)
-            {
-                case 1: $color = '#999'; break;     // Planned
-                case 2: $color = '#f89406'; break;  // Requested
-                case 3: $color = '#468847'; break;  // Accepted
-                case 4: $color = '#ff0000'; break;  // Rejected
-            }
+            $color = $this->getStatusColor($entry->status);
 
             $jsonevents[] = array(
                 'id' => $entry->id,
@@ -899,14 +917,7 @@ class Leaves_model extends CI_Model {
                 $allDay = TRUE;
             }
 
-            $color = '#ff0000';
-            switch ($entry->status)
-            {
-                case 1: $color = '#999'; break;     // Planned
-                case 2: $color = '#f89406'; break;  // Requested
-                case 3: $color = '#468847'; break;  // Accepted
-                case 4: $color = '#ff0000'; break;  // Rejected
-            }
+            $color = $this->getStatusColor($entry->status);
 
             $jsonevents[] = array(
                 'id' => $entry->id,
@@ -957,14 +968,7 @@ class Leaves_model extends CI_Model {
                 $allDay = TRUE;
             }
 
-            $color = '#ff0000';
-            switch ($entry->status)
-            {
-                case 1: $color = '#999'; break;     // Planned
-                case 2: $color = '#f89406'; break;  // Requested
-                case 3: $color = '#468847'; break;  // Accepted
-                case 4: $color = '#ff0000'; break;  // Rejected
-            }
+            $color = $this->getStatusColor($entry->status);
 
             $jsonevents[] = array(
                 'id' => $entry->id,
@@ -1040,15 +1044,7 @@ class Leaves_model extends CI_Model {
                 $allDay = TRUE;
             }
 
-            $color = '#ff0000';
-            switch ($entry->status)
-            {
-                case 1: $color = '#999'; break;     // Planned
-                case 2: $color = '#f89406'; break;  // Requested
-                case 3: $color = '#468847'; break;  // Accepted
-                case 4: $color = '#ff0000'; break;  // Rejected
-                default: $color = '#ff0000'; break;  // Cancellation and Canceled
-            }
+            $color = $this->getStatusColor($entry->status);
             $title = $entry->firstname .' ' . $entry->lastname;
             //If the connected user can access to the leave request
             //(self, HR admin and manager), add a link and the acronym
@@ -1135,15 +1131,7 @@ class Leaves_model extends CI_Model {
               $allDay = TRUE;
           }
 
-          $color = '#ff0000';
-          switch ($entry->status)
-          {
-              case 1: $color = '#999'; break;     // Planned
-              case 2: $color = '#f89406'; break;  // Requested
-              case 3: $color = '#468847'; break;  // Accepted
-              case 4: $color = '#ff0000'; break;  // Rejected
-              default: $color = '#ff0000'; break;  // Cancellation and Canceled
-          }
+          $color = $this->getStatusColor($entry->status);
           $title = $entry->firstname .' ' . $entry->lastname;
           //If the connected user can access to the leave request
           //(self, HR admin and manager), add a link and the acronym
