@@ -7,7 +7,7 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['calendar_year_title'] = 'Calendario annuale';
+$lang['calendar_year_title'] = 'Calendario personale';
 $lang['calendar_year_button_export'] = 'Esporta';
 
 $lang['calendar_individual_title'] = 'Il mio calendario';
@@ -37,7 +37,7 @@ $lang['calendar_organization_popup_entity_title'] = 'Seleziona un\'entità';
 $lang['calendar_organization_popup_entity_button_ok'] = 'OK';
 $lang['calendar_organization_popup_entity_button_cancel'] = 'Annulla';
 
-$lang['calendar_tabular_title'] = 'Calendario tabellare';
+$lang['calendar_tabular_title'] = 'Calendario globale';
 $lang['calendar_tabular_field_select_entity'] = 'Seleziona l\'entità';
 $lang['calendar_tabular_field_month'] = 'Mese';
 $lang['calendar_tabular_field_year'] = 'Anno';
@@ -53,7 +53,7 @@ $lang['calendar_tabular_popup_entity_title'] = 'Seleziona un\'entità';
 $lang['calendar_tabular_popup_entity_button_ok'] = 'OK';
 $lang['calendar_tabular_popup_entity_button_cancel'] = 'Annulla';
 $lang['calendar_tabular_thead_employee'] = 'Dipendente';
-$lang['calendar_tabular_export_title'] = 'Calendario tabellare';
+$lang['calendar_tabular_export_title'] = 'Calendario globale';
 $lang['calendar_tabular_export_param_entity'] = 'Entità';
 $lang['calendar_tabular_export_param_month'] = 'Mese';
 $lang['calendar_tabular_export_param_year'] = 'Anno';
