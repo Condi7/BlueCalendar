@@ -9,6 +9,8 @@
 $isCurrentYear = (int)date('Y') === (int)$year;
 $currentMonth = (int)date('m');
 $currentDay = (int)date('d');
+$selectedStatuses = (isset($statusesFilter) && $statusesFilter !== '') ? explode('|', $statusesFilter) : array('1', '2', '3', '4', '5', '6');
+$statusQuery = (isset($statusesFilter) && $statusesFilter !== '') ? '?statuses=' . urlencode($statusesFilter) : '';
 ?>
 
 <style type="text/css">
@@ -55,21 +57,21 @@ $currentDay = (int)date('d');
 
 <div class="row-fluid">
     <div class="span4">
-        <span class="label"><?php echo lang('Planned');?></span>&nbsp;
-        <span class="label label-success"><?php echo lang('Accepted');?></span>&nbsp;
-        <span class="label" style="background-color: #f1c40f;"><?php echo lang('Requested');?></span>&nbsp;
-        <span class="label" style="background-color: #f89406;"><?php echo lang('Canceled');?></span>&nbsp;
-        <span class="label" style="background-color: #3a87ad;"><?php echo lang('Cancellation');?></span>&nbsp;
-        <span class="label label-important" style="background-color: #ff0000;"><?php echo lang('Rejected');?></span>
+        <span class="label"><input type="checkbox" checked id="chkPlanned" class="filterStatus"> &nbsp;<?php echo lang('Planned');?></span>&nbsp;
+        <span class="label label-success"><input type="checkbox" checked id="chkAccepted" class="filterStatus"> &nbsp;<?php echo lang('Accepted');?></span>&nbsp;
+        <span class="label" style="background-color: #f1c40f;"><input type="checkbox" checked id="chkRequested" class="filterStatus"> &nbsp;<?php echo lang('Requested');?></span>&nbsp;
+        <span class="label" style="background-color: #f89406;"><input type="checkbox" checked id="chkCanceled" class="filterStatus"> &nbsp;<?php echo lang('Canceled');?></span>&nbsp;
+        <span class="label" style="background-color: #3a87ad;"><input type="checkbox" checked id="chkCancellation" class="filterStatus"> &nbsp;<?php echo lang('Cancellation');?></span>&nbsp;
+        <span class="label label-important" style="background-color: #ff0000;"><input type="checkbox" checked id="chkRejected" class="filterStatus"> &nbsp;<?php echo lang('Rejected');?></span>
     </div>
     <div class="span4">
-        <a href="<?php echo base_url();?>calendar/year/export/<?php echo $employee_id;?>/<?php echo ($year);?>" class="btn btn-primary"><i class="mdi mdi-download"></i>&nbsp;<?php echo lang('calendar_year_button_export');?></a>
+        <a href="<?php echo base_url();?>calendar/year/export/<?php echo $employee_id;?>/<?php echo ($year);?><?php echo $statusQuery;?>" class="btn btn-primary"><i class="mdi mdi-download"></i>&nbsp;<?php echo lang('calendar_year_button_export');?></a>
     </div>
     <div class="span4">
         <div class="pull-right">
-            <a href="<?php echo base_url();?>calendar/year/<?php echo $employee_id;?>/<?php echo (intval($year) - 1);?>" class="btn btn-primary"><i class="mdi mdi-chevron-left"></i>&nbsp;<?php echo (intval($year) - 1);?></a>
+            <a href="<?php echo base_url();?>calendar/year/<?php echo $employee_id;?>/<?php echo (intval($year) - 1);?><?php echo $statusQuery;?>" class="btn btn-primary"><i class="mdi mdi-chevron-left"></i>&nbsp;<?php echo (intval($year) - 1);?></a>
             <b><?php echo $year;?></b>
-            <a href="<?php echo base_url();?>calendar/year/<?php echo $employee_id;?>/<?php echo (intval($year) + 1);?>" class="btn btn-primary"><?php echo (intval($year) + 1);?>&nbsp;<i class="mdi mdi-chevron-right"></i></a>
+            <a href="<?php echo base_url();?>calendar/year/<?php echo $employee_id;?>/<?php echo (intval($year) + 1);?><?php echo $statusQuery;?>" class="btn btn-primary"><?php echo (intval($year) + 1);?>&nbsp;<i class="mdi mdi-chevron-right"></i></a>
         </div>
     </div>
 </div>
@@ -226,3 +228,35 @@ $currentDay = (int)date('d');
 
     </div>
 </div>
+
+<script type="text/javascript">
+$(function () {
+    var selectedStatuses = <?php echo json_encode($selectedStatuses); ?>;
+    $('#chkPlanned').prop('checked', selectedStatuses.indexOf('1') !== -1);
+    $('#chkRequested').prop('checked', selectedStatuses.indexOf('2') !== -1);
+    $('#chkAccepted').prop('checked', selectedStatuses.indexOf('3') !== -1);
+    $('#chkRejected').prop('checked', selectedStatuses.indexOf('4') !== -1);
+    $('#chkCancellation').prop('checked', selectedStatuses.indexOf('5') !== -1);
+    $('#chkCanceled').prop('checked', selectedStatuses.indexOf('6') !== -1);
+
+    function buildStatusesFilter() {
+        var statuses = [];
+        if ($('#chkPlanned').prop('checked')) statuses.push('1');
+        if ($('#chkRequested').prop('checked')) statuses.push('2');
+        if ($('#chkAccepted').prop('checked')) statuses.push('3');
+        if ($('#chkRejected').prop('checked')) statuses.push('4');
+        if ($('#chkCancellation').prop('checked')) statuses.push('5');
+        if ($('#chkCanceled').prop('checked')) statuses.push('6');
+        return statuses.join('|');
+    }
+
+    $('.filterStatus').on('change', function () {
+        var statuses = buildStatusesFilter();
+        var targetUrl = '<?php echo base_url();?>calendar/year/<?php echo $employee_id;?>/<?php echo $year;?>';
+        if (statuses !== '') {
+            targetUrl += '?statuses=' + encodeURIComponent(statuses);
+        }
+        window.location.href = targetUrl;
+    });
+});
+</script>

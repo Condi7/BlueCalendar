@@ -741,8 +741,9 @@ class Leaves extends CI_Controller {
         header("Content-Type: application/json");
         $start = $this->input->get('start', TRUE);
         $end = $this->input->get('end', TRUE);
+        $statuses = $this->input->get('statuses', TRUE);
         if ($id == 0) $id =$this->session->userdata('id');
-        echo $this->leaves_model->individual($id, $start, $end);
+        echo $this->leaves_model->individual($id, $start, $end, $statuses);
     }
 
     /**

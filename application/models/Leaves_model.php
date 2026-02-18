@@ -832,10 +832,16 @@ class Leaves_model extends CI_Model {
      * @return string JSON encoded list of full calendar events
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
-    public function individual($user_id, $start = "", $end = "") {
+    public function individual($user_id, $start = "", $end = "", $statusFilter = NULL) {
         $this->db->select('leaves.*, types.name as type');
         $this->db->join('types', 'leaves.type = types.id');
         $this->db->where('employee', $user_id);
+        if ($statusFilter != NULL) {
+            $statuses = explode('|', $statusFilter);
+            if (!empty($statuses)) {
+                $this->db->where_in('status', $statuses);
+            }
+        }
         $this->db->where('(leaves.startdate <= DATE(' . $this->db->escape($end) . ') AND leaves.enddate >= DATE(' . $this->db->escape($start) . '))');
         $this->db->order_by('startdate', 'desc');
         $this->db->limit(1024);  //Security limit

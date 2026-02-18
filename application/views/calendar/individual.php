@@ -32,13 +32,13 @@
 <div class="row-fluid"><div class="span12">&nbsp;</div></div>
 
 <div class="row-fluid">
-    <div class="span2"><span class="label"><?php echo lang('Planned');?></span></div>
-    <div class="span2"><span class="label label-success"><?php echo lang('Accepted');?></span></div>
-    <div class="span2"><span class="label" style="background-color: #f1c40f;"><?php echo lang('Requested');?></span></div>
-    <div class="span2"><span class="label" style="background-color: #f89406;"><?php echo lang('Canceled');?></span></div>
-    <div class="span2"><span class="label" style="background-color: #3a87ad;"><?php echo lang('Cancellation');?></span></div>
-    <div class="span2"><span class="label label-important" style="background-color: #ff0000;"><?php echo lang('Rejected');?></span></div>
-  </div>
+    <div class="span2"><span class="label"><input type="checkbox" checked id="chkPlanned" class="filterStatus"> &nbsp;<?php echo lang('Planned');?></span></div>
+    <div class="span2"><span class="label label-success"><input type="checkbox" checked id="chkAccepted" class="filterStatus"> &nbsp;<?php echo lang('Accepted');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #f1c40f;"><input type="checkbox" checked id="chkRequested" class="filterStatus"> &nbsp;<?php echo lang('Requested');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #f89406;"><input type="checkbox" checked id="chkCanceled" class="filterStatus"> &nbsp;<?php echo lang('Canceled');?></span></div>
+    <div class="span2"><span class="label" style="background-color: #3a87ad;"><input type="checkbox" checked id="chkCancellation" class="filterStatus"> &nbsp;<?php echo lang('Cancellation');?></span></div>
+    <div class="span2"><span class="label label-important" style="background-color: #ff0000;"><input type="checkbox" checked id="chkRejected" class="filterStatus"> &nbsp;<?php echo lang('Rejected');?></span></div>
+</div>
 
 <div class="row-fluid">
     <div class="span12">
@@ -109,6 +109,17 @@
 <script type="text/javascript">
 var toggleDayoffs = false;
 
+function buildStatusesFilter() {
+    var statuses = [];
+    if ($('#chkPlanned').prop('checked')) statuses.push('1');
+    if ($('#chkRequested').prop('checked')) statuses.push('2');
+    if ($('#chkAccepted').prop('checked')) statuses.push('3');
+    if ($('#chkRejected').prop('checked')) statuses.push('4');
+    if ($('#chkCancellation').prop('checked')) statuses.push('5');
+    if ($('#chkCanceled').prop('checked')) statuses.push('6');
+    return statuses.join('|');
+}
+
 $(function () {
     //Global Ajax error handling mainly used for session expiration
     $( document ).ajaxError(function(event, jqXHR, settings, errorThrown) {
@@ -134,7 +145,14 @@ $(function () {
             right: ""
         },
         /*defaultView: 'agendaWeek',*/
-        events: '<?php echo base_url();?>leaves/individual',
+        events: {
+            url: '<?php echo base_url();?>leaves/individual',
+            data: function() {
+                return {
+                    statuses: buildStatusesFilter()
+                };
+            }
+        },
         eventClick: function(calEvent, jsEvent, view) {
             if (calEvent.color != '#000000') {
                 var link = "<?php echo base_url();?>ics/ical/" + calEvent.id;
@@ -241,6 +259,10 @@ $(function () {
         } else {
             $('#calendar').fullCalendar('today');
         }
+    });
+
+    $('.filterStatus').on('change', function() {
+        $('#calendar').fullCalendar('refetchEvents');
     });
 
     //Copy/Paste ICS Feed
