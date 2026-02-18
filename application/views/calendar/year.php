@@ -16,20 +16,36 @@ $currentDay = (int)date('d');
 .allcancellation { background-color: #3a87ad !important; color: #fff; }
 .allcanceled { background-color: #f89406 !important; color: #fff; }
 
+.currentday-bg { background-color: #3097d1 !important; color: #fff !important; }
+.currentday-border { box-shadow: inset 0 0 0 2px #3097d1 !important; }
+
+.dayoff { background-color: #fcf8e3 !important; color: #fff; }
+.amdayoff { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #fff 50%) !important; }
+.pmdayoff { color: #fff; background: linear-gradient(135deg, #fff 50%, #fcf8e3 50%) !important; }
+
+.planneddayoff { color: #fff; background: linear-gradient(135deg, #999 50%, #fcf8e3 50%) !important; }
+.dayoffplanned { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #999 50%) !important; }
+
+.accepteddayoff { color: #fff; background: linear-gradient(135deg, #468847 50%, #fcf8e3 50%) !important; }
+.dayoffaccepted { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #468847 50%) !important; }
+
+.rejecteddayoff { color: #fff; background: linear-gradient(135deg, #ff0000 50%, #fcf8e3 50%) !important; }
+.dayoffrejected { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #ff0000 50%) !important; }
+
 .amrequested { color: #fff; background: linear-gradient(135deg, #f1c40f 50%, #fff 50%) !important; }
 .pmrequested { color: #fff; background: linear-gradient(135deg, #fff 50%, #f1c40f 50%) !important; }
-.requesteddayoff { color: #fff; background: linear-gradient(135deg, #f1c40f 50%, #000 50%) !important; }
-.dayoffrequested { color: #fff; background: linear-gradient(135deg, #000 50%, #f1c40f 50%) !important; }
+.requesteddayoff { color: #fff; background: linear-gradient(135deg, #f1c40f 50%, #fcf8e3 50%) !important; }
+.dayoffrequested { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #f1c40f 50%) !important; }
 
 .amcancellation { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #fff 50%) !important; }
 .pmcancellation { color: #fff; background: linear-gradient(135deg, #fff 50%, #3a87ad 50%) !important; }
-.cancellationdayoff { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #000 50%) !important; }
-.dayoffcancellation { color: #fff; background: linear-gradient(135deg, #000 50%, #3a87ad 50%) !important; }
+.cancellationdayoff { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #fcf8e3 50%) !important; }
+.dayoffcancellation { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #3a87ad 50%) !important; }
 
 .amcanceled { color: #fff; background: linear-gradient(135deg, #f89406 50%, #fff 50%) !important; }
 .pmcanceled { color: #fff; background: linear-gradient(135deg, #fff 50%, #f89406 50%) !important; }
-.canceleddayoff { color: #fff; background: linear-gradient(135deg, #f89406 50%, #000 50%) !important; }
-.dayoffcanceled { color: #fff; background: linear-gradient(135deg, #000 50%, #f89406 50%) !important; }
+.canceleddayoff { color: #fff; background: linear-gradient(135deg, #f89406 50%, #fcf8e3 50%) !important; }
+.dayoffcanceled { color: #fff; background: linear-gradient(135deg, #fcf8e3 50%, #f89406 50%) !important; }
 
 .cancellationcanceled { color: #fff; background: linear-gradient(135deg, #3a87ad 50%, #f89406 50%) !important; }
 .canceledcancellation { color: #fff; background: linear-gradient(135deg, #f89406 50%, #3a87ad 50%) !important; }

@@ -79,7 +79,7 @@ $lang['requests_cancellation_accept_flash_msg_error'] = 'Si è verificato un err
 $lang['requests_cancellation_reject_flash_msg_success'] = 'La richiesta di ferie è tornata allo stato originale di Accettata';
 $lang['requests_cancellation_reject_flash_msg_error'] = 'Si è verificato un errore durante il rifiuto dell\'annullamento';
 
-$lang['leaves_edit_html_title'] = 'Modifica una richiesta di ferie';
+$lang['leaves_edit_html_title'] = 'Modifica tipologia';
 $lang['leaves_edit_title'] = 'Modifica richiesta di ferie #';
 $lang['leaves_edit_field_start'] = 'Data inizio';
 $lang['leaves_edit_field_end'] = 'Data fine';

@@ -132,7 +132,7 @@ $styleBgCanceled = array(
 $styleBgDayOff = array(
     'fill' => array(
         'fillType' => Fill::FILL_SOLID,
-        'startColor' => array('rgb' => '000000')
+        'startColor' => array('rgb' => 'FCF8E3')
     )
 );
 

@@ -221,7 +221,7 @@ body {
     color: black;
 }
 .dayoff {
-    background-color: black;
+    background-color: #fcf8e3;
     color: white;
 }
 
@@ -792,10 +792,58 @@ body {
 }
 
 /* Calendar/Tabular Current Day */
+.dayoff {
+    background-color: #fcf8e3 !important;
+    color: white !important;
+}
+.amdayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #fcf8e3 50%, #ffffff 50%) !important;
+}
+.pmdayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #ffffff 50%, #fcf8e3 50%) !important;
+}
+.planneddayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #999 50%, #fcf8e3 50%) !important;
+}
+.requesteddayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #f89406 50%, #fcf8e3 50%) !important;
+}
+.accepteddayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #468847 50%, #fcf8e3 50%) !important;
+}
+.rejecteddayoff {
+    color: white !important;
+    background: linear-gradient(135deg, #ff0000 50%, #fcf8e3 50%) !important;
+}
+.dayoffplanned {
+    color: white !important;
+    background: linear-gradient(135deg, #fcf8e3 50%, #999 50%) !important;
+}
+.dayoffrequested {
+    color: white !important;
+    background: linear-gradient(135deg, #fcf8e3 50%, #f89406 50%) !important;
+}
+.dayoffaccepted {
+    color: white !important;
+    background: linear-gradient(135deg, #fcf8e3 50%, #468847 50%) !important;
+}
+.dayoffrejected {
+    color: white !important;
+    background: linear-gradient(135deg, #fcf8e3 50%, #ff0000 50%) !important;
+}
+
 td.currentday-bg {
-    background-color: #fcf8e3;
+    background-color: #3097d1;
+    color: white;
 }
 td.currentday-border {
+    background-color: #3097d1;
+    color: white;
     border-left: 1px dashed #666;
     border-right: 1px dashed #666;
 }

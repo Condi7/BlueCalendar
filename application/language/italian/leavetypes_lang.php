@@ -22,7 +22,7 @@ $lang['leavetypes_type_not_found'] = 'Nessuna tipologia di ferie trovata nel dat
 
 $lang['leavetypes_js_unique_error_msg'] = 'Questa tipologia ferie esiste già.';
 
-$lang['leavetypes_popup_create_title'] = 'Aggiungi una tipologia di ferie';
+$lang['leavetypes_popup_create_title'] = 'Aggiungi una tipologia';
 $lang['leavetypes_popup_create_button_cancel'] = 'Annulla';
 $lang['leavetypes_popup_create_button_create'] = 'Crea';
 $lang['leavetypes_popup_create_button_suggest'] = 'Suggerisci un acronimo';
@@ -31,7 +31,7 @@ $lang['leavetypes_popup_create_field_acronym'] = 'Acronimo';
 $lang['leavetypes_popup_create_field_deduct'] = 'Sottrai giorni non lavorativi';
 $lang['leavetypes_popup_create_flash_msg'] = 'La tipologia di ferie è stata creata con successo';
 
-$lang['leavetypes_popup_update_title'] = 'Modifica una richiesta di ferie';
+$lang['leavetypes_popup_update_title'] = 'Modifica tipologia';
 $lang['leavetypes_popup_update_button_cancel'] = 'Annulla';
 $lang['leavetypes_popup_update_button_update'] = 'Aggiorna';
 $lang['leavetypes_popup_update_button_suggest'] = 'Suggerisci un acronimo';
