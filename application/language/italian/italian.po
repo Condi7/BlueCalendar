@@ -1346,7 +1346,7 @@ msgid "My personal information"
 msgstr "Informazioni personali"
 
 msgid "Position"
-msgstr "Posizione"
+msgstr "Ruolo"
 
 msgid "Date hired/started"
 msgstr "Data di assunzione/inizio"
@@ -1379,7 +1379,7 @@ msgid "Select the manager"
 msgstr "Seleziona il gestore"
 
 msgid "Select a position"
-msgstr "Seleziona una posizione"
+msgstr "Seleziona un ruolo"
 
 msgid "Update user"
 msgstr "Aggiorna utente"

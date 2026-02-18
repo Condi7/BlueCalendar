@@ -7,7 +7,7 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['organization_index_title'] = 'Organizzazione';
+$lang['organization_index_title'] = 'Organigramma';
 $lang['organization_index_field_search_placeholder'] = 'Cerca un\'entità';
 $lang['organization_index_button_search'] = 'Ricerca';
 $lang['organization_index_title_employees'] = 'Dipendenti assegnati all\'entità';
