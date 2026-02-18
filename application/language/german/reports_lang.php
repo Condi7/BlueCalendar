@@ -36,4 +36,7 @@ $lang['reports_leaves_button_export'] = 'Export';
 $lang['reports_leaves_popup_entity_title'] = 'Einheit auswählen';
 $lang['reports_leaves_popup_entity_button_ok'] = 'OK';
 $lang['reports_leaves_popup_entity_button_cancel'] = 'Abbrechen';
+$lang['reports_leaves_col_leave_duration'] = 'Abwesenheitsstunden';
+$lang['reports_leaves_col_work_duration'] = 'Arbeitsstunden';
+$lang['reports_leaves_col_duration_hours'] = 'Dauer (Stunden)';
 $lang['reports_export_leaves_title'] = 'Urlaubsanfragen';

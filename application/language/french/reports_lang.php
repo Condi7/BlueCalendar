@@ -40,5 +40,8 @@ $lang['reports_leaves_button_export'] = 'Exporter';
 $lang['reports_leaves_popup_entity_title'] = 'Choisir une entité';
 $lang['reports_leaves_popup_entity_button_ok'] = 'OK';
 $lang['reports_leaves_popup_entity_button_cancel'] = 'Annuler';
+$lang['reports_leaves_col_leave_duration'] = 'Heures d\'absence';
+$lang['reports_leaves_col_work_duration'] = 'Heures travaillées';
+$lang['reports_leaves_col_duration_hours'] = 'Durée (heures)';
 
 $lang['reports_export_leaves_title'] = 'Demandes de congé';

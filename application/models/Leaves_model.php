@@ -138,6 +138,28 @@ class Leaves_model extends CI_Model {
     }
 
     /**
+     * Get daily working hours for an employee/contract.
+     * @param int $employeeId Employee identifier
+     * @param int|null $contractId Optional contract identifier
+     * @return float Daily working hours
+     */
+    public function getDailyHours($employeeId, $contractId = NULL) {
+        return $this->getContractDailyHours($employeeId, $contractId);
+    }
+
+    /**
+     * Convert a duration expressed in days to hours based on employee contract.
+     * @param float $days Duration in days
+     * @param int $employeeId Employee identifier
+     * @param int|null $contractId Optional contract identifier
+     * @return float Duration in hours
+     */
+    public function convertDaysToHours($days, $employeeId, $contractId = NULL) {
+        $dailyHours = $this->getContractDailyHours($employeeId, $contractId);
+        return round(((float) $days) * $dailyHours, 3);
+    }
+
+    /**
      * Get the list of all leave requests or one leave
      * @param int $id Id of the leave request
      * @return array list of records

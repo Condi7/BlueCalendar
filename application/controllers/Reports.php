@@ -249,15 +249,21 @@ class Reports extends CI_Controller {
             $result[$user->id]['department'] = $user->department;
             $result[$user->id]['position'] = $user->position;
             $result[$user->id]['contract'] = $user->contract;
+            $daily_hours = $this->leaves_model->getDailyHours($user->id, $user->contract_id);
             $non_working_days = $this->dayoffs_model->lengthDaysOffBetweenDates($user->contract_id, $start, $end);
             $opened_days = $total_days - $non_working_days;
+            $opened_hours = round($opened_days * $daily_hours, 3);
 
             //If the user has selected All months
             if ($month == 0) {
                 $leave_duration = 0;
                 for ($ii = 1; $ii <13; $ii++) {
                     $linear = $this->leaves_model->linear($user->id, $ii, $year, FALSE, FALSE, TRUE, FALSE);
-                    $leave_duration += $this->leaves_model->monthlyLeavesDuration($linear);
+                    $leave_duration += $this->leaves_model->convertDaysToHours(
+                        $this->leaves_model->monthlyLeavesDuration($linear),
+                        $user->id,
+                        $user->contract_id
+                    );
                     $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
                     //Init type columns
                     foreach ($types as $type) {
@@ -266,33 +272,48 @@ class Reports extends CI_Controller {
                                 $result[$user->id][$type['name']] = 0;
                             }
                             $result[$user->id][$type['name']] +=
-                                    $leaves_detail[$type['name']];
+                                    $this->leaves_model->convertDaysToHours(
+                                        $leaves_detail[$type['name']],
+                                        $user->id,
+                                        $user->contract_id
+                                    );
                         } else {
                             $result[$user->id][$type['name']] = '';
                         }
                     }
                 }
                 if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
-                $work_duration = $opened_days - $leave_duration;
+                $work_duration = round($opened_hours - $leave_duration, 3);
             } else {
                 $linear = $this->leaves_model->linear($user->id, $month, $year, FALSE, FALSE, TRUE, FALSE);
-                $leave_duration = $this->leaves_model->monthlyLeavesDuration($linear);
-                $work_duration = $opened_days - $leave_duration;
+                $leave_duration = $this->leaves_model->convertDaysToHours(
+                    $this->leaves_model->monthlyLeavesDuration($linear),
+                    $user->id,
+                    $user->contract_id
+                );
+                $work_duration = round($opened_hours - $leave_duration, 3);
                 $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
                 if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
                 //Init type columns
                 foreach ($types as $type) {
                     if (array_key_exists($type['name'], $leaves_detail)) {
-                        $result[$user->id][$type['name']] = $leaves_detail[$type['name']];
+                        $result[$user->id][$type['name']] = $this->leaves_model->convertDaysToHours(
+                            $leaves_detail[$type['name']],
+                            $user->id,
+                            $user->contract_id
+                        );
                     } else {
                         $result[$user->id][$type['name']] = '';
                     }
                 }
             }
-            $result[$user->id]['leave_duration'] = $leave_duration;
-            $result[$user->id]['total_days'] = $total_days;
-            $result[$user->id]['non_working_days'] = $non_working_days;
-            $result[$user->id]['work_duration'] = $work_duration;
+            foreach ($types as $type) {
+                if ($result[$user->id][$type['name']] !== '') {
+                    $result[$user->id][$type['name']] = formatLeaveDurationHours($result[$user->id][$type['name']]);
+                }
+            }
+            $result[$user->id]['leave_duration'] = formatLeaveDurationHours($leave_duration);
+            $result[$user->id]['work_duration'] = formatLeaveDurationHours($work_duration);
         }
 
         $table = '';
@@ -300,6 +321,10 @@ class Reports extends CI_Controller {
         $tbody = '';
         $line = 2;
         $i18n = array("identifier", "firstname", "lastname", "datehired", "department", "position", "contract");
+        $hours_labels = array(
+            'leave_duration' => lang('reports_leaves_col_leave_duration'),
+            'work_duration' => lang('reports_leaves_col_work_duration')
+        );
         foreach ($result as $user_id => $row) {
             $index = 1;
             $tbody .= '<tr>';
@@ -307,6 +332,8 @@ class Reports extends CI_Controller {
                 if ($line == 2) {
                     if (in_array($key, $i18n)) {
                         $thead .= '<th>' . lang($key) . '</th>';
+                    } else if (array_key_exists($key, $hours_labels)) {
+                        $thead .= '<th>' . $hours_labels[$key] . '</th>';
                     } else {
                         $thead .= '<th>' . $key . '</th>';
                     }
@@ -325,7 +352,7 @@ class Reports extends CI_Controller {
                     $tbody .= '<th>' . lang('leaves_index_thead_start_date'). '</th>';
                     $tbody .= '<th>' . lang('leaves_index_thead_end_date'). '</th>';
                     $tbody .= '<th>' . lang('leaves_index_thead_type'). '</th>';
-                    $tbody .= '<th>' . lang('leaves_index_thead_duration'). '</th>';
+                    $tbody .= '<th>' . lang('reports_leaves_col_duration_hours') . '</th>';
                     $tbody .= '</tr></thead>';
                     $tbody .= '<tbody>';
                     //Iterate on leave requests

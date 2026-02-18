@@ -40,5 +40,8 @@ $lang['reports_leaves_button_export'] = 'Export';
 $lang['reports_leaves_popup_entity_title'] = 'Select an entity';
 $lang['reports_leaves_popup_entity_button_ok'] = 'OK';
 $lang['reports_leaves_popup_entity_button_cancel'] = 'Cancel';
+$lang['reports_leaves_col_leave_duration'] = 'Leave hours';
+$lang['reports_leaves_col_work_duration'] = 'Working hours';
+$lang['reports_leaves_col_duration_hours'] = 'Duration (hours)';
 
 $lang['reports_export_leaves_title'] = 'Leave requests';

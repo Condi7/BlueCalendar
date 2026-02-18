@@ -39,5 +39,8 @@ $lang['reports_leaves_button_export'] = 'Esporta';
 $lang['reports_leaves_popup_entity_title'] = 'Seleziona un\'entità';
 $lang['reports_leaves_popup_entity_button_ok'] = 'OK';
 $lang['reports_leaves_popup_entity_button_cancel'] = 'Annulla';
+$lang['reports_leaves_col_leave_duration'] = 'Ore assenza';
+$lang['reports_leaves_col_work_duration'] = 'Ore lavorate';
+$lang['reports_leaves_col_duration_hours'] = 'Durata (ore)';
 
 $lang['reports_export_leaves_title'] = 'Richieste di ferie';
