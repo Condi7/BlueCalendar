@@ -1,4 +1,4 @@
-<h1>Gestire richieste di ferie</h1>
+<h1>Gestionale ferie e permessi</h1>
 
 <p>Benvenuti in BlueCalendar. Se sei un dipendente, puoi: </p>
 <ul>

@@ -321,7 +321,7 @@ header("Pragma: no-cache");
  * And away we go...
  */
 
-$GLOBALS['versionOfBlueCalendar'] = '0.2.3';
+$GLOBALS['versionOfBlueCalendar'] = '0.2.4';
 
 require_once FCPATH . 'vendor/autoload.php';
 require_once BASEPATH.'core/CodeIgniter.php';

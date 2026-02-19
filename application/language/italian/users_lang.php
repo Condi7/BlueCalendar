@@ -84,7 +84,7 @@ $lang['users_edit_flash_msg_success'] = 'L\'utente è stato aggiornato con succe
 $lang['users_delete_flash_msg_success'] = 'L\'utente è stato cancellato con successo';
 $lang['users_reset_flash_msg_success'] = 'La password è stata cambiata con successo';
 
-$lang['users_create_title'] = 'Crea un nuovo utente';
+$lang['users_create_title'] = 'Crea utente';
 $lang['users_create_field_firstname'] = 'Nome';
 $lang['users_create_field_lastname'] = 'Cognome';
 $lang['users_create_field_login'] = 'Nome utente';

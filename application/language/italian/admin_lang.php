@@ -6,7 +6,7 @@
  * @link            https://github.com/bbalet/jorani
  */
 
-$lang['admin_diagnostic_title'] = 'Diagnostica dati e configurazione';
+$lang['admin_diagnostic_title'] = 'Diagnostica';
 $lang['admin_diagnostic_description'] = 'Rilevamento dei problemi di configurazione e dei dati';
 $lang['admin_diagnostic_no_error'] = 'Nessun errore';
 

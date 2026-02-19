@@ -31,8 +31,7 @@ $overlappingLeaves_badge = ($overlappingLeaves_count == 0)?'':'<span class="badg
 
 ?>
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#daysoff"><?php echo $daysOffYears_badge . lang('admin_diagnostic_daysoff_tab');?></a></li>
-    <li><a data-toggle="tab" href="#requests"><?php echo $duplicatedLeaves_badge . lang('admin_diagnostic_requests_tab');?></a></li>
+    <li class = active><a data-toggle="tab" href="#requests"><?php echo $duplicatedLeaves_badge . lang('admin_diagnostic_requests_tab');?></a></li>
     <li><a data-toggle="tab" href="#datetypes"><?php echo $wrongDateType_badge . lang('admin_diagnostic_datetype_tab');?></a></li>
     <li><a data-toggle="tab" href="#entitlements"><?php echo $entitlmentOverflow_badge . lang('admin_diagnostic_entitlements_tab');?></a></li>
     <li><a data-toggle="tab" href="#overtime"><?php echo $negativeOvertime_badge . lang('admin_diagnostic_overtime_tab');?></a></li>
@@ -43,7 +42,7 @@ $overlappingLeaves_badge = ($overlappingLeaves_count == 0)?'':'<span class="badg
 
 <div class="tab-content">
 
-  <div class="tab-pane active" id="daysoff">
+  <div class="tab-pane" id="daysoff">
 
     <p><?php echo lang('admin_diagnostic_daysoff_description');?></p>
 
@@ -75,7 +74,7 @@ $overlappingLeaves_badge = ($overlappingLeaves_count == 0)?'':'<span class="badg
     </table>
   </div>
 
-  <div class="tab-pane" id="requests">
+  <div class="tab-pane active" id="requests">
 
         <p><?php echo lang('admin_diagnostic_requests_description');?></p>
 

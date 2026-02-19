@@ -7,9 +7,9 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['leavetypes_type_title'] = 'Tipologia ferie';
-$lang['leavetypes_type_description'] = 'La tipologia ferie #0 è una tipologia di sistema riservata alla gestione degli straordinari. Non dovresti usarla per altre richieste.';
-$lang['leavetypes_type_confirm_rename'] = 'La tipologia ferie #0 è una tipologia di sistema riservata alla gestione degli straordinari. Sei sicuro di volerla rinominare?';
+$lang['leavetypes_type_title'] = 'Elenco tipologie';
+$lang['leavetypes_type_description'] = '';
+$lang['leavetypes_type_confirm_rename'] = '';
 $lang['leavetypes_type_thead_id'] = 'ID';
 $lang['leavetypes_type_thead_acronym'] = 'Acronimo';
 $lang['leavetypes_type_thead_name'] = 'Nome';
