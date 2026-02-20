@@ -12,7 +12,6 @@ $this->lang->load('menu', $language);
 $show_admin_settings = ($this->config->item('menu_show_admin_settings') === TRUE);
 $show_admin_oauth_clients = ($this->config->item('menu_show_admin_oauth_clients') === TRUE);
 $show_validation_overtime = ($this->config->item('menu_show_validation_overtime') === TRUE);
-$show_requests_leaves_header = ($this->config->item('menu_show_requests_leaves_header') === TRUE);
 $show_requests_create_leave = ($this->config->item('menu_show_requests_create_leave') === TRUE);
 $show_requests_overtime = ($this->config->item('menu_show_requests_overtime') === TRUE);
 $show_calendar_workmates = ($this->config->item('menu_show_calendar_workmates') === TRUE);
@@ -121,7 +120,7 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
                     href="<?php echo base_url(); ?>requests/collaborators"><?php echo lang('menu_validation_collaborators'); ?></a>
                 </li>
                 <li><a
-                    href="<?php echo base_url(); ?>requests/balance"><?php echo lang('menu_hr_report_leave_balance'); ?></a>
+                    href="<?php echo base_url(); ?>requests/balance"><?php echo lang('menu_validation_balance'); ?></a>
                 </li>
                 <li class="divider"></li>
                 <li class="nav-header"><?php echo lang('menu_validation_title'); ?></li>
@@ -145,9 +144,7 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_requests_title'); ?> <b
                 class="caret"></b></a>
             <ul class="dropdown-menu">
-              <?php if ($show_requests_leaves_header) { ?>
-                <li class="nav-header"><?php echo lang('menu_requests_leaves'); ?></li>
-              <?php } ?>
+              <li class="nav-header"><?php echo lang('menu_requests_leaves'); ?></li>
               <li><a href="<?php echo base_url(); ?>leaves/counters"><?php echo lang('menu_leaves_counters'); ?></a>
               </li>
               <li><a href="<?php echo base_url(); ?>leaves"><?php echo lang('menu_leaves_list_requests'); ?></a></li>

@@ -485,10 +485,10 @@ $config['disable_department_calendar'] = FALSE; //Set this value to TRUE in orde
 $config['disable_workmates_calendar'] = FALSE; //Set this value to TRUE in order to disable the menu entry 'my workmates'
 $config['menu_show_admin_settings'] = FALSE; //Show Admin > Settings item
 $config['menu_show_admin_oauth_clients'] = FALSE; //Show Admin > OAuth clients item
-$config['menu_show_validation_overtime'] = FALSE; //Show Validation > Overtime item
+$config['menu_show_validation_overtime'] = TRUE; //Show Validation > Overtime item
 $config['menu_show_requests_leaves_header'] = FALSE; //Show Requests > Leaves header
 $config['menu_show_requests_create_leave'] = FALSE; //Show Requests > Create leave request item
-$config['menu_show_requests_overtime'] = FALSE; //Show Requests > Overtime section
+$config['menu_show_requests_overtime'] = TRUE; //Show Requests > Overtime section
 $config['menu_show_calendar_workmates'] = FALSE; //Show Calendar > Workmates item
 $config['menu_show_calendar_collaborators'] = FALSE; //Show Calendar > Collaborators item
 

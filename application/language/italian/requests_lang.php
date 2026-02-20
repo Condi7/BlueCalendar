@@ -79,8 +79,8 @@ $lang['requests_delegations_confirm_delete_message'] = 'Sei sicuro di voler revo
 $lang['requests_delegations_confirm_delete_cancel'] = 'Annulla';
 $lang['requests_delegations_confirm_delete_yes'] = 'Si';
 
-$lang['requests_balance_title'] = 'Saldo ferie (collaboratori)';
-$lang['requests_balance_description'] = 'Saldo ferie dei miei collaboratori diretti. Se non sei un manager, questo elenco sarà sempre vuoto.';
+$lang['requests_balance_title'] = 'Montante ore (collaboratori)';
+$lang['requests_balance_description'] = 'Montante ore dei miei collaboratori diretti. Se non sei un manager, questo elenco sarà sempre vuoto.';
 $lang['requests_balance_date_field'] = 'Data del report';
 
 $lang['requests_comment_reject_request_title'] = 'Commento';

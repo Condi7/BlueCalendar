@@ -34,12 +34,13 @@ $lang['menu_hr_list_positions'] = 'Elenco ruoli';
 $lang['menu_hr_leaves_type_divider'] = 'Ferie';
 $lang['menu_hr_list_leaves_type'] = 'Elenco tipologie';
 $lang['menu_hr_reports_divider'] = 'Report';
-$lang['menu_hr_report_leave_balance'] = 'Saldo ferie';
-$lang['menu_hr_report_leaves'] = 'Richieste di ferie';
+$lang['menu_hr_report_leave_balance'] = 'Montante ore aziendale';
+$lang['menu_hr_report_leaves'] = 'Riepilogo richieste';
 
 $lang['menu_validation_title'] = 'Validazione';
 $lang['menu_validation_delegations'] = 'Deleghe';
 $lang['menu_validation_collaborators'] = 'I miei collaboratori';
+$lang['menu_validation_balance'] = 'Montante ore collaboratori';
 $lang['menu_validation_leaves'] = 'Ferie';
 $lang['menu_validation_overtime'] = 'Straordinario';
 
@@ -49,7 +50,7 @@ $lang['menu_requests_overtime'] = 'Straordinario';
 $lang['menu_requests_list_extras'] = 'Elenco straordinari';
 $lang['menu_requests_request_extra'] = 'Richiedi straordinario';
 
-$lang['menu_leaves_counters'] = 'Saldo ferie';
+$lang['menu_leaves_counters'] = 'Montante ore personale';
 $lang['menu_leaves_list_requests'] = 'Le mie richieste';
 $lang['menu_leaves_create_request'] = 'Richiedi ferie';
 

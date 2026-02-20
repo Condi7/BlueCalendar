@@ -7,7 +7,7 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['Leave Management System'] = 'Gestire Richieste di Ferie';
+$lang['Leave Management System'] = 'Bluecalendar';
 $lang['global_link_tooltip_documentation'] = 'Documentazione';
 $lang['global_msg_error_forbidden'] = 'L\'operazione (%s) non è garantita';
 $lang['global_msg_wait'] = 'Attendere prego';

@@ -14,7 +14,7 @@ $lang['reports_execute_title'] = 'Resoconto';
 $lang['reports_execute_button_back_list'] = 'Torna all\'elenco dei report';
 $lang['reports_native_title'] = 'Elenco dei Report';
 
-$lang['reports_balance_title'] = 'Saldo ferie';
+$lang['reports_balance_title'] = 'Montante ore aziendale';
 $lang['reports_balance_date_field'] = 'Data del report';
 $lang['reports_balance_field_entity'] = 'Seleziona l\'entità';
 $lang['reports_balance_button_entity'] = 'Seleziona';
@@ -27,7 +27,7 @@ $lang['reports_balance_popup_entity_button_cancel'] = 'Annulla';
 
 $lang['reports_export_balance_title'] = 'Saldo ferie';
 
-$lang['reports_leaves_title'] = 'Richieste di ferie';
+$lang['reports_leaves_title'] = 'Riepilogo richieste';
 $lang['reports_leaves_month_field'] = 'Mese';
 $lang['reports_leaves_year_field'] = 'Anno';
 $lang['reports_leaves_field_entity'] = 'Seleziona l\'entità';
