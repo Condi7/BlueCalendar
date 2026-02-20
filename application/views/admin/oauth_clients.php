@@ -7,7 +7,7 @@
  */
 ?>
 
-        <h2><?php echo $title;?><?php echo $help;?></h2>
+        <h2><?php echo $title;?><?php /* echo $help; */ ?></h2>
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#clients"><?php echo lang('admin_oauthclients_tab_clients');?></a></li>

@@ -7,8 +7,8 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['requests_index_title'] = 'Richieste ferie ricevute';
-$lang['requests_index_description'] = 'Questa pagina elenca le richieste di ferie inviate a te. Se non sei un manager, questo elenco sarà sempre vuoto.';
+$lang['requests_index_title'] = 'Richieste di ferie ricevute';
+$lang['requests_index_description'] = 'Questa pagina elenca le richieste di ferie ricevute. Se non sei un manager, questo elenco sarà sempre vuoto.';
 $lang['requests_index_thead_tip_view'] = 'vedi';
 $lang['requests_index_thead_tip_accept'] = 'accetta';
 $lang['requests_index_thead_tip_reject'] = 'rifiuta';
@@ -42,14 +42,14 @@ $lang['requests_summary_thead_taken'] = 'Occupato';
 $lang['requests_summary_thead_entitled'] = 'Spettante';
 $lang['requests_summary_thead_description'] = 'Descrizione';
 $lang['requests_summary_flash_msg_error'] = 'Questo dipendente non ha un contratto';
-$lang['requests_summary_flash_msg_forbidden'] = 'Non sei il gestore di questo dipendente.';
+$lang['requests_summary_flash_msg_forbidden'] = 'Non sei il responsabile di questo dipendente.';
 $lang['requests_summary_button_list'] = 'Elenco dei collaboratori';
 
 $lang['requests_index_button_export'] = 'Esporta questo elenco';
 $lang['requests_index_button_show_all'] = 'Tutte le richieste';
 $lang['requests_index_button_show_pending'] = 'Richieste in sospeso';
 
-$lang['requests_accept_flash_msg_error'] = 'Non sei il gestore di questo dipendente. Non puoi accettare la sua richiesta di ferie.';
+$lang['requests_accept_flash_msg_error'] = 'Non sei il responsabile di questo dipendente. Non puoi accettare la sua richiesta di ferie.';
 $lang['requests_accept_flash_msg_success'] = 'La richiesta ferie è stata accettata con successo.';
 
 $lang['requests_reject_flash_msg_error'] = 'Non sei il responsabile di linea di questo dipendente. Non puoi rifiutare questa richiesta di ferie.';

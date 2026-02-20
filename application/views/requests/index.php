@@ -6,7 +6,7 @@
  * @link            https://github.com/bbalet/jorani
  */
 ?>
-<h2><?php echo lang('requests_index_title');?><?php echo $help;?></h2>
+<h2><?php echo lang('requests_index_title');?><?php /* echo $help; */ ?></h2>
 
 <?php echo $flash_partial_view;?>
 

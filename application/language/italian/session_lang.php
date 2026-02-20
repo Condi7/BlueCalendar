@@ -7,10 +7,10 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['session_login_title'] = 'Accesso';
+$lang['session_login_title'] = 'BlueCalendar';
 $lang['session_login_field_language'] = 'Lingua';
 $lang['session_login_field_login'] = 'Nome utente';
-$lang['session_login_field_password'] = 'Parola d\'ordine';
+$lang['session_login_field_password'] = 'Password';
 $lang['session_login_button_login'] = 'Accedi';
 $lang['session_login_button_forget_password'] = 'Inviami la password';
 $lang['session_login_msg_forget_password'] = 'Sei sicuro di voler reimpostare la password?';

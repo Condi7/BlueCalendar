@@ -10,7 +10,7 @@
 <div class="row-fluid">
     <div class="span12">
 
-<h2><?php echo lang('extra_create_title');?>&nbsp;<?php echo $help;?></h2>
+<h2><?php echo lang('extra_create_title');?>&nbsp;<?php /* echo $help; */ ?></h2>
 
 <?php echo validation_errors(); ?>
 
@@ -81,7 +81,7 @@ if ($language_code != 'en') { ?>
     //Disallow the use of negative symbols (through a whitelist of symbols)
     function keyAllowed(key) {
     var keys = [8, 9, 13, 16, 17, 18, 19, 20, 27, 46, 48, 49, 50,
-        51, 52, 53, 54, 55, 56, 57, 91, 92, 93
+        51, 52, 53, 54, 55, 56, 57, 91, 92, 93, 188, 190, 110
     ];
     if (key && keys.indexOf(key) === -1)
         return false;
@@ -123,7 +123,7 @@ if ($language_code != 'en') { ?>
         // Disable pasting of non-numbers
         durationField.addEventListener('paste', function(e) {
             var pasteData = e.clipboardData.getData('text/plain');
-            if (pasteData.match(/[^0-9]/))
+            if (pasteData.match(/[^0-9\.,]/))
             e.preventDefault();
         }, false);
 <?php }?>

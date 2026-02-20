@@ -10,7 +10,7 @@
 <div class="row-fluid">
     <div class="span12">
 
-        <h2><?php echo lang('leaves_summary_title');?><?php echo $help;?></h2>
+        <h2><?php echo lang('leaves_summary_title');?><?php /* echo $help; */ ?></h2>
 
         <p><?php echo lang('leaves_summary_date_field');?>&nbsp;
             <input type="text" id="refdate" />
@@ -43,22 +43,22 @@
                 <tr>
                 <td><?php echo $key; ?></td>
                 <td>
-                    <?php echo $estimated; ?>
+                    <?php echo formatLeaveDurationHours($estimated); ?>
                 </td>
                 <td>
-                    <?php echo $simulated; ?>
+                    <?php echo formatLeaveDurationHours($simulated); ?>
                 </td>
-                <td><?php echo ((float) $value[1]); ?></td>
-                <td><a href="<?php echo base_url();?>leaves?statuses=3|5&type=<?php echo $value[3]; ?>" target="_blank"><?php echo ((float) $value[0]); ?></a></td>
+                <td><?php echo formatLeaveDurationHours((float) $value[1]); ?></td>
+                <td><a href="<?php echo base_url();?>leaves?statuses=3|5&type=<?php echo $value[3]; ?>" target="_blank"><?php echo formatLeaveDurationHours((float) $value[0]); ?></a></td>
                 <?php if (empty($value[4])) { ?>
                 <td>&nbsp;</td>
                 <?php } else { ?>
-                <td><a href="<?php echo base_url();?>leaves?statuses=1&type=<?php echo $value[3]; ?>" target="_blank"><?php echo ((float) $value[4]); ?></a></td>
+                <td><a href="<?php echo base_url();?>leaves?statuses=1&type=<?php echo $value[3]; ?>" target="_blank"><?php echo formatLeaveDurationHours((float) $value[4]); ?></a></td>
                 <?php } ?>
                 <?php if (empty($value[5])) { ?>
                 <td>&nbsp;</td>
                 <?php } else { ?>
-                <td><a href="<?php echo base_url();?>leaves?statuses=2&type=<?php echo $value[3]; ?>" target="_blank"><?php echo ((float) $value[5]); ?></a></td>
+                <td><a href="<?php echo base_url();?>leaves?statuses=2&type=<?php echo $value[3]; ?>" target="_blank"><?php echo formatLeaveDurationHours((float) $value[5]); ?></a></td>
                 <?php } ?>
                 </tr>
             <?php }

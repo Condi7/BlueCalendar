@@ -7,7 +7,7 @@
  */
 ?>
 
-<h2><?php echo lang('leaves_create_title');?> &nbsp;<?php echo $help;?></h2>
+<h2><?php echo lang('leaves_create_title');?> &nbsp;<?php /* echo $help; */ ?></h2>
 
 <div class="row-fluid">
     <div class="span8">

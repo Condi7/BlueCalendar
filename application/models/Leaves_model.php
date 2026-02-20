@@ -339,10 +339,13 @@ class Leaves_model extends CI_Model {
     public function getSumEntitledDays($employee, $contract, $refDate) {
         $this->db->select('types.id as type_id, types.name as type_name');
         $this->db->select('SUM(entitleddays.days) as entitled');
+        $this->db->select('SUM(CASE WHEN entitleddays.overtime IS NULL THEN entitleddays.days ELSE 0 END) as entitled_non_overtime_days', FALSE);
+        $this->db->select('SUM(CASE WHEN entitleddays.overtime IS NOT NULL THEN overtime.duration ELSE 0 END) as overtime_hours', FALSE);
         $this->db->select('MIN(startdate) as min_date');
         $this->db->select('MAX(enddate) as max_date');
         $this->db->from('entitleddays');
         $this->db->join('types', 'types.id = entitleddays.type');
+        $this->db->join('overtime', 'overtime.id = entitleddays.overtime', 'left');
         $this->db->group_by('types.id');
         $this->db->where('entitleddays.startdate <= ', $refDate);
         $this->db->where('entitleddays.enddate >= ', $refDate);
@@ -410,7 +413,9 @@ class Leaves_model extends CI_Model {
                 }
                 //Report the number of available days
                 $summary[$entitlement['type_name']][3] = $entitlement['type_id'];
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
+                $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
+                $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
             
             //List all planned leaves in a third column
@@ -434,7 +439,9 @@ class Leaves_model extends CI_Model {
                     $summary[$planned['type']][2] = 'x'; //Planned
                 }
                 //Report the number of available days
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
+                $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
+                $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
 
             //List all requested leaves in a fourth column
@@ -458,7 +465,9 @@ class Leaves_model extends CI_Model {
                     $summary[$requested['type']][2] = 'x'; //requested
                 }
                 //Report the number of available days
-                $summary[$entitlement['type_name']][1] = (float) $entitlement['entitled'] * $dailyHours;
+                $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
+                $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
 
             //Remove all lines having taken and entitled set to set to 0
@@ -1430,19 +1439,65 @@ class Leaves_model extends CI_Model {
      * @return int total of leaves duration
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
+    private function getReportLeaveWeightInDays($leaveId, $employeeId, $defaultWeight) {
+        static $weightCache = array();
+
+        $cacheKey = $employeeId . '_' . $leaveId . '_' . $defaultWeight;
+        if (array_key_exists($cacheKey, $weightCache)) {
+            return $weightCache[$cacheKey];
+        }
+
+        $this->db->select('startdate, enddate, startdatetype, enddatetype, duration');
+        $leave = $this->db->get_where('leaves', array('id' => $leaveId))->row_array();
+        if (empty($leave)) {
+            $weightCache[$cacheKey] = $defaultWeight;
+            return $defaultWeight;
+        }
+
+        if ($leave['startdate'] !== $leave['enddate']) {
+            $weightCache[$cacheKey] = $defaultWeight;
+            return $defaultWeight;
+        }
+
+        $startType = (string) $leave['startdatetype'];
+        $endType = (string) $leave['enddatetype'];
+        $isCanonical = (
+            ($startType === '09:00' && $endType === '18:00') ||
+            ($startType === '09:00' && $endType === '13:00') ||
+            ($startType === '14:00' && $endType === '18:00')
+        );
+        if ($isCanonical) {
+            $weightCache[$cacheKey] = $defaultWeight;
+            return $defaultWeight;
+        }
+
+        $dailyHours = $this->getContractDailyHours($employeeId);
+        if ($dailyHours <= 0) {
+            $weightCache[$cacheKey] = $defaultWeight;
+            return $defaultWeight;
+        }
+
+        $computedWeight = ((float) $leave['duration']) / $dailyHours;
+        $weightCache[$cacheKey] = $computedWeight;
+        return $computedWeight;
+    }
+
     public function monthlyLeavesDuration($linear) {
         $total = 0;
         foreach ($linear->days as $day) {
           if (strstr($day->display, ';')) {
               $display = explode(";", $day->display);
-              if ($display[0] == '2') $total += 0.5;
-              if ($display[0] == '3') $total += 0.5;
-              if ($display[1] == '2') $total += 0.5;
-              if ($display[1] == '3') $total += 0.5;
+              $ids = explode(";", (string) $day->id);
+              $firstId = isset($ids[0]) ? (int) $ids[0] : 0;
+              $secondId = isset($ids[1]) ? (int) $ids[1] : $firstId;
+              if ($display[0] == '2') $total += $this->getReportLeaveWeightInDays($firstId, (int) $linear->id, 0.5);
+              if ($display[0] == '3') $total += $this->getReportLeaveWeightInDays($firstId, (int) $linear->id, 0.5);
+              if ($display[1] == '2') $total += $this->getReportLeaveWeightInDays($secondId, (int) $linear->id, 0.5);
+              if ($display[1] == '3') $total += $this->getReportLeaveWeightInDays($secondId, (int) $linear->id, 0.5);
           } else {
-              if ($day->display == 2) $total += 0.5;
-              if ($day->display == 3) $total += 0.5;
-              if ($day->display == 1) $total += 1;
+              if ($day->display == 2) $total += $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 0.5);
+              if ($day->display == 3) $total += $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 0.5);
+              if ($day->display == 1) $total += $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 1);
           }
         }
         return $total;
@@ -1461,14 +1516,38 @@ class Leaves_model extends CI_Model {
           if (strstr($day->display, ';')) {
               $display = explode(";", $day->display);
               $type = explode(";", $day->type);
-              if ($display[0] == '2') array_key_exists($type[0], $by_types) ? $by_types[$type[0]] += 0.5: $by_types[$type[0]] = 0.5;
-              if ($display[0] == '3') array_key_exists($type[0], $by_types) ? $by_types[$type[0]] += 0.5: $by_types[$type[0]] = 0.5;
-              if ($display[1] == '2') array_key_exists($type[1], $by_types) ? $by_types[$type[1]] += 0.5: $by_types[$type[1]] = 0.5;
-              if ($display[1] == '3') array_key_exists($type[1], $by_types) ? $by_types[$type[1]] += 0.5: $by_types[$type[1]] = 0.5;
+              $ids = explode(";", (string) $day->id);
+              $firstId = isset($ids[0]) ? (int) $ids[0] : 0;
+              $secondId = isset($ids[1]) ? (int) $ids[1] : $firstId;
+              if ($display[0] == '2') {
+                  $weight = $this->getReportLeaveWeightInDays($firstId, (int) $linear->id, 0.5);
+                  array_key_exists($type[0], $by_types) ? $by_types[$type[0]] += $weight : $by_types[$type[0]] = $weight;
+              }
+              if ($display[0] == '3') {
+                  $weight = $this->getReportLeaveWeightInDays($firstId, (int) $linear->id, 0.5);
+                  array_key_exists($type[0], $by_types) ? $by_types[$type[0]] += $weight : $by_types[$type[0]] = $weight;
+              }
+              if ($display[1] == '2') {
+                  $weight = $this->getReportLeaveWeightInDays($secondId, (int) $linear->id, 0.5);
+                  array_key_exists($type[1], $by_types) ? $by_types[$type[1]] += $weight : $by_types[$type[1]] = $weight;
+              }
+              if ($display[1] == '3') {
+                  $weight = $this->getReportLeaveWeightInDays($secondId, (int) $linear->id, 0.5);
+                  array_key_exists($type[1], $by_types) ? $by_types[$type[1]] += $weight : $by_types[$type[1]] = $weight;
+              }
           } else {
-              if ($day->display == 2) array_key_exists($day->type, $by_types) ? $by_types[$day->type] += 0.5: $by_types[$day->type] = 0.5;
-              if ($day->display == 3) array_key_exists($day->type, $by_types) ? $by_types[$day->type] += 0.5: $by_types[$day->type] = 0.5;
-              if ($day->display == 1) array_key_exists($day->type, $by_types) ? $by_types[$day->type] += 1: $by_types[$day->type] = 1;
+              if ($day->display == 2) {
+                  $weight = $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 0.5);
+                  array_key_exists($day->type, $by_types) ? $by_types[$day->type] += $weight : $by_types[$day->type] = $weight;
+              }
+              if ($day->display == 3) {
+                  $weight = $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 0.5);
+                  array_key_exists($day->type, $by_types) ? $by_types[$day->type] += $weight : $by_types[$day->type] = $weight;
+              }
+              if ($day->display == 1) {
+                  $weight = $this->getReportLeaveWeightInDays((int) $day->id, (int) $linear->id, 1);
+                  array_key_exists($day->type, $by_types) ? $by_types[$day->type] += $weight : $by_types[$day->type] = $weight;
+              }
           }
         }
         return $by_types;

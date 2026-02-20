@@ -56,7 +56,7 @@
   <div class="span6 form-box">
     <div class="row-fluid">
       <div class="span6">
-        <h2><?php echo lang('session_login_title'); ?><?php echo $help; ?></h2>
+        <h2><?php echo lang('session_login_title'); ?><?php /* echo $help; */ ?></h2>
 
         <?php echo $flash_partial_view; ?>
 
@@ -68,7 +68,7 @@
         $languages = $this->polyglot->nativelanguages($this->config->item('languages')); ?>
 
         <input type="hidden" name="last_page" value="session/login" />
-        <?php if (count($languages) == 1) { ?>
+        <?php  if (count($languages) == 1) { ?>
           <input type="hidden" name="language" value="<?php echo $language_code; ?>" />
         <?php } else { ?>
           <label for="language"><?php echo lang('session_login_field_language'); ?></label>
@@ -104,10 +104,11 @@
           <?php } ?>
         <?php } ?>
         <br /><br />
-        <?php if (($this->config->item('ldap_enabled') == FALSE) && (ENVIRONMENT != 'demo')) { ?>
+        <?php /* COMMENTATO BOTTONE LOGIN
+        if (($this->config->item('ldap_enabled') == FALSE) && (ENVIRONMENT != 'demo')) { ?>
           <button id="cmdForgetPassword" class="btn btn-danger"><i
               class="mdi mdi-email"></i>&nbsp;<?php echo lang('session_login_button_forget_password'); ?></button>
-        <?php } ?>
+        <?php } */ ?>
 
         <textarea id="pubkey" style="visibility:hidden;"><?php echo $public_key; ?></textarea>
       </div>

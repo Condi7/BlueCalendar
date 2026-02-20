@@ -104,11 +104,6 @@ class Reports extends CI_Controller {
             $result[$user->id]['identifier'] = $user->identifier;
             $result[$user->id]['firstname'] = $user->firstname;
             $result[$user->id]['lastname'] = $user->lastname;
-            $date = new DateTime($user->datehired);
-            $result[$user->id]['datehired'] = $date->format(lang('global_date_format'));
-            $result[$user->id]['department'] = $user->department;
-            $result[$user->id]['position'] = $user->position;
-            $result[$user->id]['contract'] = $user->contract;
             //Init type columns
             foreach ($types as $type) {
                 $result[$user->id][$type['name']] = '';
@@ -118,7 +113,7 @@ class Reports extends CI_Controller {
             if (!is_null($summary)) {
               if (count($summary) > 0 ) {
                   foreach ($summary as $key => $value) {
-                      $result[$user->id][$key] = round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN);
+                                            $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
                   }
               }
             }
@@ -128,7 +123,7 @@ class Reports extends CI_Controller {
         $thead = '';
         $tbody = '';
         $line = 2;
-        $i18n = array("identifier", "firstname", "lastname", "datehired", "department", "position", "contract");
+        $i18n = array("identifier", "firstname", "lastname");
         foreach ($result as $row) {
             $index = 1;
             $tbody .= '<tr>';
@@ -234,6 +229,13 @@ class Reports extends CI_Controller {
         $this->load->model('types_model');
         $this->load->model('dayoffs_model');
         $types = $this->types_model->getTypes();
+        $overtimeTypeName = NULL;
+        foreach ($types as $type) {
+            if ((int) $type['id'] === 0) {
+                $overtimeTypeName = $type['name'];
+                break;
+            }
+        }
 
         //Iterate on all employees of the entity
         $users = $this->organization_model->allEmployees($entity, $children);
@@ -244,11 +246,6 @@ class Reports extends CI_Controller {
             $result[$user->id]['identifier'] = $user->identifier;
             $result[$user->id]['firstname'] = $user->firstname;
             $result[$user->id]['lastname'] = $user->lastname;
-            $date = new DateTime($user->datehired);
-            $result[$user->id]['datehired'] = $date->format(lang('global_date_format'));
-            $result[$user->id]['department'] = $user->department;
-            $result[$user->id]['position'] = $user->position;
-            $result[$user->id]['contract'] = $user->contract;
             $daily_hours = $this->leaves_model->getDailyHours($user->id, $user->contract_id);
             $non_working_days = $this->dayoffs_model->lengthDaysOffBetweenDates($user->contract_id, $start, $end);
             $opened_days = $total_days - $non_working_days;
@@ -259,12 +256,19 @@ class Reports extends CI_Controller {
                 $leave_duration = 0;
                 for ($ii = 1; $ii <13; $ii++) {
                     $linear = $this->leaves_model->linear($user->id, $ii, $year, FALSE, FALSE, TRUE, FALSE);
+                    $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
+                    $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
+                    if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
+                        $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
+                        if ($absenceDays < 0) {
+                            $absenceDays = 0;
+                        }
+                    }
                     $leave_duration += $this->leaves_model->convertDaysToHours(
-                        $this->leaves_model->monthlyLeavesDuration($linear),
+                        $absenceDays,
                         $user->id,
                         $user->contract_id
                     );
-                    $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
                     //Init type columns
                     foreach ($types as $type) {
                         if (array_key_exists($type['name'], $leaves_detail)) {
@@ -286,13 +290,20 @@ class Reports extends CI_Controller {
                 $work_duration = round($opened_hours - $leave_duration, 3);
             } else {
                 $linear = $this->leaves_model->linear($user->id, $month, $year, FALSE, FALSE, TRUE, FALSE);
+                $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
+                $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
+                if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
+                    $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
+                    if ($absenceDays < 0) {
+                        $absenceDays = 0;
+                    }
+                }
                 $leave_duration = $this->leaves_model->convertDaysToHours(
-                    $this->leaves_model->monthlyLeavesDuration($linear),
+                    $absenceDays,
                     $user->id,
                     $user->contract_id
                 );
                 $work_duration = round($opened_hours - $leave_duration, 3);
-                $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
                 if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
                 //Init type columns
                 foreach ($types as $type) {
@@ -320,7 +331,7 @@ class Reports extends CI_Controller {
         $thead = '';
         $tbody = '';
         $line = 2;
-        $i18n = array("identifier", "firstname", "lastname", "datehired", "department", "position", "contract");
+        $i18n = array("identifier", "firstname", "lastname");
         $hours_labels = array(
             'leave_duration' => lang('reports_leaves_col_leave_duration'),
             'work_duration' => lang('reports_leaves_col_work_duration')

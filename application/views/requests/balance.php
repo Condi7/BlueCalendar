@@ -10,7 +10,7 @@
 <div class="row-fluid">
     <div class="span12">
 
-        <h2><?php echo lang('requests_balance_title');?>  &nbsp;<?php echo $help;?></h2>
+        <h2><?php echo lang('requests_balance_title');?>  &nbsp;<?php /* echo $help; */ ?></h2>
 
         <p><?php echo lang('requests_balance_description');?></p>
 
@@ -22,8 +22,6 @@
                     <th><?php echo lang('identifier');?></th>
                     <th><?php echo lang('firstname');?></th>
                     <th><?php echo lang('lastname');?></th>
-                    <th><?php echo lang('datehired');?></th>
-                    <th><?php echo lang('position');?></th>
                 <?php foreach ($types as $type): ?>
                     <th><?php echo $type['name'];?></th>
                 <?php endforeach ?>

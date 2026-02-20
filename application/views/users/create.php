@@ -9,7 +9,7 @@
 
 <div class="row-fluid">
     <div class="span12">
-<h2><?php echo lang('users_create_title');?><?php echo $help;?></h2>
+<h2><?php echo lang('users_create_title');?><?php /* echo $help; */ ?></h2>
 
 <?php echo validation_errors(); ?>
     </div>
@@ -226,7 +226,7 @@ echo form_open('users/create', $attributes); ?>
             <div class="controls">
                 <?php
                 $tzdef = $this->config->item('default_timezone');
-                if ($tzdef == FALSE) $tzdef = 'Europe/Paris';
+                if ($tzdef == FALSE) $tzdef = 'Europe/Rome';
                 $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);?>
                 <select id="timezone" name="timezone" class="selectized input-xlarge">
                 <?php foreach ($tzlist as $tz) { ?>

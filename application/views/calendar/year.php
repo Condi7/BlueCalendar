@@ -53,7 +53,7 @@ $statusQuery = (isset($statusesFilter) && $statusesFilter !== '') ? '?statuses='
 .canceledcancellation { color: #fff; background: linear-gradient(135deg, #f89406 50%, #3a87ad 50%) !important; }
 </style>
 
-<h2><?php echo lang('calendar_year_title');?>&nbsp;<span class="muted">(<?php echo $employee_name;?>)</span>&nbsp;<?php echo $help;?></h2>
+<h2><?php echo lang('calendar_year_title');?>&nbsp;<span class="muted">(<?php echo $employee_name;?>)</span>&nbsp;<?php /* echo $help; */ ?></h2>
 
 <div class="row-fluid">
     <div class="span4">

@@ -193,9 +193,6 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
 
         <ul class="nav pull-right">
           <a href="<?php echo base_url(); ?>users/myprofile" class="brand"><?php echo $fullname; ?></a>
-          <li><a href="<?php echo base_url(); ?>users/myprofile"
-              title="<?php echo lang('menu_banner_tip_myprofile'); ?>"><i class="mdi mdi-account-box-outline"></i></a>
-          </li>
           <?php if ($this->config->item('ldap_enabled') === FALSE && $this->config->item('saml_enabled') === FALSE) { ?>
             <li><a href="#" id="cmdChangePassword" title="<?php echo lang('menu_banner_tip_reset'); ?>"><i
                   class="mdi mdi-lock"></i></a></li>

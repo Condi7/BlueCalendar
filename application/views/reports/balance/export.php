@@ -38,7 +38,7 @@ foreach ($users as $user) {
     if (!is_null($summary)) {
       if (count($summary) > 0 ) {
           foreach ($summary as $key => $value) {
-              $result[$user->id][$key] = round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN);
+              $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
           }
       }
     }

@@ -23,7 +23,7 @@ $lang['hr_employees_thead_lastname'] = 'Cognome';
 $lang['hr_employees_thead_email'] = 'E-mail';
 $lang['hr_employees_thead_entity'] = 'Entità';
 $lang['hr_employees_thead_contract'] = 'Contratto';
-$lang['hr_employees_thead_manager'] = 'Gestore';
+$lang['hr_employees_thead_manager'] = 'Responsabile';
 $lang['hr_employees_thead_identifier'] = 'identificatore';
 $lang['hr_employees_thead_datehired'] = 'Data assunzione';
 $lang['hr_employees_thead_position'] = 'Ruolo';
@@ -63,7 +63,7 @@ $lang['hr_export_employees_thead_lastname'] = 'Cognome';
 $lang['hr_export_employees_thead_email'] = 'E-mail';
 $lang['hr_export_employees_thead_entity'] = 'Entità';
 $lang['hr_export_employees_thead_contract'] = 'Contratto';
-$lang['hr_export_employees_thead_manager'] = 'Gestore';
+$lang['hr_export_employees_thead_manager'] = 'Responsabile';
 
 $lang['hr_leaves_title'] = 'Elenco ferie richieste';
 $lang['hr_leaves_html_title'] = 'Elenco ferie per il dipendente #';

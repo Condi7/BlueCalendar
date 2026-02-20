@@ -107,7 +107,7 @@ class Extra extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('date', lang('extra_create_field_date'), 'required|strip_tags');
-        $this->form_validation->set_rules('duration', lang('extra_create_field_duration'), 'required|strip_tags');
+        $this->form_validation->set_rules('duration', lang('extra_create_field_duration'), 'required|strip_tags|callback_durationMultipleOfHalfHour');
         $this->form_validation->set_rules('cause', lang('extra_create_field_cause'), 'required|strip_tags');
         $this->form_validation->set_rules('status', lang('extra_create_field_status'), 'required|strip_tags');
 
@@ -143,6 +143,28 @@ class Extra extends CI_Controller {
     }
 
     /**
+     * Validate that overtime duration is expressed in hours and is a multiple of 0.5.
+     * @param string $duration Overtime duration submitted by user
+     * @return bool
+     */
+    public function durationMultipleOfHalfHour($duration) {
+        $normalizedDuration = str_replace(',', '.', trim((string) $duration));
+        $this->form_validation->set_message('durationMultipleOfHalfHour', lang('extra_duration_multiple_half_hour_error'));
+
+        if (!is_numeric($normalizedDuration)) {
+            return FALSE;
+        }
+
+        $halfHours = ((float) $normalizedDuration) * 2;
+        if (abs($halfHours - round($halfHours)) > 0.00001) {
+            return FALSE;
+        }
+
+        $_POST['duration'] = $normalizedDuration;
+        return TRUE;
+    }
+
+    /**
      * Edit an overtime request
      * @param int $id identifier of the overtime request
      * @author Benjamin BALET <benjamin.balet@gmail.com>
@@ -169,7 +191,7 @@ class Extra extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('date', lang('extra_edit_field_date'), 'required|strip_tags');
-        $this->form_validation->set_rules('duration', lang('extra_edit_field_duration'), 'required|strip_tags');
+        $this->form_validation->set_rules('duration', lang('extra_edit_field_duration'), 'required|strip_tags|callback_durationMultipleOfHalfHour');
         $this->form_validation->set_rules('cause', lang('extra_edit_field_cause'), 'required|strip_tags');
         $this->form_validation->set_rules('status', lang('extra_edit_field_status'), 'required|strip_tags');
 

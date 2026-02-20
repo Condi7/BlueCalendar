@@ -104,6 +104,12 @@ class Overtime_model extends CI_Model {
 
         //Add entitlement
         $extra = $this->getExtras($id);
+        $this->load->model('leaves_model');
+        $dailyHours = $this->leaves_model->getDailyHours((int) $extra['employee']);
+        $durationInDays = (float) $extra['duration'];
+        if ($dailyHours > 0) {
+            $durationInDays = $durationInDays / $dailyHours;
+        }
 
         //Two cases:
         // - has contract: we take the start and end dates from the contract.
@@ -118,7 +124,7 @@ class Overtime_model extends CI_Model {
             'employee' => $extra['employee'],
             'startdate' => $startentdate,
             'enddate' => $endentdate,
-            'days' => $extra['duration'],
+            'days' => $durationInDays,
             'type' => 0,
             'overtime' => $id,
             'description' => 'Catch up ' . $extra['date']

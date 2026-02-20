@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `entitleddays` (
   `startdate` date DEFAULT NULL COMMENT 'Left boundary of the credit validity',
   `enddate` date DEFAULT NULL COMMENT 'Right boundary of the credit validity. Duration cannot exceed one year',
   `type` int(11) NOT NULL COMMENT 'Leave type',
-  `days` decimal(10,2) NOT NULL COMMENT 'Number of days (can be negative so as to deduct/adjust entitlement)',
+  `days` decimal(10,4) NOT NULL COMMENT 'Number of days (can be negative so as to deduct/adjust entitlement)',
   `description` text DEFAULT NULL COMMENT 'Description of a credit / debit (entitlement / adjustment)',
   PRIMARY KEY (`id`),
   KEY `contract` (`contract`),

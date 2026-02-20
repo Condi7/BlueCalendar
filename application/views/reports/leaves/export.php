@@ -38,6 +38,13 @@ if ($month == 0) {
 }
 
 $types = $this->types_model->getTypes();
+$overtimeTypeName = NULL;
+foreach ($types as $type) {
+    if ((int) $type['id'] === 0) {
+        $overtimeTypeName = $type['name'];
+        break;
+    }
+}
 $leave_requests = array();
 
 //Iterate on all employees of the entity
@@ -62,12 +69,19 @@ foreach ($users as $user) {
         $leave_duration = 0;
         for ($ii = 1; $ii <13; $ii++) {
             $linear = $this->leaves_model->linear($user->id, $ii, $year, FALSE, FALSE, TRUE, FALSE);
+            $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
+            $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
+            if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
+                $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
+                if ($absenceDays < 0) {
+                    $absenceDays = 0;
+                }
+            }
             $leave_duration += $this->leaves_model->convertDaysToHours(
-                $this->leaves_model->monthlyLeavesDuration($linear),
+                $absenceDays,
                 $user->id,
                 $user->contract_id
             );
-            $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
             //Init type columns
             foreach ($types as $type) {
                 if (array_key_exists($type['name'], $leaves_detail)) {
@@ -89,13 +103,20 @@ foreach ($users as $user) {
         $work_duration = round($opened_hours - $leave_duration, 3);
     } else {
         $linear = $this->leaves_model->linear($user->id, $month, $year, FALSE, FALSE, TRUE, FALSE);
+        $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
+        $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
+        if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
+            $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
+            if ($absenceDays < 0) {
+                $absenceDays = 0;
+            }
+        }
         $leave_duration = $this->leaves_model->convertDaysToHours(
-            $this->leaves_model->monthlyLeavesDuration($linear),
+            $absenceDays,
             $user->id,
             $user->contract_id
         );
         $work_duration = round($opened_hours - $leave_duration, 3);
-        $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
         if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
         //Init type columns
         foreach ($types as $type) {
