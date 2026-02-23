@@ -461,7 +461,7 @@ $config['disallow_requests_without_credit'] = TRUE;
 //____________________________________________________________________________
 //List of available languages. If you limit this list to one language, the list of available languages will be hidden from the login form
 //Beware that regional variant is case sensitivie (e.g. "en-GB" and not "en-gb")
-$config['languages'] = 'it,en,de,es,fr,pt';
+$config['languages'] = 'it';
 
 //If you want to use another font for a specific language, put the font into assets/fonts folder and map as in this example
 //Extra fonts are coming from Google noto font project: https://www.google.com/get/noto/
@@ -534,7 +534,7 @@ $config['saml_enabled'] = FALSE;
 //____________________________________________________________________________
 //Enable public ICS feeds (global calendar, contract, personal information)
 $config['ics_enabled'] = TRUE;
-$config['default_timezone'] = 'Europe/Paris';
+$config['default_timezone'] = 'Europe/Rome';
 $config['legacy_feeds'] = FALSE;    //Maintain the unsecure URLs for ICS feeds
 
 //____________________________________________________________________________

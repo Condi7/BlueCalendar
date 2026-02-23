@@ -204,7 +204,7 @@ if (isset($_GET['source'])) {
                         $tzdef = $users_item['timezone'];
                     } else {
                         $tzdef = $this->config->item('default_timezone');
-                        if ($tzdef == FALSE) $tzdef = 'Europe/Paris';
+                        if ($tzdef == FALSE) $tzdef = 'Europe/Rome';
                     }
                 $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);?>
 
