@@ -345,7 +345,7 @@ $(function () {
     });
 
     //Check if we are using the latest version
-    $.get( "https://jorani.org/version.php", function( data ) {
+    /* $.get( "https://jorani.org/version.php", function( data ) {
       comparison = versionCompare('<?php echo $GLOBALS['versionOfBlueCalendar'];?>', data);
       $("#checkVersionLoading").remove();
       if (comparison < 0) {
@@ -359,6 +359,7 @@ $(function () {
       }
     });
 });
+ */
 
 /**
  * Compares two software version numbers (e.g. "1.7.1" or "1.2b").

@@ -18,7 +18,7 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 //Excel Header
-$title = 'All Leave Requests';
+$title = 'Elenco completo richieste di ferie';
 $ci =& get_instance();
 $ci->lang->load('requests', $ci->language);
 $ci->lang->load('global', $ci->language);
