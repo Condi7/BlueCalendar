@@ -159,7 +159,6 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('position', lang('users_edit_field_position'), 'strip_tags');
         $this->form_validation->set_rules('datehired', lang('users_edit_field_hired'), 'strip_tags');
         $this->form_validation->set_rules('identifier', lang('users_edit_field_identifier'), 'strip_tags');
-        $this->form_validation->set_rules('language', lang('users_edit_field_language'), 'strip_tags');
         $this->form_validation->set_rules('timezone', lang('users_edit_field_timezone'), 'strip_tags');
         if ($this->config->item('ldap_basedn_db')) $this->form_validation->set_rules('ldap_path', lang('users_edit_field_ldap_path'), 'strip_tags');
 
@@ -277,6 +276,8 @@ class Users extends CI_Controller {
         $data['title'] = lang('users_create_title');
         $data['help'] = $this->help->create_help_link('global_link_doc_page_create_user');
 
+        $defaultLanguageCode = 'it';
+
         $this->load->model('roles_model');
         $data['roles'] = $this->roles_model->getRoles();
         $this->load->model('contracts_model');
@@ -295,7 +296,6 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('entity', lang('users_create_field_entity'), 'strip_tags');
         $this->form_validation->set_rules('datehired', lang('users_create_field_hired'), 'strip_tags');
         $this->form_validation->set_rules('identifier', lang('users_create_field_identifier'), 'strip_tags');
-        $this->form_validation->set_rules('language', lang('users_create_field_language'), 'strip_tags');
         $this->form_validation->set_rules('timezone', lang('users_create_field_timezone'), 'strip_tags');
         if ($this->config->item('ldap_basedn_db')) $this->form_validation->set_rules('ldap_path', lang('users_create_field_ldap_path'), 'strip_tags');
 
@@ -309,7 +309,7 @@ class Users extends CI_Controller {
 
             //Send an e-mail to the user so as to inform that its account has been created
             $this->load->library('email');
-            $usr_lang = $this->polyglot->code2language($this->input->post('language'));
+            $usr_lang = $this->polyglot->code2language($defaultLanguageCode);
             //We need to instance an different object as the languages of connected user may differ from the UI lang
             $lang_mail = new CI_Lang();
             $lang_mail->load('email', $usr_lang);
@@ -323,7 +323,7 @@ class Users extends CI_Controller {
                 'Login' => $this->input->post('login'),
                 'Password' => $password
             );
-            $message = $this->parser->parse('emails/' . $this->input->post('language') . '/new_user', $data, TRUE);
+            $message = $this->parser->parse('emails/' . $defaultLanguageCode . '/new_user', $data, TRUE);
             $this->email->set_encoding('quoted-printable');
 
             if ($this->config->item('from_mail') != FALSE && $this->config->item('from_name') != FALSE ) {

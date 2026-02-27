@@ -19,6 +19,7 @@
 $attributes = array('id' => 'target', 'class' => 'form-horizontal');
 echo form_open('users/create', $attributes); ?>
 
+    <input type="hidden" name="language" value="it" />
     <input type="hidden" name="CipheredValue" id="CipheredValue" />
 
 <div class="row">
@@ -205,19 +206,7 @@ echo form_open('users/create', $attributes); ?>
 
 <div class="row">
     <div class="span4">
-        <div class="control-group">
-            <label class="control-label" for="language"><?php echo lang('users_create_field_language');?></label>
-            <div class="controls">
-                <select name="language">
-                     <?php
-                     $languages = $this->polyglot->nativelanguages($this->config->item('languages'));
-                     $default_lang = $this->polyglot->language2code($this->config->item('language'));
-                     foreach ($languages as $code => $language): ?>
-                    <option value="<?php echo $code; ?>" <?php if ($code == $default_lang) echo "selected"; ?>><?php echo $language; ?></option>
-                    <?php endforeach ?>
-                </select>
-            </div>
-        </div>
+        &nbsp;
     </div>
 
     <div class="span4">

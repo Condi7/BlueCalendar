@@ -60,22 +60,6 @@
             <div class="span6"><?php echo $user['identifier'];?></div>
         </div>
 
-        <div class="row-fluid">
-            <div class="span6"><strong><?php echo lang('users_myprofile_field_language');?></strong></div>
-            <div class="span6">
-                <?php $languages = $this->polyglot->nativelanguages($this->config->item('languages'));?>
-                <input type="hidden" name="last_page" value="session/failure" />
-                <?php if (count($languages) == 1) { ?>
-                <input type="hidden" name="language" value="<?php echo $language_code; ?>" />
-                <?php } else { ?>
-                <select class="input-medium" name="language" id="language">
-                    <?php foreach ($languages as $lang_code => $lang_name) { ?>
-                    <option value="<?php echo $lang_code; ?>" <?php if ($language_code == $lang_code) echo 'selected'; ?>><?php echo $lang_name; ?></option>
-                    <?php }?>
-                </select>
-                <?php } ?>
-            </div>
-        </div>
     </div>
     <div class="span6">
         <h2>Apps</h2>
@@ -125,12 +109,5 @@ $(function() {
         setTimeout(function() {$('#tipCopied').tooltip('hide')}, 1000);
     });
 
-    //Refresh page language
-    $('#language').select2();
-    $('#language').on('select2:select', function (e) {
-      var value = e.params.data.id;
-      Cookies.set('language', value, { expires: 90, path: '/'});
-      window.location.href = '<?php echo base_url();?>session/language?language=' + value;
-    });
 });
 </script>

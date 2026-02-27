@@ -24,6 +24,7 @@ if (isset($_GET['source'])) {
 } ?>
 
     <input type="hidden" name="id" value="<?php echo $users_item['id']; ?>" />
+    <input type="hidden" name="language" value="it" />
 
 <div class="row">
     <div class="span4">
@@ -181,18 +182,7 @@ if (isset($_GET['source'])) {
 
 <div class="row">
     <div class="span4">
-        <div class="control-group">
-            <label class="control-label" for="language"><?php echo lang('users_edit_field_language');?></label>
-            <div class="controls">
-                <select name="language">
-                     <?php
-                     $languages = $this->polyglot->nativelanguages($this->config->item('languages'));
-                     foreach ($languages as $code => $language): ?>
-                    <option value="<?php echo $code; ?>" <?php if ($code == $users_item['language']) echo "selected"; ?>><?php echo $language; ?></option>
-                    <?php endforeach ?>
-                </select>
-            </div>
-        </div>
+        &nbsp;
     </div>
 
     <div class="span4">

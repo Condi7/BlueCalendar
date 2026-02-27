@@ -203,7 +203,7 @@ class Users_model extends CI_Model {
             'manager' => $this->input->post('manager'),
             'contract' => $this->input->post('contract'),
             'identifier' => $this->input->post('identifier'),
-            'language' => $this->input->post('language'),
+            'language' => 'it',
             'timezone' => $this->input->post('timezone'),
             'random_hash' => rtrim(strtr(base64_encode($this->getRandomBytes(24)), '+/', '-_'), '='),
         );
@@ -353,7 +353,7 @@ class Users_model extends CI_Model {
             'manager' => $manager,
             'contract' => $this->input->post('contract'),
             'identifier' => $this->input->post('identifier'),
-            'language' => $this->input->post('language'),
+            'language' => 'it',
             'timezone' => $this->input->post('timezone')
         );
         if ($this->input->post('entity') != NULL && $this->input->post('entity') != '') {

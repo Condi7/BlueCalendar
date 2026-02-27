@@ -64,24 +64,10 @@
 
         <?php
         $attributes = array('id' => 'loginFrom');
-        echo form_open('session/login', $attributes);
-        $languages = $this->polyglot->nativelanguages($this->config->item('languages')); ?>
+        echo form_open('session/login', $attributes); ?>
 
         <input type="hidden" name="last_page" value="session/login" />
-        <?php  if (count($languages) == 1) { ?>
-          <input type="hidden" name="language" value="<?php echo $language_code; ?>" />
-        <?php } else { ?>
-          <label for="language"><?php echo lang('session_login_field_language'); ?></label>
-          <select class="input-medium" name="language" id="language">
-            <?php foreach ($languages as $lang_code => $lang_name) { ?>
-              <option value="<?php echo $lang_code; ?>" <?php if ($language_code == $lang_code)
-                   echo 'selected'; ?>>
-                <?php echo $lang_name; ?>
-              </option>
-            <?php } ?>
-          </select>
-          <br />
-        <?php } ?>
+        <input type="hidden" name="language" value="it" />
         <label for="login"><?php echo lang('session_login_field_login'); ?></label>
         <input type="text" class="input-medium" name="login" id="login"
           value="<?php echo (ENVIRONMENT == 'demo') ? 'adminbc' : set_value('login'); ?>" required />
@@ -192,29 +178,6 @@
         }
       });
     <?php } ?>
-    //Memorize the last selected language with a cookie
-    if (Cookies.get('language') !== undefined) {
-      var IsLangAvailable = 0 != $('#language option[value=' + Cookies.get('language') + ']').length;
-      if (Cookies.get('language') != "<?php echo $language_code; ?>") {
-        //Test if the former selected language is into the list of available languages
-        if (IsLangAvailable) {
-          $('#language option[value="' + Cookies.get('language') + '"]').attr('selected', 'selected');
-          $('#loginFrom').prop('action', '<?php echo base_url(); ?>session/language');
-          $('#loginFrom').submit();
-        }
-      }
-    }
-
-    //Refresh page language
-    $('#language').select2({ width: '165px' });
-
-    $('#language').on('select2:select', function (e) {
-      var value = e.params.data.id;
-      Cookies.set('language', value, { expires: 90, path: '/' });
-      $('#loginFrom').prop('action', '<?php echo base_url(); ?>session/language');
-      $('#loginFrom').submit();
-    });
-
     $('#login').focus();
 
     $('#send').click(function () {

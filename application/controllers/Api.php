@@ -1245,7 +1245,7 @@ class Api extends CI_Controller {
                     $data['identifier'] = $this->input->post('identifier');
                 }
                 if (!empty($this->input->post('language'))) {
-                    $data['language'] = $this->input->post('language');
+                    $data['language'] = 'it';
                 }
                 if (!empty($this->input->post('timezone'))) {
                     $data['timezone'] = $this->input->post('timezone');
@@ -1353,7 +1353,7 @@ class Api extends CI_Controller {
             $position = $this->input->post('position');
             $datehired = $this->input->post('datehired');
             $identifier = $this->input->post('identifier');
-            $language = $this->input->post('language');
+            $language = 'it';
             $timezone = $this->input->post('timezone');
             $ldap_path = $this->input->post('ldap_path');
             $active = $this->input->post('active');
@@ -1364,9 +1364,6 @@ class Api extends CI_Controller {
             
             //Set default values
             $this->load->library('polyglot');
-            if (empty($language)) {
-                $language = $this->polyglot->language2code($this->config->item('language'));
-            }
             
             //Generate a random password if the field is empty
             if (empty($password)) {

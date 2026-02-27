@@ -49,6 +49,12 @@ class Pages extends CI_Controller {
         $data = getUserContext($this);
         $trans = array("-" => " ", "_" => " ", "." => " ");
         $data['title'] = ucfirst(strtr($page, $trans)); // Capitalize the first letter
+        if ($page === 'all-leave-requests') {
+            $data['title'] = 'Elenco completo richieste di ferie';
+        }
+        if ($page === 'excel-export-all-leave-requests') {
+            $data['title'] = 'Esportazione Excel elenco completo richieste di ferie';
+        }
         //The page containing export in their name are returning another MIMETYPE
         if (strpos($page, 'export') === FALSE) {//Don't include header and menu
             $this->load->view('templates/header', $data);

@@ -45,20 +45,8 @@
       <div class="span6">
         <h2><?php echo lang('session_login_title'); ?><?php echo $help; ?></h2>
 
-        <?php $languages = $this->polyglot->nativelanguages($this->config->item('languages')); ?>
         <input type="hidden" name="last_page" value="session/failure" />
-        <?php if (count($languages) == 1) { ?>
-          <input type="hidden" name="language" value="<?php echo $language_code; ?>" />
-        <?php } else { ?>
-          <label for="language"><?php echo lang('session_login_field_language'); ?></label>
-          <select class="input-medium" name="language" id="language">
-            <?php foreach ($languages as $lang_code => $lang_name) { ?>
-              <option value="<?php echo $lang_code; ?>" <?php if ($language_code == $lang_code)
-                   echo 'selected'; ?>>
-                <?php echo $lang_name; ?></option>
-            <?php } ?>
-          </select>
-        <?php } ?>
+        <input type="hidden" name="language" value="it" />
         <h4><?php echo $message; ?></h4>
         <br />
         <a href="<?php echo base_url(); ?>api/sso" class="btn btn-primary"><i
@@ -89,12 +77,5 @@
 
 <script type="text/javascript">
   $(function () {
-    //Refresh page language
-    $('#language').select2();
-    $('#language').on('select2:select', function (e) {
-      var value = e.params.data.id;
-      Cookies.set('language', value, { expires: 90, path: '/' });
-      window.location.href = '<?php echo base_url(); ?>session/language?language=' + value;
-    });
   });
 </script>

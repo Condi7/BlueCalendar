@@ -15,6 +15,8 @@ if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
  */
 class Connection extends CI_Controller {
 
+    private $defaultLanguageCode = 'it';
+
     /**
      * Default constructor
      * @author Benjamin BALET <benjamin.balet@gmail.com>
@@ -22,17 +24,8 @@ class Connection extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('polyglot');
-        if ($this->session->userdata('language') == NULL) {
-            $availableLanguages = explode(",", $this->config->item('languages'));
-            $languageCode = $this->polyglot->language2code($this->config->item('language'));
-            if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-                if (in_array($_SERVER['HTTP_ACCEPT_LANGUAGE'], $availableLanguages)) {
-                    $languageCode = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-                }
-            }
-            $this->session->set_userdata('language_code', $languageCode);
-            $this->session->set_userdata('language', $this->polyglot->code2language($languageCode));
-        }
+        $this->session->set_userdata('language_code', $this->defaultLanguageCode);
+        $this->session->set_userdata('language', $this->polyglot->code2language($this->defaultLanguageCode));
         $this->lang->load('session', $this->session->userdata('language'));
         $this->lang->load('global', $this->session->userdata('language'));
     }
@@ -102,9 +95,8 @@ class Connection extends CI_Controller {
             $this->load->view('templates/footer');
         } else {
             $this->load->model('users_model');
-            //Set language
-            $this->session->set_userdata('language_code', $this->input->post('language'));
-            $this->session->set_userdata('language', $this->polyglot->code2language($this->input->post('language')));
+            $this->session->set_userdata('language_code', $this->defaultLanguageCode);
+            $this->session->set_userdata('language', $this->polyglot->code2language($this->defaultLanguageCode));
             
             //Decipher the password value (RSA encoded -> base64 -> decode -> decrypt) and remove the salt!
             $password = '';
@@ -191,15 +183,8 @@ class Connection extends CI_Controller {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function language() {
-        $this->load->helper('form');
-
-        //Prevent transversal path attack and the selection of an unavailable language
-        $languages = explode(",", $this->config->item('languages'));
-        $language = $this->input->get_post('language', true);
-        if (in_array($language, $languages)) {
-            $this->session->set_userdata('language_code', $language);
-            $this->session->set_userdata('language', $this->polyglot->code2language($language));
-        }
+        $this->session->set_userdata('language_code', $this->defaultLanguageCode);
+        $this->session->set_userdata('language', $this->polyglot->code2language($this->defaultLanguageCode));
         if ($this->input->post('last_page') == FALSE) {
             $this->redirectToLastPage();
         } else {
