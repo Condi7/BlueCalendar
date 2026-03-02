@@ -56,11 +56,6 @@ echo form_open('leaves/create', $attributes) ?>
 
     <span style="margin-left: 2px;position: relative;top: -5px;" id="spnDayType"></span>
 
-    <div class="alert hide alert-error" id="lblCreditAlert" onclick="$('#lblCreditAlert').hide();">
-        <button type="button" class="close">&times;</button>
-        <?php echo lang('leaves_create_field_duration_message');?>
-    </div>
-
     <div class="alert hide alert-error" id="lblOverlappingAlert" onclick="$('#lblOverlappingAlert').hide();">
         <button type="button" class="close">&times;</button>
         <?php echo lang('leaves_create_field_overlapping_message');?>

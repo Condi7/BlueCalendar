@@ -57,7 +57,7 @@ class Calendar extends CI_Controller {
         $data['employee_id'] = $employee;
         $data['employee_name'] =  $user['firstname'] . ' ' . $user['lastname'];
         $statusesFilter = $this->input->get('statuses', TRUE);
-        $allowedStatuses = array('1', '2', '3', '4', '5', '6');
+        $allowedStatuses = array('1', '2', '3', '5');
         if ($statusesFilter === NULL || $statusesFilter === '') {
             $selectedStatuses = $allowedStatuses;
         } else {
@@ -66,9 +66,9 @@ class Calendar extends CI_Controller {
         $showPlanned = in_array('1', $selectedStatuses);
         $showRequested = in_array('2', $selectedStatuses);
         $showAccepted = in_array('3', $selectedStatuses);
-        $showRejected = in_array('4', $selectedStatuses);
+        $showRejected = FALSE;
         $showCancellation = in_array('5', $selectedStatuses);
-        $showCanceled = in_array('6', $selectedStatuses);
+        $showCanceled = FALSE;
         //Load the leaves for all the months of the selected year
         $this->load->model('leaves_model');
         $months = array(
