@@ -7,7 +7,7 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['extra_index_title'] = 'Le mie richieste di straordinario';
+$lang['extra_index_title'] = 'Elenco extra';
 $lang['extra_index_thead_tip_view'] = 'vedi';
 $lang['extra_index_thead_tip_edit'] = 'modifica';
 $lang['extra_index_thead_tip_delete'] = 'elimina';
@@ -24,13 +24,13 @@ $lang['extra_index_popup_delete_question'] = 'Vuoi proseguire?';
 $lang['extra_index_popup_delete_button_yes'] = 'Si';
 $lang['extra_index_popup_delete_button_no'] = 'No';
 
-$lang['extra_create_title'] = 'Invia una richiesta di straordinario';
+$lang['extra_create_title'] = 'Richiedi approvazione ore extra';
 $lang['extra_create_field_date'] = 'Data';
 $lang['extra_create_field_duration'] = 'Durata';
 $lang['extra_create_field_duration_description'] = 'In ore (solo multipli di 0.5, ad esempio 1, 1.5, 2).';
 $lang['extra_create_field_cause'] = 'Motivo (obbligatorio)';
 $lang['extra_create_field_status'] = 'Stato';
-$lang['extra_create_button_create'] = 'Richiedi straordinario';
+$lang['extra_create_button_create'] = 'Richiedi';
 $lang['extra_create_button_cancel'] = 'Annulla';
 $lang['extra_create_msg_success'] = 'La richiesta di straordinario è stata creata con successo';
 $lang['extra_create_msg_error'] = 'La richiesta di straordinario è stata creata o aggiornata con successo, ma non hai un manager.';

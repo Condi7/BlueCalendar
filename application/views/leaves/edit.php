@@ -35,22 +35,77 @@ if (isset($_GET['source'])) {
 
     <?php
     $startTimeValue = $leave['startdatetype'];
-    if ($startTimeValue == 'Morning') $startTimeValue = '09:00';
+    if ($startTimeValue == 'Morning') $startTimeValue = '08:30';
     if ($startTimeValue == 'Afternoon') $startTimeValue = '14:00';
     $endTimeValue = $leave['enddatetype'];
     if ($endTimeValue == 'Morning') $endTimeValue = '13:00';
     if ($endTimeValue == 'Afternoon') $endTimeValue = '18:00';
+    $timeSlots = array();
+    for ($minutes = 8 * 60 + 30; $minutes <= 18 * 60; $minutes += 15) {
+      $hours = floor($minutes / 60);
+      $mins = $minutes % 60;
+      $timeSlots[] = sprintf('%02d:%02d', $hours, $mins);
+    }
+    if (!in_array($startTimeValue, $timeSlots, TRUE)) $startTimeValue = '08:30';
+    if (!in_array($endTimeValue, $timeSlots, TRUE)) $endTimeValue = '18:00';
+    $isFullDay = set_value('full_day') == '1';
+    if (set_value('full_day') === '') {
+      $isFullDay = ($startTimeValue === '08:30' && $endTimeValue === '18:00');
+    }
+      $startParts = explode(':', $startTimeValue);
+      $endParts = explode(':', $endTimeValue);
+      $startHourValue = $startParts[0];
+      $startMinuteValue = $startParts[1];
+      $endHourValue = $endParts[0];
+      $endMinuteValue = $endParts[1];
+      $hourSlots = array();
+      for ($hour = 8; $hour <= 18; $hour++) {
+        $hourSlots[] = sprintf('%02d', $hour);
+      }
+      $minuteSlots = array('00', '15', '30', '45');
+      $includeBreak = set_value('include_break') == '1';
     ?>
+
+    <label for="full_day" class="checkbox">
+      <input type="checkbox" name="full_day" id="full_day" value="1" <?php if ($isFullDay) echo 'checked'; ?> />
+      Giornata intera
+    </label>
 
     <label for="viz_startdate"><?php echo lang('leaves_edit_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php $date = new DateTime($leave['startdate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="startdate" id="startdate" value="<?php echo $leave['startdate'];?>" />
-    <input type="time" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" /><br />
+      <input type="hidden" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" />
+    <div id="startTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+      <select id="start_hour" class="input-mini">
+        <?php foreach ($hourSlots as $hourSlot): ?>
+          <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $startHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>
+        <?php endforeach; ?>
+        </select>
+      :
+      <select id="start_minute" class="input-mini">
+        <?php foreach ($minuteSlots as $minuteSlot): ?>
+          <option value="<?php echo $minuteSlot; ?>" <?php if ($minuteSlot === $startMinuteValue) echo 'selected'; ?>><?php echo $minuteSlot; ?></option>
+        <?php endforeach; ?>
+        </select>
+    </div><br />
 
     <label for="viz_enddate"><?php echo lang('leaves_edit_field_end');?></label>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php $date = new DateTime($leave['enddate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="enddate" id="enddate" value="<?php echo $leave['enddate'];?>" />
-    <input type="time" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" /><br />
+      <input type="hidden" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" />
+    <div id="endTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+      <select id="end_hour" class="input-mini">
+        <?php foreach ($hourSlots as $hourSlot): ?>
+          <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $endHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>
+        <?php endforeach; ?>
+        </select>
+      :
+      <select id="end_minute" class="input-mini">
+        <?php foreach ($minuteSlots as $minuteSlot): ?>
+          <option value="<?php echo $minuteSlot; ?>" <?php if ($minuteSlot === $endMinuteValue) echo 'selected'; ?>><?php echo $minuteSlot; ?></option>
+        <?php endforeach; ?>
+        </select>
+    </div><br />
     <label for="duration"><?php echo lang('leaves_edit_field_duration');?> <span id="tooltipDayOff"></span></label>
 
     <?php if ($this->config->item('disable_edit_leave_duration') == TRUE) { ?>
@@ -58,6 +113,13 @@ if (isset($_GET['source'])) {
     <?php } else { ?>
     <input type="text" name="duration" id="duration" value="<?php echo $leave['duration']; ?>" />
     <?php } ?>
+
+    <div id="includeBreakWrapper" style="margin-top:8px;<?php if ($isFullDay) echo 'display:none;'; ?>">
+      <label for="include_break" class="checkbox" style="margin-bottom:0;">
+        <input type="checkbox" name="include_break" id="include_break" value="1" <?php if ($includeBreak) echo 'checked'; ?> />
+        includi la pausa
+      </label>
+    </div>
 
     <span style="margin-left: 2px;position: relative;top: -5px;" id="spnDayType"></span>
 
@@ -283,4 +345,4 @@ $(function () {
 });
 
 </script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/lms/leave.edit-0.7.0.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/lms/leave.edit-0.7.0.js?v=20260309_2" type="text/javascript"></script>

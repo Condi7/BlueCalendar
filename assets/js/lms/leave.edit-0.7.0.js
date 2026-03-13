@@ -5,21 +5,187 @@
  * @link            https://github.com/bbalet/jorani
  */
 
+function padTimePart(value) {
+    var normalized = String(value);
+    return normalized.length === 1 ? ('0' + normalized) : normalized;
+}
+
+function getTimeFromParts(prefix) {
+    var hourSelector = '#' + prefix + '_hour';
+    var minuteSelector = '#' + prefix + '_minute';
+    if ($(hourSelector).length && $(minuteSelector).length) {
+        return padTimePart($(hourSelector).val()) + ':' + padTimePart($(minuteSelector).val());
+    }
+    return $('#' + prefix + 'datetype').val();
+}
+
+function setTimeToParts(prefix, value) {
+    var parts = String(value).split(':');
+    if (parts.length !== 2) {
+        return;
+    }
+    var hour = padTimePart(parts[0]);
+    var minute = padTimePart(parts[1]);
+    var hourSelector = '#' + prefix + '_hour';
+    var minuteSelector = '#' + prefix + '_minute';
+    if ($(hourSelector).length && $(minuteSelector).length) {
+        $(hourSelector).val(hour);
+        $(minuteSelector).val(minute);
+    }
+    $('#' + prefix + 'datetype').val(hour + ':' + minute);
+}
+
+function syncHiddenTimeFields() {
+    if ($('#startdatetype').length) {
+        $('#startdatetype').val(getTimeFromParts('start'));
+    }
+    if ($('#enddatetype').length) {
+        $('#enddatetype').val(getTimeFromParts('end'));
+    }
+}
+
+function updateMinuteOptions(prefix) {
+    var hourSelector = '#' + prefix + '_hour';
+    var minuteSelector = '#' + prefix + '_minute';
+    if (!$(hourSelector).length || !$(minuteSelector).length) {
+        return;
+    }
+
+    var selectedHour = padTimePart($(hourSelector).val());
+    var selectedMinute = padTimePart($(minuteSelector).val());
+    var fallbackMinute = '00';
+
+    $(minuteSelector).find('option').prop('disabled', false);
+    if (selectedHour === '08') {
+        $(minuteSelector).find('option[value="00"]').prop('disabled', true);
+        $(minuteSelector).find('option[value="15"]').prop('disabled', true);
+        fallbackMinute = '30';
+    }
+    if (selectedHour === '18') {
+        $(minuteSelector).find('option[value="15"]').prop('disabled', true);
+        $(minuteSelector).find('option[value="30"]').prop('disabled', true);
+        $(minuteSelector).find('option[value="45"]').prop('disabled', true);
+        fallbackMinute = '00';
+    }
+
+    if ($(minuteSelector).find('option[value="' + selectedMinute + '"]').prop('disabled')) {
+        $(minuteSelector).val(fallbackMinute);
+    }
+}
+
 //Try to calculate the length of the leave
 function getLeaveLength(refreshInfos) {
     refreshInfos = typeof refreshInfos !== 'undefined' ? refreshInfos : true;
     var start = moment($('#startdate').val());
     var end = moment($('#enddate').val());
-    var startType = $('#startdatetype option:selected').val();
-    var endType = $('#enddatetype option:selected').val();
+    var startType = getTimeFromParts('start');
+    var endType = getTimeFromParts('end');
 
-    startType = $('#startdatetype').val();
-    endType = $('#enddatetype').val();
+    syncHiddenTimeFields();
 
     if (start.isValid() && end.isValid() && startType !== '' && endType !== '') {
-        $("#spnDayType").text(startType + " → " + endType);
+        $("#spnDayType").text('');
         if (refreshInfos) getLeaveInfos(false);
     }
+}
+
+function isQuarterMinute(value) {
+    var parts = value.split(':');
+    if (parts.length !== 2) {
+        return false;
+    }
+    return ['00', '15', '30', '45'].indexOf(parts[1]) !== -1;
+}
+
+function isInAllowedTimeRange(value) {
+    if (!/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(value)) {
+        return false;
+    }
+    if (!isQuarterMinute(value)) {
+        return false;
+    }
+    return value >= '08:30' && value <= '18:00';
+}
+
+function enforceTimeConstraints(selector, fallbackValue) {
+    var fieldName = selector === '#startdatetype' ? 'start' : 'end';
+    updateMinuteOptions(fieldName);
+    var value = getTimeFromParts(fieldName);
+    if (!isInAllowedTimeRange(value)) {
+        value = fallbackValue;
+    }
+    if (value < '08:30') {
+        value = '08:30';
+    }
+    if (value > '18:00') {
+        value = '18:00';
+    }
+    if (value.substring(0, 2) === '08' && value.substring(3, 5) < '30') {
+        value = '08:30';
+    }
+    if (value.substring(0, 2) === '18' && value.substring(3, 5) !== '00') {
+        value = '18:00';
+    }
+    setTimeToParts(fieldName, value);
+    syncHiddenTimeFields();
+}
+
+function bindStrictTimeInput(selector, fallbackValue) {
+    $(selector).on('input blur', function() {
+        enforceTimeConstraints(selector, fallbackValue);
+    });
+}
+
+function isIncludeBreakChecked() {
+    return $('#include_break').length && $('#include_break').is(':checked');
+}
+
+function isIncludeBreakEligible() {
+    var startType = getTimeFromParts('start');
+    var endType = getTimeFromParts('end');
+    if (!startType || !endType) {
+        return false;
+    }
+    var startInRange = (startType >= '08:30' && startType <= '13:00');
+    var endInRange = (endType >= '13:30' && endType <= '18:00');
+    return startInRange && endInRange;
+}
+
+function updateIncludeBreakAvailability() {
+    if (!$('#include_break').length) {
+        return;
+    }
+    var isFullDay = $('#full_day').length && $('#full_day').is(':checked');
+    var eligible = !isFullDay && isIncludeBreakEligible();
+    $('#include_break').prop('disabled', !eligible);
+    if (!eligible) {
+        $('#include_break').prop('checked', false);
+    }
+}
+
+function updateFullDayUI() {
+    if (!$('#full_day').length) {
+        return;
+    }
+    var isFullDay = $('#full_day').is(':checked');
+    if (isFullDay) {
+        $('#startTimeWrapper').hide();
+        $('#endTimeWrapper').hide();
+        $('#includeBreakWrapper').hide();
+        if ($('#include_break').length) {
+            $('#include_break').prop('checked', false);
+        }
+        setTimeToParts('start', '08:30');
+        setTimeToParts('end', '18:00');
+    } else {
+        $('#startTimeWrapper').show();
+        $('#endTimeWrapper').show();
+        $('#includeBreakWrapper').show();
+        enforceTimeConstraints('#startdatetype', '08:30');
+        enforceTimeConstraints('#enddatetype', '18:00');
+    }
+    syncHiddenTimeFields();
+    updateIncludeBreakAvailability();
 }
 
 //Get the leave credit, duration and detect overlapping cases (Ajax request)
@@ -35,8 +201,10 @@ function getLeaveInfos(preventDefault) {
                     type: $("#type option:selected").text(),
                     startdate: $('#startdate').val(),
                     enddate: $('#enddate').val(),
-                    startdatetype: $('#startdatetype').val(),
-                    enddatetype: $('#enddatetype').val(),
+                    startdatetype: getTimeFromParts('start'),
+                    enddatetype: getTimeFromParts('end'),
+                    full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
+                    include_break: isIncludeBreakChecked() ? '1' : '0',
                     leave_id: leaveId
                 }
         })
@@ -99,8 +267,10 @@ function refreshLeaveInfo() {
                     type: $("#type option:selected").text(),
                     startdate: $('#startdate').val(),
                     enddate: $('#enddate').val(),
-                    startdatetype: $('#startdatetype').val(),
-                    enddatetype: $('#enddatetype').val(),
+                    startdatetype: getTimeFromParts('start'),
+                    enddatetype: getTimeFromParts('end'),
+                    full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
+                    include_break: isIncludeBreakChecked() ? '1' : '0',
                     leave_id: leaveId
                 }
         })
@@ -157,8 +327,10 @@ function showListDayOffHTML(){
               type: $("#type option:selected").text(),
               startdate: $('#startdate').val(),
               enddate: $('#enddate').val(),
-              startdatetype: $('#startdatetype').val(),
-              enddatetype: $('#enddatetype').val(),
+              startdatetype: getTimeFromParts('start'),
+              enddatetype: getTimeFromParts('end'),
+              full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
+              include_break: isIncludeBreakChecked() ? '1' : '0',
               leave_id: leaveId
           }
   })
@@ -215,7 +387,17 @@ function showOverlappingDayOffMessage(leaveInfo) {
 }
 
 $(function () {
+    $('#spnDayType').hide().text('');
+    syncHiddenTimeFields();
+    updateMinuteOptions('start');
+    updateMinuteOptions('end');
     getLeaveLength(false);
+    updateFullDayUI();
+    enforceTimeConstraints('#startdatetype', '08:30');
+    enforceTimeConstraints('#enddatetype', '18:00');
+    updateIncludeBreakAvailability();
+    bindStrictTimeInput('#startdatetype', '08:30');
+    bindStrictTimeInput('#enddatetype', '18:00');
 
     //Init the start and end date picker and link them (end>=date)
     $("#viz_startdate").datepicker({
@@ -250,14 +432,36 @@ $(function () {
 
     $('#viz_startdate').change(function() {getLeaveLength(true);});
     $('#viz_enddate').change(function() {getLeaveLength();});
-    $('#startdatetype').change(function() {getLeaveLength();});
-    $('#enddatetype').change(function() {getLeaveLength();});
+    $('#startdatetype, #start_hour, #start_minute').change(function() {
+        updateMinuteOptions('start');
+        enforceTimeConstraints('#startdatetype', '08:30');
+        updateIncludeBreakAvailability();
+        getLeaveLength();
+    });
+    $('#enddatetype, #end_hour, #end_minute').change(function() {
+        updateMinuteOptions('end');
+        enforceTimeConstraints('#enddatetype', '18:00');
+        updateIncludeBreakAvailability();
+        getLeaveLength();
+    });
+    $('#full_day').change(function() {
+        updateFullDayUI();
+        getLeaveLength();
+    });
+    $('#include_break').change(function() {
+        updateIncludeBreakAvailability();
+        getLeaveLength();
+    });
     $('#type').change(function() {getLeaveInfos(false);});
 
     //Check if the user has not exceed the number of entitled days
     $("#duration").keyup(function() {getLeaveInfos(true);});
 
     $("#frmLeaveForm").submit(function(e) {
+        enforceTimeConstraints('#startdatetype', '08:30');
+        enforceTimeConstraints('#enddatetype', '18:00');
+        updateFullDayUI();
+        syncHiddenTimeFields();
         if (validate_form()) {
             return true;
         } else {

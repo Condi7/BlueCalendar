@@ -13,6 +13,10 @@ if (!defined('BASEPATH')) { exit('No direct script access allowed'); }
  */
 class Leaves_model extends CI_Model {
 
+    const LEAVE_DAY_START = '08:30';
+    const LEAVE_DAY_END = '18:00';
+    const LEAVE_FULL_DAY_HOURS = 8;
+
     /**
      * Default constructor
      */
@@ -41,15 +45,24 @@ class Leaves_model extends CI_Model {
 
     private function normalizeLeaveTimeValue($value, $isStart = TRUE) {
         if ($value === 'Morning') {
-            return $isStart ? '09:00' : '13:00';
+            return $isStart ? self::LEAVE_DAY_START : '13:00';
         }
         if ($value === 'Afternoon') {
             return $isStart ? '14:00' : '18:00';
         }
         if (preg_match('/^([01][0-9]|2[0-3]):[0-5][0-9]$/', (string) $value)) {
+            $minutes = intval(substr($value, 0, 2)) * 60 + intval(substr($value, 3, 2));
+            $minMinutes = 8 * 60 + 30;
+            $maxMinutes = 18 * 60;
+            if ($minutes < $minMinutes || $minutes > $maxMinutes) {
+                return $isStart ? self::LEAVE_DAY_START : self::LEAVE_DAY_END;
+            }
+            if (($minutes % 15) !== 0) {
+                return $isStart ? self::LEAVE_DAY_START : self::LEAVE_DAY_END;
+            }
             return $value;
         }
-        return $isStart ? '09:00' : '18:00';
+        return $isStart ? self::LEAVE_DAY_START : self::LEAVE_DAY_END;
     }
 
     private function buildLeaveDateTime($date, $timeValue, $isStart = TRUE) {
@@ -64,33 +77,50 @@ class Leaves_model extends CI_Model {
         return max(0, $end - $start);
     }
 
-    private function calculateHoursBetween(DateTime $startDateTime, DateTime $endDateTime) {
+    private function calculateHoursBetween(DateTime $startDateTime, DateTime $endDateTime, $fullDay = FALSE) {
         $startTs = $startDateTime->getTimestamp();
         $endTs = $endDateTime->getTimestamp();
         if ($endTs <= $startTs) {
             return 0;
         }
 
-        $workedSeconds = 0;
+        $startDate = $startDateTime->format('Y-m-d');
+        $endDate = $endDateTime->format('Y-m-d');
 
-        $currentDate = clone $startDateTime;
-        $currentDate->setTime(0, 0, 0);
-        $endDate = clone $endDateTime;
-        $endDate->setTime(0, 0, 0);
-
-        while ($currentDate <= $endDate) {
-            $day = $currentDate->format('Y-m-d');
-            $morningStart = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 09:00:00')->getTimestamp();
-            $morningEnd = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 13:00:00')->getTimestamp();
-            $afternoonStart = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 14:00:00')->getTimestamp();
-            $afternoonEnd = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' 18:00:00')->getTimestamp();
-
-            $workedSeconds += $this->overlapSeconds($startTs, $endTs, $morningStart, $morningEnd);
-            $workedSeconds += $this->overlapSeconds($startTs, $endTs, $afternoonStart, $afternoonEnd);
-            $currentDate->modify('+1 day');
+        if ($fullDay) {
+            $daysCount = 0;
+            $currentDate = DateTime::createFromFormat('Y-m-d H:i:s', $startDate . ' 00:00:00');
+            $lastDate = DateTime::createFromFormat('Y-m-d H:i:s', $endDate . ' 00:00:00');
+            while ($currentDate <= $lastDate) {
+                $daysCount++;
+                $currentDate->modify('+1 day');
+            }
+            return round($daysCount * self::LEAVE_FULL_DAY_HOURS, 3);
         }
 
-        return round($workedSeconds / 3600, 3);
+        if ($startDate === $endDate) {
+            return round(($endTs - $startTs) / 3600, 3);
+        }
+
+        $businessEndTs = DateTime::createFromFormat('Y-m-d H:i:s', $startDate . ' ' . self::LEAVE_DAY_END . ':00')->getTimestamp();
+        $firstDayHours = max(0, ($businessEndTs - $startTs) / 3600);
+        if ($startDateTime->format('H:i') === self::LEAVE_DAY_START) {
+            $firstDayHours = self::LEAVE_FULL_DAY_HOURS;
+        }
+
+        $businessStartTs = DateTime::createFromFormat('Y-m-d H:i:s', $endDate . ' ' . self::LEAVE_DAY_START . ':00')->getTimestamp();
+        $lastDayHours = max(0, ($endTs - $businessStartTs) / 3600);
+        if ($endDateTime->format('H:i') === self::LEAVE_DAY_END) {
+            $lastDayHours = self::LEAVE_FULL_DAY_HOURS;
+        }
+
+        $firstDate = DateTime::createFromFormat('Y-m-d H:i:s', $startDate . ' 00:00:00');
+        $lastDate = DateTime::createFromFormat('Y-m-d H:i:s', $endDate . ' 00:00:00');
+        $dayDiff = (int) $firstDate->diff($lastDate)->days;
+        $middleDays = max(0, $dayDiff - 1);
+
+        $workedHours = $firstDayHours + $lastDayHours + ($middleDays * self::LEAVE_FULL_DAY_HOURS);
+        return round($workedHours, 3);
     }
 
     private function calculateDayOffOverlapHours(DateTime $startDateTime, DateTime $endDateTime, $dayOff) {
@@ -100,16 +130,16 @@ class Leaves_model extends CI_Model {
 
         switch ((int) $dayOff['type']) {
             case 1:
-                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 09:00:00');
-                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 18:00:00');
+                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' ' . self::LEAVE_DAY_START . ':00');
+                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' ' . self::LEAVE_DAY_END . ':00');
                 break;
             case 2:
-                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 09:00:00');
+                $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' ' . self::LEAVE_DAY_START . ':00');
                 $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 13:00:00');
                 break;
             case 3:
                 $offStart = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 14:00:00');
-                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' 18:00:00');
+                $offEnd = DateTime::createFromFormat('Y-m-d H:i:s', $dayOff['date'] . ' ' . self::LEAVE_DAY_END . ':00');
                 break;
             default:
                 return 0;
@@ -127,7 +157,7 @@ class Leaves_model extends CI_Model {
 
         $overlapStart = (new DateTime())->setTimestamp($overlapStartTs);
         $overlapEnd = (new DateTime())->setTimestamp($overlapEndTs);
-        return $this->calculateHoursBetween($overlapStart, $overlapEnd);
+        return $this->calculateHoursBetween($overlapStart, $overlapEnd, FALSE);
     }
 
     private function eventDateTimeString($date, $timeValue, $isStart = TRUE) {
@@ -272,13 +302,13 @@ class Leaves_model extends CI_Model {
      * @return float length of leave
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
-    public function length($employee, $start, $end, $startdatetype, $enddatetype) {
+    public function length($employee, $start, $end, $startdatetype, $enddatetype, $fullDay = FALSE) {
         $startDateTime = $this->buildLeaveDateTime($start, $startdatetype, TRUE);
         $endDateTime = $this->buildLeaveDateTime($end, $enddatetype, FALSE);
         if (is_null($startDateTime) || is_null($endDateTime)) {
             return 0;
         }
-        return $this->calculateHoursBetween($startDateTime, $endDateTime);
+        return $this->calculateHoursBetween($startDateTime, $endDateTime, $fullDay);
     }
 
     /**
@@ -295,14 +325,14 @@ class Leaves_model extends CI_Model {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function actualLengthAndDaysOff($employee, $startdate, $enddate,
-            $startdatetype, $enddatetype, $daysoff, $deductDayOff = FALSE) {
+            $startdatetype, $enddatetype, $daysoff, $deductDayOff = FALSE, $fullDay = FALSE) {
         $startDateTime = $this->buildLeaveDateTime($startdate, $startdatetype, TRUE);
         $endDateTime = $this->buildLeaveDateTime($enddate, $enddatetype, FALSE);
         if (is_null($startDateTime) || is_null($endDateTime)) {
             return array('length' => 0, 'daysoff' => 0, 'overlapping' => FALSE);
         }
 
-        $totalHours = $this->calculateHoursBetween($startDateTime, $endDateTime);
+        $totalHours = $this->calculateHoursBetween($startDateTime, $endDateTime, $fullDay);
         $dayOffHours = 0;
         $hasDayOffOverlap = FALSE;
 

@@ -31,28 +31,28 @@ $lang['menu_hr_list_employees'] = 'Elenco dipendenti';
 $lang['menu_hr_contracts_divider'] = 'Contratti';
 $lang['menu_hr_list_contracts'] = 'Elenco dei contratti';
 $lang['menu_hr_list_positions'] = 'Elenco ruoli';
-$lang['menu_hr_leaves_type_divider'] = 'Ferie';
+$lang['menu_hr_leaves_type_divider'] = 'Assenze';
 $lang['menu_hr_list_leaves_type'] = 'Elenco tipologie';
 $lang['menu_hr_reports_divider'] = 'Report';
-$lang['menu_hr_report_leave_balance'] = 'Montante ore aziendale';
-$lang['menu_hr_report_leaves'] = 'Riepilogo richieste';
+$lang['menu_hr_report_leave_balance'] = '𝈡 residue';
+$lang['menu_hr_report_leaves'] = '𝈡 richieste';
 
 $lang['menu_validation_title'] = 'Validazione';
 $lang['menu_validation_delegations'] = 'Deleghe';
 $lang['menu_validation_collaborators'] = 'I miei collaboratori';
 $lang['menu_validation_balance'] = 'Montante ore collaboratori';
-$lang['menu_validation_leaves'] = 'Ferie';
-$lang['menu_validation_overtime'] = 'Straordinario';
+$lang['menu_validation_leaves'] = 'Assenza';
+$lang['menu_validation_overtime'] = 'Ore extra';
 
 $lang['menu_requests_title'] = 'La mia area';
-$lang['menu_requests_leaves'] = 'Ferie';
-$lang['menu_requests_overtime'] = 'Straordinario';
-$lang['menu_requests_list_extras'] = 'Elenco straordinari';
-$lang['menu_requests_request_extra'] = 'Richiedi straordinario';
+$lang['menu_requests_leaves'] = 'Assenze';
+$lang['menu_requests_overtime'] = 'Ore extra';
+$lang['menu_requests_list_extras'] = 'Elenco extra';
+$lang['menu_requests_request_extra'] = 'Richiedi approvazione';
 
-$lang['menu_leaves_counters'] = 'Montante ore personale';
+$lang['menu_leaves_counters'] = 'Saldo ore';
 $lang['menu_leaves_list_requests'] = 'Le mie richieste';
-$lang['menu_leaves_create_request'] = 'Richiedi ferie';
+$lang['menu_leaves_create_request'] = 'Richiedi assenza';
 
 $lang['menu_calendar_title'] = 'Calendari';
 $lang['menu_calendar_year'] = 'Calendario personale';
@@ -60,5 +60,5 @@ $lang['menu_calendar_individual'] = 'Il mio calendario';
 $lang['menu_calendar_workmates'] = 'I miei colleghi';
 $lang['menu_calendar_collaborators'] = 'I miei collaboratori';
 $lang['menu_calendar_department'] = 'Reparto';
-$lang['menu_calendar_organization'] = 'Globale';
-$lang['menu_calendar_tabular'] = 'Calendario globale';
+$lang['menu_calendar_organization'] = 'Aziendale';
+$lang['menu_calendar_tabular'] = 'Calendario aziendale';

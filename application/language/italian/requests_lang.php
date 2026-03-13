@@ -7,8 +7,8 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['requests_index_title'] = 'Richieste di ferie ricevute';
-$lang['requests_index_description'] = 'Questa pagina elenca le richieste di ferie ricevute. Se non sei un manager, questo elenco sarà sempre vuoto.';
+$lang['requests_index_title'] = 'Richieste di assenza ricevute';
+$lang['requests_index_description'] = 'Questa pagina elenca le richieste di assenza ricevute. Se non sei un manager, questo elenco sarà sempre vuoto.';
 $lang['requests_index_thead_tip_view'] = 'vedi';
 $lang['requests_index_thead_tip_accept'] = 'accetta';
 $lang['requests_index_thead_tip_reject'] = 'rifiuta';

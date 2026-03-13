@@ -98,7 +98,7 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
                 </li>
                 <li><a href="<?php echo base_url(); ?>reports/leaves"><?php echo lang('menu_hr_report_leaves'); ?></a>
                 </li>
-                <li><a href="<?php echo base_url(); ?>all-leave-requests">Elenco completo richieste di ferie</a></li>
+                <li><a href="<?php echo base_url(); ?>all-leave-requests">Elenco richieste </a></li>
               </ul>
             </li>
           <?php } ?>
@@ -118,9 +118,6 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
                 </li>
                 <li><a
                     href="<?php echo base_url(); ?>requests/collaborators"><?php echo lang('menu_validation_collaborators'); ?></a>
-                </li>
-                <li><a
-                    href="<?php echo base_url(); ?>requests/balance"><?php echo lang('menu_validation_balance'); ?></a>
                 </li>
                 <li class="divider"></li>
                 <li class="nav-header"><?php echo lang('menu_validation_title'); ?></li>

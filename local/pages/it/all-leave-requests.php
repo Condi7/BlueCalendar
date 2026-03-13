@@ -8,7 +8,7 @@ $this->lang->load('requests', $this->language);
 $this->lang->load('global', $this->language);
 ?>
 
-<h2>Elenco completo richieste di ferie</h2>
+<h2>Elenco richieste </h2>
 
 <?php
 //$this is the instance of the current controller, so you can use it for direct access to the database

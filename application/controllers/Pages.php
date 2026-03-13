@@ -50,10 +50,10 @@ class Pages extends CI_Controller {
         $trans = array("-" => " ", "_" => " ", "." => " ");
         $data['title'] = ucfirst(strtr($page, $trans)); // Capitalize the first letter
         if ($page === 'all-leave-requests') {
-            $data['title'] = 'Elenco completo richieste di ferie';
+            $data['title'] = 'Elenco richieste';
         }
         if ($page === 'excel-export-all-leave-requests') {
-            $data['title'] = 'Esportazione Excel elenco completo richieste di ferie';
+            $data['title'] = 'Esportazione Excel elenco richieste';
         }
         //The page containing export in their name are returning another MIMETYPE
         if (strpos($page, 'export') === FALSE) {//Don't include header and menu

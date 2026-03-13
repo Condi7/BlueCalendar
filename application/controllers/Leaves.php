@@ -830,12 +830,14 @@ class Leaves extends CI_Controller {
         $enddate = preg_replace("([^0-9-])", "", $enddate);
         $startdatetype = $this->input->post('startdatetype', TRUE);
         if ($startdatetype == NULL || $startdatetype === '') {
-            $startdatetype = '09:00';
+            $startdatetype = '08:30';
         }
         $enddatetype = $this->input->post('enddatetype', TRUE);
         if ($enddatetype == NULL || $enddatetype === '') {
             $enddatetype = '18:00';
         }
+        $fullDay = filter_var($this->input->post('full_day', TRUE), FILTER_VALIDATE_BOOLEAN);
+        $includeBreak = filter_var($this->input->post('include_break', TRUE), FILTER_VALIDATE_BOOLEAN);
         $leave_id = intval($this->input->post('leave_id', TRUE));
         $leaveValidator = new stdClass;
         $deductDayOff = FALSE;
@@ -870,14 +872,18 @@ class Leaves extends CI_Controller {
             $this->load->model('dayoffs_model');
             $leaveValidator->listDaysOff = $this->dayoffs_model->listOfDaysOffBetweenDates($id, $startdate, $enddate);
             //Sum non-working days and overlapping with day off detection
-            $result = $this->leaves_model->actualLengthAndDaysOff($id, $startdate, $enddate, $startdatetype, $enddatetype, $leaveValidator->listDaysOff, $deductDayOff);
+            $result = $this->leaves_model->actualLengthAndDaysOff($id, $startdate, $enddate, $startdatetype, $enddatetype, $leaveValidator->listDaysOff, $deductDayOff, $fullDay);
             $leaveValidator->overlapDayOff = $result['overlapping'];
             $leaveValidator->lengthDaysOff = $result['daysoff'];
             $leaveValidator->length = $result['length'];
         }
         //If the user has no contract, simply compute a date difference between start and end dates
         if (isset($id) && isset($startdate) && isset($enddate)  && $hasContract===FALSE) {
-            $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype);
+            $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype, $fullDay);
+        }
+
+        if ($includeBreak && !$fullDay && isset($leaveValidator->length)) {
+            $leaveValidator->length = max(0, round(((float) $leaveValidator->length) - 1, 3));
         }
 
         //Repeat start and end dates of the leave request

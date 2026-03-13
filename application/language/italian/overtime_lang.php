@@ -7,8 +7,8 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['overtime_index_title'] = 'Richieste di straordinario ricevute';
-$lang['overtime_index_description'] = 'Questa pagina elenca le richieste di straordinario ricevute. Se non sei un manager, questo elenco sarà sempre vuoto.';
+$lang['overtime_index_title'] = 'Richieste di ore extra ricevute';
+$lang['overtime_index_description'] = 'Questa pagina elenca le richieste di ore extra ricevute. Se non sei un manager, questo elenco sarà sempre vuoto.';
 $lang['overtime_index_thead_tip_view'] = 'vedi';
 $lang['overtime_index_thead_tip_accept'] = 'accetta';
 $lang['overtime_index_thead_tip_reject'] = 'rifiuta';

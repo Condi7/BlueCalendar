@@ -7,15 +7,15 @@
  * @author       dario brignone <brignone@unitec.it>
  */
 
-$lang['leaves_summary_title'] = 'Montante ore personale';
+$lang['leaves_summary_title'] = 'Saldo ore';
 $lang['leaves_summary_title_overtime'] = 'Dettagli straordinario (aggiunto per compensare le ferie)';
 $lang['leaves_summary_key_overtime'] = 'Recupero ritardo per';
 $lang['leaves_summary_thead_type'] = 'Tipologia ferie';
 $lang['leaves_summary_thead_available'] = 'Disponibile';
-$lang['leaves_summary_thead_taken'] = 'Ore usufruite';
-$lang['leaves_summary_thead_entitled'] = 'Ore totali anno';
+$lang['leaves_summary_thead_taken'] = 'Godute';
+$lang['leaves_summary_thead_entitled'] = 'Maturate';
 $lang['leaves_summary_thead_description'] = 'Descrizione';
-$lang['leaves_summary_thead_actual'] = 'Attuale';
+$lang['leaves_summary_thead_actual'] = 'Residue';
 $lang['leaves_summary_thead_simulated'] = 'Potenziale';
 $lang['leaves_summary_tbody_empty'] = 'Nessun giorno spettante o preso per questo periodo. Sei pregato di contattare il tuo responsabile delle Risorse Umane / Manager';
 $lang['leaves_summary_flash_msg_error'] = 'Sembra che tu non abbia un contratto. Sei pregato di contattare il tuo responsabile delle Risorse Umane / Manager';
