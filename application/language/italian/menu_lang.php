@@ -34,8 +34,8 @@ $lang['menu_hr_list_positions'] = 'Elenco ruoli';
 $lang['menu_hr_leaves_type_divider'] = 'Assenze';
 $lang['menu_hr_list_leaves_type'] = 'Elenco tipologie';
 $lang['menu_hr_reports_divider'] = 'Report';
-$lang['menu_hr_report_leave_balance'] = '𝈡 residue';
-$lang['menu_hr_report_leaves'] = '𝈡 richieste';
+$lang['menu_hr_report_leave_balance'] = 'Σ residue';
+$lang['menu_hr_report_leaves'] = 'Σ richieste';
 
 $lang['menu_validation_title'] = 'Validazione';
 $lang['menu_validation_delegations'] = 'Deleghe';

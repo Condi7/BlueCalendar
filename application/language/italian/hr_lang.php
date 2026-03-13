@@ -8,8 +8,8 @@
  */
 
 $lang['hr_employees_title'] = 'Elenco dipendenti';
-$lang['hr_employees_thead_tip_edit'] = 'modifica utente';
-$lang['hr_employees_thead_tip_entitlment'] = 'giorni spettanti';
+$lang['hr_employees_thead_tip_edit'] = 'Modifica utente';
+$lang['hr_employees_thead_tip_entitlment'] = 'Giorni spettanti';
 $lang['hr_employees_thead_link_leaves'] = 'Ferie';
 $lang['hr_employees_thead_link_extra'] = 'Extra';
 $lang['hr_employees_thead_link_balance'] = 'Saldo ferie';

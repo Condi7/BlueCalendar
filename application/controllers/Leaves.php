@@ -808,6 +808,34 @@ class Leaves extends CI_Controller {
         echo $this->leaves_model->department($department->id, $start, $end);
     }
 
+    private function leaveIncludesLunchBreak($startdate, $enddate, $startdatetype, $enddatetype) {
+        $start = DateTime::createFromFormat('Y-m-d H:i', $startdate . ' ' . $startdatetype);
+        $end = DateTime::createFromFormat('Y-m-d H:i', $enddate . ' ' . $enddatetype);
+        if ($start === FALSE || $end === FALSE) {
+            return FALSE;
+        }
+        if ($end <= $start) {
+            return FALSE;
+        }
+        $dayCursor = clone $start;
+        $dayCursor->setTime(0, 0, 0);
+        $lastDay = clone $end;
+        $lastDay->setTime(0, 0, 0);
+
+        while ($dayCursor <= $lastDay) {
+            $day = $dayCursor->format('Y-m-d');
+            $lunchStart = DateTime::createFromFormat('Y-m-d H:i', $day . ' 13:00');
+            $lunchEnd = DateTime::createFromFormat('Y-m-d H:i', $day . ' 14:00');
+            if ($lunchStart !== FALSE && $lunchEnd !== FALSE) {
+                if (($start < $lunchEnd) && ($end > $lunchStart)) {
+                    return TRUE;
+                }
+            }
+            $dayCursor->modify('+1 day');
+        }
+        return FALSE;
+    }
+
     /**
      * Ajax endpoint. Result varies according to input :
      *  - difference between the entitled and the taken days
@@ -830,14 +858,13 @@ class Leaves extends CI_Controller {
         $enddate = preg_replace("([^0-9-])", "", $enddate);
         $startdatetype = $this->input->post('startdatetype', TRUE);
         if ($startdatetype == NULL || $startdatetype === '') {
-            $startdatetype = '08:30';
+            $startdatetype = '09:00';
         }
         $enddatetype = $this->input->post('enddatetype', TRUE);
         if ($enddatetype == NULL || $enddatetype === '') {
             $enddatetype = '18:00';
         }
         $fullDay = filter_var($this->input->post('full_day', TRUE), FILTER_VALIDATE_BOOLEAN);
-        $includeBreak = filter_var($this->input->post('include_break', TRUE), FILTER_VALIDATE_BOOLEAN);
         $leave_id = intval($this->input->post('leave_id', TRUE));
         $leaveValidator = new stdClass;
         $deductDayOff = FALSE;
@@ -882,7 +909,8 @@ class Leaves extends CI_Controller {
             $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype, $fullDay);
         }
 
-        if ($includeBreak && !$fullDay && isset($leaveValidator->length)) {
+        if (isset($leaveValidator->length) &&
+            $this->leaveIncludesLunchBreak($startdate, $enddate, $startdatetype, $enddatetype)) {
             $leaveValidator->length = max(0, round(((float) $leaveValidator->length) - 1, 3));
         }
 

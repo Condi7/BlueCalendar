@@ -13,7 +13,7 @@
     <div class="span4">
         <label for="refdate"><?php echo lang('reports_balance_date_field');?></label>
         <div class="input-append">
-        <input type="text" name="refdate" id="refdate" />
+        <input type="text" name="refdate" id="refdate" value="<?php echo date(lang('global_date_format'), strtotime($refDate)); ?>" readonly />
         </div>
     </div>
     <div class="span4">
@@ -66,6 +66,7 @@ if ($language_code != 'en') { ?>
 var entity = -1; //Id of the selected entity
 var entityName = ''; //Label of the selected entity
 var includeChildren = true;
+var fixedRefDateUnix = <?php echo strtotime($refDate); ?>;
 
 function select_entity() {
     entity = $('#organization').jstree('get_selected')[0];
@@ -81,8 +82,11 @@ $(document).ready(function() {
 
     //Init datepicker widget
     moment.locale('<?php echo $language_code;?>');
-    $("#refdate").val(moment().format('L'));
-    $('#refdate').datepicker();
+    $('#refdate').datepicker({
+        dateFormat: '<?php echo lang('global_date_js_format');?>'
+    }, $.datepicker.regional['<?php echo $language_code;?>']);
+    $('#refdate').datepicker('setDate', moment.unix(fixedRefDateUnix).toDate());
+    $('#refdate').datepicker('disable');
 
     $("#frmSelectEntity").alert();
 
@@ -93,7 +97,7 @@ $(document).ready(function() {
 
     $('#cmdExportReport').click(function() {
         var rtpQuery = '<?php echo base_url();?>reports/balance/export';
-        var tmpUnix = moment($("#refdate").datepicker("getDate")).utc().unix();
+        var tmpUnix = fixedRefDateUnix;
         if (entity != -1) {
             rtpQuery += '?entity=' + entity;
         } else {
@@ -110,7 +114,7 @@ $(document).ready(function() {
 
     $('#cmdLaunchReport').click(function() {
         var ajaxQuery = '<?php echo base_url();?>reports/balance/execute';
-        var tmpUnix = moment($("#refdate").datepicker("getDate")).utc().unix();
+        var tmpUnix = fixedRefDateUnix;
         if (entity != -1) {
             ajaxQuery += '?entity=' + entity;
         } else {

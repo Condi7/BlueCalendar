@@ -141,16 +141,6 @@ class Reports extends CI_Controller {
             $line++;
         }
 
-        //Check if there is any diagnostic alert on balance (LR without entitlments)
-        $alerts = $this->leaves_model->detectBalanceProblems();
-        if (count($alerts)) {
-            $table = "<div class='alert'>" .
-                     "<button type='button' class='close' data-dismiss='alert'>&times;</button>" .
-                     "<a href='" . base_url() . "admin/diagnostic#balance'>" .
-                     "<i class='mdi mdi-alert'></i>" .
-                     "&nbsp;" . lang('Error') . "</a>" .
-                     "</div>";
-        }
         $table .= '<table class="table table-bordered table-hover">' .
                     '<thead>' .
                         '<tr>' .

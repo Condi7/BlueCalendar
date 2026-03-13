@@ -35,22 +35,22 @@ if (isset($_GET['source'])) {
 
     <?php
     $startTimeValue = $leave['startdatetype'];
-    if ($startTimeValue == 'Morning') $startTimeValue = '08:30';
+    if ($startTimeValue == 'Morning') $startTimeValue = '09:00';
     if ($startTimeValue == 'Afternoon') $startTimeValue = '14:00';
     $endTimeValue = $leave['enddatetype'];
     if ($endTimeValue == 'Morning') $endTimeValue = '13:00';
     if ($endTimeValue == 'Afternoon') $endTimeValue = '18:00';
     $timeSlots = array();
-    for ($minutes = 8 * 60 + 30; $minutes <= 18 * 60; $minutes += 15) {
+    for ($minutes = 9 * 60; $minutes <= 18 * 60; $minutes += 15) {
       $hours = floor($minutes / 60);
       $mins = $minutes % 60;
       $timeSlots[] = sprintf('%02d:%02d', $hours, $mins);
     }
-    if (!in_array($startTimeValue, $timeSlots, TRUE)) $startTimeValue = '08:30';
+    if (!in_array($startTimeValue, $timeSlots, TRUE)) $startTimeValue = '09:00';
     if (!in_array($endTimeValue, $timeSlots, TRUE)) $endTimeValue = '18:00';
     $isFullDay = set_value('full_day') == '1';
     if (set_value('full_day') === '') {
-      $isFullDay = ($startTimeValue === '08:30' && $endTimeValue === '18:00');
+      $isFullDay = ($startTimeValue === '09:00' && $endTimeValue === '18:00');
     }
       $startParts = explode(':', $startTimeValue);
       $endParts = explode(':', $endTimeValue);
@@ -59,11 +59,10 @@ if (isset($_GET['source'])) {
       $endHourValue = $endParts[0];
       $endMinuteValue = $endParts[1];
       $hourSlots = array();
-      for ($hour = 8; $hour <= 18; $hour++) {
+      for ($hour = 9; $hour <= 18; $hour++) {
         $hourSlots[] = sprintf('%02d', $hour);
       }
       $minuteSlots = array('00', '15', '30', '45');
-      $includeBreak = set_value('include_break') == '1';
     ?>
 
     <label for="full_day" class="checkbox">
@@ -106,20 +105,8 @@ if (isset($_GET['source'])) {
         <?php endforeach; ?>
         </select>
     </div><br />
-    <label for="duration"><?php echo lang('leaves_edit_field_duration');?> <span id="tooltipDayOff"></span></label>
-
-    <?php if ($this->config->item('disable_edit_leave_duration') == TRUE) { ?>
+    <label for="duration"><?php echo lang('leaves_edit_field_duration');?></label>
     <input type="text" name="duration" id="duration" value="<?php echo $leave['duration']; ?>" readonly />
-    <?php } else { ?>
-    <input type="text" name="duration" id="duration" value="<?php echo $leave['duration']; ?>" />
-    <?php } ?>
-
-    <div id="includeBreakWrapper" style="margin-top:8px;<?php if ($isFullDay) echo 'display:none;'; ?>">
-      <label for="include_break" class="checkbox" style="margin-bottom:0;">
-        <input type="checkbox" name="include_break" id="include_break" value="1" <?php if ($includeBreak) echo 'checked'; ?> />
-        includi la pausa
-      </label>
-    </div>
 
     <span style="margin-left: 2px;position: relative;top: -5px;" id="spnDayType"></span>
 
