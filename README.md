@@ -236,7 +236,7 @@ Possiamo scegliere un dipendente e delegarlo ad accettare richieste di ferie, pe
 Cliccando su HR possiamo selezionare due opzioni di report molto comode:
 <br/>
 <br/>
-
+**INCOLLARE QUI SCREENSHOT 174326**
 <br/>
 <br/>
 La prima, "Σ residue", una volta premuto il tasto "Avvia" mostra la lista di tutti i dipendenti (fare attenzione a selezionare l'entità corretta), e il relativo saldo ore per ciascuno di loro, diviso per categoria di ferie.
@@ -254,10 +254,10 @@ La seconda, "Σ richieste", funziona allo stesso modo, ma mostra le ore di ferie
 
 Gli admin (ed eventuali loro delegati) devono accettare le richieste di ferie/permessi/straordinari inviate dai dipendenti di cui sono responsabili.
 <br/>
-Per farlo, cliccare su Validazione (possiamo vedere il numero di richieste ricevute in arancione) e successivamente su "Ferie" (che comprende anche i permessi) o su "Straordinario"
+Per farlo, cliccare su Validazione (possiamo vedere il numero di richieste ricevute in arancione) e successivamente su "Assenza" (per le ferie e i permessi) o su "Ore extra" (per gli straordinari)
 <br/>
 <br/>
-<img width="1919" height="867" alt="Screenshot 2026-02-23 165413" src="https://github.com/user-attachments/assets/d4940d28-2f57-4430-9fb3-2d267dfec84a" />
+**INCOLLARE LO SCREENSHOT 175240**
 <br/>
 <br/>
 Una volta cliccata la sezione desiderata (nel caso della foto sottostante è "Ferie"), si ritroveranno di fronte a questa schermata:
