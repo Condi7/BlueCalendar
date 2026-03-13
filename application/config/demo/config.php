@@ -482,7 +482,7 @@ $config['disable_edit_leave_duration'] = FALSE;             //Switch to read-onl
 
 //____________________________________________________________________________
 //Set this value to TRUE if you want to create extras at status requested instead of planned
-$config['extra_status_requested'] = FALSE;
+$config['extra_status_requested'] = TRUE;
 
 //____________________________________________________________________________
 //Set this value to TRUE if you want to allow employees to edit or delete rejected leave requests, 2 use cases :

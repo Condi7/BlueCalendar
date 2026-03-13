@@ -38,20 +38,12 @@ if ($month == 0) {
 }
 
 $types = $this->types_model->getTypes();
-$overtimeTypeName = NULL;
-foreach ($types as $type) {
-    if ((int) $type['id'] === 0) {
-        $overtimeTypeName = $type['name'];
-        break;
-    }
-}
 $leave_requests = array();
 
 //Iterate on all employees of the entity
 $users = $this->organization_model->allEmployees($entity, $children);
 $result = array();
 foreach ($users as $user) {
-    $result[$user->id]['identifier'] = $user->identifier;
     $result[$user->id]['firstname'] = $user->firstname;
     $result[$user->id]['lastname'] = $user->lastname;
     $date = new DateTime($user->datehired);
@@ -71,12 +63,6 @@ foreach ($users as $user) {
             $linear = $this->leaves_model->linear($user->id, $ii, $year, FALSE, FALSE, TRUE, FALSE);
             $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
             $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
-            if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
-                $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
-                if ($absenceDays < 0) {
-                    $absenceDays = 0;
-                }
-            }
             $leave_duration += $this->leaves_model->convertDaysToHours(
                 $absenceDays,
                 $user->id,
@@ -100,23 +86,15 @@ foreach ($users as $user) {
             }
         }
         if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
-        $work_duration = round($opened_hours - $leave_duration, 3);
     } else {
         $linear = $this->leaves_model->linear($user->id, $month, $year, FALSE, FALSE, TRUE, FALSE);
         $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
         $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
-        if (!is_null($overtimeTypeName) && array_key_exists($overtimeTypeName, $leaves_detail)) {
-            $absenceDays -= (float) $leaves_detail[$overtimeTypeName];
-            if ($absenceDays < 0) {
-                $absenceDays = 0;
-            }
-        }
         $leave_duration = $this->leaves_model->convertDaysToHours(
             $absenceDays,
             $user->id,
             $user->contract_id
         );
-        $work_duration = round($opened_hours - $leave_duration, 3);
         if ($requests) $leave_requests[$user->id] = $this->leaves_model->getAcceptedLeavesBetweenDates($user->id, $start, $end);
         //Init type columns
         foreach ($types as $type) {
@@ -137,15 +115,13 @@ foreach ($users as $user) {
         }
     }
     $result[$user->id]['leave_duration'] = formatLeaveDurationHours($leave_duration);
-    $result[$user->id]['work_duration'] = formatLeaveDurationHours($work_duration);
 }
 
 $max = 0;
 $line = 2;
-$i18n = array("identifier", "firstname", "lastname", "datehired", "department", "position", "contract");
+$i18n = array("firstname", "lastname", "datehired", "department", "position", "contract");
 $hours_labels = array(
-    'leave_duration' => lang('reports_leaves_col_leave_duration'),
-    'work_duration' => lang('reports_leaves_col_work_duration')
+    'leave_duration' => lang('reports_leaves_col_leave_duration')
 );
 foreach ($result as $user_id => $row) {
     $index = 1;

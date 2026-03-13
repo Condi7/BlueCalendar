@@ -22,7 +22,6 @@ $summary = array();
 $types = $this->types_model->getTypes();
 $users = $this->organization_model->allEmployees($_GET['entity'], $include_children);
 foreach ($users as $user) {
-    $result[$user->id]['identifier'] = $user->identifier;
     $result[$user->id]['firstname'] = $user->firstname;
     $result[$user->id]['lastname'] = $user->lastname;
     $result[$user->id]['datehired'] = $user->datehired;
@@ -46,7 +45,7 @@ foreach ($users as $user) {
 
 $max = 0;
 $line = 2;
-$i18n = array("identifier", "firstname", "lastname", "datehired", "department", "position", "contract");
+$i18n = array("firstname", "lastname", "datehired", "department", "position", "contract");
 foreach ($result as $row) {
     $index = 1;
     foreach ($row as $key => $value) {
