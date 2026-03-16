@@ -79,7 +79,7 @@ Cliccare su Amministrazione e successivamente "Elenco tipologie"
 
 <img width="1919" height="867" alt="Screenshot 2026-02-16 170241" src="https://github.com/user-attachments/assets/e5168df3-c5dd-4665-b3d8-056156bbb0dd" />
 
-Cliccare sulla matita di fianco al nome delle ferie per modificarle con quelle desiderate, ad esempio: Ferie, Permesso, Maternità, 104, ecc.. (**ATTENZIONE! - Non sarà possibile modificare la tipologia di ferie con ID 0, in quanto è riservata per la gestione degli straordinari.**)
+Cliccare sulla matita di fianco al nome delle ferie per modificarle con quelle desiderate, ad esempio: Ferie, Permesso, Maternità, 104, ecc.. (**ATTENZIONE! - La tipologia di ferie con ID 0 è destinata alla gestione degli straordinari. Non sarà possibile cancellarla, nè destinarla ad un uso diverso dalla gestione degli straordinari, ma potrà essere rinominata**)
 
 # Creazione dei contratti, dei giorni spettanti di ferie e delle festività
 Cliccare su HR e successivamente "Elenco dei contratti"
@@ -260,7 +260,7 @@ Per farlo, cliccare su Validazione (possiamo vedere il numero di richieste ricev
 <img width="1919" height="871" alt="Screenshot 2026-03-13 175240" src="assets/images/Screenshot 2026-03-13 175240.png" />
 <br/>
 <br/>
-Una volta cliccata la sezione desiderata (nel caso della foto sottostante è "Ferie"), si ritroveranno di fronte a questa schermata:
+Una volta cliccata la sezione desiderata (nel caso della foto sottostante è "Assenza"), si ritroveranno di fronte a questa schermata:
 <br/>
 <br/>
 <img width="1919" height="869" alt="Screenshot 2026-02-23 165528" src="https://github.com/user-attachments/assets/9db6c467-2b10-4485-a84b-8721dbdc948d" />
