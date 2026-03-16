@@ -277,34 +277,34 @@ Da qui, coi quattro simbolini sulla sinistra evidenziati, potranno:
 # Le mie richieste e i miei straordinari
 
 - Cliccando su La mia area e successivamente "Le mie richieste" oppure sul simbolo dell'elenco alla destra della scritta "BlueCalendar", sarà possibile vedere le mie richieste di ferie.
-- Cliccando invece su La mia area e successivamente "Elenco straordinari", sarà possibile vedere la mia lista di straordinari (anche in attesa di approvazione).
+- Cliccando invece su La mia area e successivamente "Elenco extra", sarà possibile vedere la mia lista di straordinari (anche in attesa di approvazione).
 <br/>
 <br/>
-<img width="1919" height="869" alt="Screenshot 2026-02-23 170400" src="https://github.com/user-attachments/assets/6840c9d8-4838-4ddb-9a0b-7a4b53b0e2a0" />
+<img width="1919" height="869" alt="Screenshot 2026-03-16 101451" src="assets/images/Screenshot 2026-03-16 101451.png" />
 
 # Montante ore personale
 
-Cliccando su La mia area e successivamente su "Montante ore personale" accedo ad una schermata che mostra una tabella riassuntiva del mio saldo ore di ferie, ed inoltre mostra anche le ore di ferie usufruite, quelle pianificate e quelle richieste.
+Cliccando su La mia area e successivamente su "Saldo ore" accedo ad una schermata che mostra una tabella riassuntiva del mio saldo ore di ferie, ed inoltre mostra anche le ore di ferie residue, maturate, godute, pianificate e  richieste.
 
 # Calendari
 
 In BlueCalendar esistono due tipi di calendari, entambi accessibili cliccando su Calendari: 
 
 - Il calendario personale mostra un calendario annuale molto comodo per vedere le festività e le varie richieste di ferie e permessi (ma non straordinari).
-- Il calendario globale mostra un calendario mensile che indica i periodi di ferie/permesso (ma non gli straordinari) accettati o in attesa di approvazione/annullamento di tutti i dipendenti che fanno parte dell'entità selezionata
+- Il calendario aziendale mostra un calendario mensile che indica i periodi di ferie/permesso (ma non gli straordinari) accettati o in attesa di approvazione/annullamento di tutti i dipendenti che fanno parte dell'entità selezionata.
 
 # Richiesta straordinario
 
 **Premessa sul funzionamento dello straordinario:**
 <br/>
-Quando un dipendente effettua più ore delle 8 giornaliere, può fare richiesta di straordinario. Queste ore non verranno conteggiate nel totale delle ore lavorate mensili. Tuttavia, se la richiesta di straordinario viene accettata da un admin, il dipendente in questione avrà N ore usufruibili per la richiesta di ferie o permessi, andando a indicare come tipologia nella richiesta la tipologia "Straordinario".
+Quando un dipendente effettua più ore delle 8 giornaliere, può fare richiesta di straordinario. Queste ore non verranno conteggiate nel totale delle ore lavorate mensili. Tuttavia, se la richiesta di straordinario viene accettata da un admin, il dipendente in questione avrà N ore usufruibili per la richiesta di ferie o permessi, andando a indicare come tipologia nella richiesta la tipologia "Straordinario" (oppure Ore extra).
 
 **Come inviare una richiesta di straordinario**
 <br/>
-Cliccare su La mia area e successivamente "Richiedi straordinario"
+Cliccare su La mia area e successivamente "Richiedi approvazione"
 <br/>
 <br/>
-<img width="1919" height="868" alt="Screenshot 2026-02-23 172119" src="https://github.com/user-attachments/assets/26f9b145-9420-44f3-84da-2f5a797e0f31" />
+<img width="1919" height="868" alt="Screenshot 2026-03-16 102156" src="assets/images/Screenshot 2026-03-16 102156.png" />
 <br/>
 <br/>
 Compilare i campi richiesti, accertandosi che lo stato sia "Richiesta"
