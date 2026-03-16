@@ -1,5 +1,5 @@
 # BlueCalendar
-Un'applicazione PHP il cui scopo principale è la gestione delle ferie, dei permessi e degli straordinari.
+Un'applicazione PHP/JS il cui scopo principale è la gestione delle ferie, dei permessi e degli straordinari.
 
 # ISTRUZIONI PER L'INSTALLAZIONE E L'USO DI BLUECALENDAR
 
