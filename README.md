@@ -178,7 +178,7 @@ Se l'utente è admin, può modificare ogni utente, se l'utente è user può modi
 <br/>
 
 # Aggiungere delle ferie ad un utente (al di fuori di quelle spettanti da contratto)
-Possiamo anche assegnare dei giorni di ferie/permesso in più ad un singolo dipendente. Questo torna utile quando un dipendente ha maturato più ferie di quante ne 
+Possiamo anche assegnare dei giorni di ferie/permesso in più ad un singolo dipendente. Questo torna utile quando un dipendente ha maturato più ferie di quante gliene spettino da contratto 
 <br/>
 <br/>
 Cliccare su HR e successivamente "Elenco dipendenti"
@@ -231,21 +231,21 @@ Cliccando su Validazione e successivamente su "Deleghe"
 <br/>
 Possiamo scegliere un dipendente e delegarlo ad accettare richieste di ferie, permessi e straordinari al posto nostro.
 
-# Montante ore aziendale e riepilogo richieste
+# Σ residue e Σ richieste
 
 Cliccando su HR possiamo selezionare due opzioni di report molto comode:
 <br/>
 <br/>
-<img width="1919" height="871" alt="Screenshot 2026-02-23 161113" src="https://github.com/user-attachments/assets/c51439e3-98ae-4209-9097-fdf192e25ce3" />
+**INCOLLARE QUI SCREENSHOT 174326**
 <br/>
 <br/>
-La prima, "Montante ore aziendale", una volta premuto il tasto "Avvia" mostra la lista di tutti i dipendenti (fare attenzione a selezionare l'entità corretta), e il relativo saldo ore per ciascuno di loro, diviso per categoria di ferie.
+La prima, "Σ residue", una volta premuto il tasto "Avvia" mostra la lista di tutti i dipendenti (fare attenzione a selezionare l'entità corretta), e il relativo saldo ore per ciascuno di loro, diviso per categoria di ferie.
 <br/>
 <br/>
 <img width="1919" height="871" alt="Screenshot 2026-02-23 163556" src="https://github.com/user-attachments/assets/e23bb03e-d744-439e-b101-4802e2aba392" />
 <br/>
 <br/>
-La seconda, "Riepilogo richieste", funziona allo stesso modo, ma mostra le ore di ferie sfruttate da ogni dipendente, divise per categoria di ferie, nel corso del mese selezionato in alto a sinistra. Inoltre, questa tabella mostra anche le ore di assenza totali e le ore lavorate totali del mese (ricordiamo che per quest'ultima colonna è necessario inserire le festività in tutti i contratti in uso).
+La seconda, "Σ richieste", funziona allo stesso modo, ma mostra le ore di ferie sfruttate da ogni dipendente, divise per categoria di ferie, nel corso del mese selezionato in alto a sinistra. Inoltre, questa tabella mostra anche le ore di assenza totali (ricordiamo che per quest'ultima colonna è necessario inserire le festività in tutti i contratti in uso).
 <br/>
 <br/>
 <img width="1919" height="866" alt="Screenshot 2026-02-23 164215" src="https://github.com/user-attachments/assets/d1364ef0-b372-4c67-8d5f-41bca6622254" />
@@ -254,10 +254,10 @@ La seconda, "Riepilogo richieste", funziona allo stesso modo, ma mostra le ore d
 
 Gli admin (ed eventuali loro delegati) devono accettare le richieste di ferie/permessi/straordinari inviate dai dipendenti di cui sono responsabili.
 <br/>
-Per farlo, cliccare su Validazione (possiamo vedere il numero di richieste ricevute in arancione) e successivamente su "Ferie" (che comprende anche i permessi) o su "Straordinario"
+Per farlo, cliccare su Validazione (possiamo vedere il numero di richieste ricevute in arancione) e successivamente su "Assenza" (per le ferie e i permessi) o su "Ore extra" (per gli straordinari)
 <br/>
 <br/>
-<img width="1919" height="867" alt="Screenshot 2026-02-23 165413" src="https://github.com/user-attachments/assets/d4940d28-2f57-4430-9fb3-2d267dfec84a" />
+**INCOLLARE LO SCREENSHOT 175240**
 <br/>
 <br/>
 Una volta cliccata la sezione desiderata (nel caso della foto sottostante è "Ferie"), si ritroveranno di fronte a questa schermata:
