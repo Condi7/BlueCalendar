@@ -808,34 +808,6 @@ class Leaves extends CI_Controller {
         echo $this->leaves_model->department($department->id, $start, $end);
     }
 
-    private function leaveIncludesLunchBreak($startdate, $enddate, $startdatetype, $enddatetype) {
-        $start = DateTime::createFromFormat('Y-m-d H:i', $startdate . ' ' . $startdatetype);
-        $end = DateTime::createFromFormat('Y-m-d H:i', $enddate . ' ' . $enddatetype);
-        if ($start === FALSE || $end === FALSE) {
-            return FALSE;
-        }
-        if ($end <= $start) {
-            return FALSE;
-        }
-        $dayCursor = clone $start;
-        $dayCursor->setTime(0, 0, 0);
-        $lastDay = clone $end;
-        $lastDay->setTime(0, 0, 0);
-
-        while ($dayCursor <= $lastDay) {
-            $day = $dayCursor->format('Y-m-d');
-            $lunchStart = DateTime::createFromFormat('Y-m-d H:i', $day . ' 13:00');
-            $lunchEnd = DateTime::createFromFormat('Y-m-d H:i', $day . ' 14:00');
-            if ($lunchStart !== FALSE && $lunchEnd !== FALSE) {
-                if (($start < $lunchEnd) && ($end > $lunchStart)) {
-                    return TRUE;
-                }
-            }
-            $dayCursor->modify('+1 day');
-        }
-        return FALSE;
-    }
-
     /**
      * Ajax endpoint. Result varies according to input :
      *  - difference between the entitled and the taken days
@@ -864,7 +836,6 @@ class Leaves extends CI_Controller {
         if ($enddatetype == NULL || $enddatetype === '') {
             $enddatetype = '18:00';
         }
-        $fullDay = filter_var($this->input->post('full_day', TRUE), FILTER_VALIDATE_BOOLEAN);
         $leave_id = intval($this->input->post('leave_id', TRUE));
         $leaveValidator = new stdClass;
         $deductDayOff = FALSE;
@@ -899,19 +870,14 @@ class Leaves extends CI_Controller {
             $this->load->model('dayoffs_model');
             $leaveValidator->listDaysOff = $this->dayoffs_model->listOfDaysOffBetweenDates($id, $startdate, $enddate);
             //Sum non-working days and overlapping with day off detection
-            $result = $this->leaves_model->actualLengthAndDaysOff($id, $startdate, $enddate, $startdatetype, $enddatetype, $leaveValidator->listDaysOff, $deductDayOff, $fullDay);
+            $result = $this->leaves_model->actualLengthAndDaysOff($id, $startdate, $enddate, $startdatetype, $enddatetype, $leaveValidator->listDaysOff, $deductDayOff);
             $leaveValidator->overlapDayOff = $result['overlapping'];
             $leaveValidator->lengthDaysOff = $result['daysoff'];
             $leaveValidator->length = $result['length'];
         }
         //If the user has no contract, simply compute a date difference between start and end dates
         if (isset($id) && isset($startdate) && isset($enddate)  && $hasContract===FALSE) {
-            $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype, $fullDay);
-        }
-
-        if (isset($leaveValidator->length) &&
-            $this->leaveIncludesLunchBreak($startdate, $enddate, $startdatetype, $enddatetype)) {
-            $leaveValidator->length = max(0, round(((float) $leaveValidator->length) - 1, 3));
+            $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype);
         }
 
         //Repeat start and end dates of the leave request

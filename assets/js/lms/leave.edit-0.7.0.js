@@ -128,58 +128,6 @@ function bindStrictTimeInput(selector, fallbackValue) {
     });
 }
 
-function isIncludeBreakChecked() {
-    return $('#include_break').length && $('#include_break').is(':checked');
-}
-
-function isIncludeBreakEligible() {
-    var startType = getTimeFromParts('start');
-    var endType = getTimeFromParts('end');
-    if (!startType || !endType) {
-        return false;
-    }
-    var startInRange = (startType >= '09:00' && startType <= '13:00');
-    var endInRange = (endType >= '13:30' && endType <= '18:00');
-    return startInRange && endInRange;
-}
-
-function updateIncludeBreakAvailability() {
-    if (!$('#include_break').length) {
-        return;
-    }
-    var isFullDay = $('#full_day').length && $('#full_day').is(':checked');
-    var eligible = !isFullDay && isIncludeBreakEligible();
-    $('#include_break').prop('disabled', !eligible);
-    if (!eligible) {
-        $('#include_break').prop('checked', false);
-    }
-}
-
-function updateFullDayUI() {
-    if (!$('#full_day').length) {
-        return;
-    }
-    var isFullDay = $('#full_day').is(':checked');
-    if (isFullDay) {
-        $('#startTimeWrapper').hide();
-        $('#endTimeWrapper').hide();
-        $('#includeBreakWrapper').hide();
-        if ($('#include_break').length) {
-            $('#include_break').prop('checked', false);
-        }
-        setTimeToParts('start', '09:00');
-        setTimeToParts('end', '18:00');
-    } else {
-        $('#startTimeWrapper').show();
-        $('#endTimeWrapper').show();
-        $('#includeBreakWrapper').show();
-        enforceTimeConstraints('#startdatetype', '09:00');
-        enforceTimeConstraints('#enddatetype', '18:00');
-    }
-    syncHiddenTimeFields();
-    updateIncludeBreakAvailability();
-}
-
 //Get the leave credit, duration and detect overlapping cases (Ajax request)
 //Default behavour is to set the duration field. pass false if you want to disable this behaviour
 function getLeaveInfos(preventDefault) {
@@ -195,7 +143,6 @@ function getLeaveInfos(preventDefault) {
                     enddate: $('#enddate').val(),
                     startdatetype: getTimeFromParts('start'),
                     enddatetype: getTimeFromParts('end'),
-                    full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
                     leave_id: leaveId
                 }
         })
@@ -260,7 +207,6 @@ function refreshLeaveInfo() {
                     enddate: $('#enddate').val(),
                     startdatetype: getTimeFromParts('start'),
                     enddatetype: getTimeFromParts('end'),
-                    full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
                     leave_id: leaveId
                 }
         })
@@ -311,7 +257,6 @@ function showListDayOffHTML(){
               enddate: $('#enddate').val(),
               startdatetype: getTimeFromParts('start'),
               enddatetype: getTimeFromParts('end'),
-              full_day: $('#full_day').length ? ($('#full_day').is(':checked') ? '1' : '0') : '0',
               leave_id: leaveId
           }
   })
@@ -373,10 +318,8 @@ $(function () {
     updateMinuteOptions('start');
     updateMinuteOptions('end');
     getLeaveLength(false);
-    updateFullDayUI();
     enforceTimeConstraints('#startdatetype', '09:00');
     enforceTimeConstraints('#enddatetype', '18:00');
-    updateIncludeBreakAvailability();
     bindStrictTimeInput('#startdatetype', '09:00');
     bindStrictTimeInput('#enddatetype', '18:00');
 
@@ -416,21 +359,11 @@ $(function () {
     $('#startdatetype, #start_hour, #start_minute').change(function() {
         updateMinuteOptions('start');
         enforceTimeConstraints('#startdatetype', '09:00');
-        updateIncludeBreakAvailability();
         getLeaveLength();
     });
     $('#enddatetype, #end_hour, #end_minute').change(function() {
         updateMinuteOptions('end');
         enforceTimeConstraints('#enddatetype', '18:00');
-        updateIncludeBreakAvailability();
-        getLeaveLength();
-    });
-    $('#full_day').change(function() {
-        updateFullDayUI();
-        getLeaveLength();
-    });
-    $('#include_break').change(function() {
-        updateIncludeBreakAvailability();
         getLeaveLength();
     });
     $('#type').change(function() {getLeaveInfos(false);});
@@ -441,7 +374,6 @@ $(function () {
     $("#frmLeaveForm").submit(function(e) {
         enforceTimeConstraints('#startdatetype', '09:00');
         enforceTimeConstraints('#enddatetype', '18:00');
-        updateFullDayUI();
         syncHiddenTimeFields();
         if (validate_form()) {
             return true;

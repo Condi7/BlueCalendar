@@ -54,19 +54,13 @@ echo form_open('leaves/create', $attributes) ?>
         $hourSlots[] = sprintf('%02d', $hour);
     }
     $minuteSlots = array('00', '15', '30', '45');
-    $isFullDay = set_value('full_day') == '1';
     ?>
-
-    <label for="full_day" class="checkbox">
-        <input type="checkbox" name="full_day" id="full_day" value="1" <?php if ($isFullDay) echo 'checked'; ?> />
-        Giornata intera
-    </label>
 
     <label for="viz_startdate"><?php echo lang('leaves_create_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php echo set_value('startdate'); ?>" autocomplete="off" />
     <input type="hidden" name="startdate" id="startdate" />
     <input type="hidden" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" />
-    <div id="startTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+    <div id="startTimeWrapper">
         <select id="start_hour" class="input-mini">
         <?php foreach ($hourSlots as $hourSlot): ?>
             <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $startHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>
@@ -84,7 +78,7 @@ echo form_open('leaves/create', $attributes) ?>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php echo set_value('enddate'); ?>" autocomplete="off" />
     <input type="hidden" name="enddate" id="enddate" />
     <input type="hidden" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" />
-    <div id="endTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+    <div id="endTimeWrapper">
         <select id="end_hour" class="input-mini">
         <?php foreach ($hourSlots as $hourSlot): ?>
             <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $endHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>

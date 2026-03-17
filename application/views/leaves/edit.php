@@ -48,10 +48,6 @@ if (isset($_GET['source'])) {
     }
     if (!in_array($startTimeValue, $timeSlots, TRUE)) $startTimeValue = '09:00';
     if (!in_array($endTimeValue, $timeSlots, TRUE)) $endTimeValue = '18:00';
-    $isFullDay = set_value('full_day') == '1';
-    if (set_value('full_day') === '') {
-      $isFullDay = ($startTimeValue === '09:00' && $endTimeValue === '18:00');
-    }
       $startParts = explode(':', $startTimeValue);
       $endParts = explode(':', $endTimeValue);
       $startHourValue = $startParts[0];
@@ -65,16 +61,11 @@ if (isset($_GET['source'])) {
       $minuteSlots = array('00', '15', '30', '45');
     ?>
 
-    <label for="full_day" class="checkbox">
-      <input type="checkbox" name="full_day" id="full_day" value="1" <?php if ($isFullDay) echo 'checked'; ?> />
-      Giornata intera
-    </label>
-
     <label for="viz_startdate"><?php echo lang('leaves_edit_field_start');?></label>
     <input type="text" name="viz_startdate" id="viz_startdate" value="<?php $date = new DateTime($leave['startdate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="startdate" id="startdate" value="<?php echo $leave['startdate'];?>" />
       <input type="hidden" name="startdatetype" id="startdatetype" value="<?php echo $startTimeValue; ?>" />
-    <div id="startTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+    <div id="startTimeWrapper">
       <select id="start_hour" class="input-mini">
         <?php foreach ($hourSlots as $hourSlot): ?>
           <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $startHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>
@@ -92,7 +83,7 @@ if (isset($_GET['source'])) {
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php $date = new DateTime($leave['enddate']); echo $date->format(lang('global_date_format'));?>" autocomplete="off" />
     <input type="hidden" name="enddate" id="enddate" value="<?php echo $leave['enddate'];?>" />
       <input type="hidden" name="enddatetype" id="enddatetype" value="<?php echo $endTimeValue; ?>" />
-    <div id="endTimeWrapper" style="<?php if ($isFullDay) echo 'display:none;'; ?>">
+    <div id="endTimeWrapper">
       <select id="end_hour" class="input-mini">
         <?php foreach ($hourSlots as $hourSlot): ?>
           <option value="<?php echo $hourSlot; ?>" <?php if ($hourSlot === $endHourValue) echo 'selected'; ?>><?php echo $hourSlot; ?></option>
