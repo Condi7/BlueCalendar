@@ -18,10 +18,6 @@ echo form_open('leavetypes/create', $attributes); ?>
             <i class="mdi mdi-auto-fix" aria-hidden="true"></i>
         </a>
     </div>
-    <label for="deduct_days_off">
-        <input type="checkbox" name="deduct_days_off" id="deduct_days_off" />
-        <?php echo lang('leavetypes_popup_create_field_deduct');?>
-    </label>
     <br />
 </form>
 <button id="cmdCreateLeaveType" class="btn btn-primary"><?php echo lang('leavetypes_popup_create_button_create');?></button>

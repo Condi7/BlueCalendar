@@ -19,6 +19,8 @@ $lang['leavetypes_type_thead_tip_edit'] = 'modifica';
 $lang['leavetypes_type_button_export'] = 'Esporta questo elenco';
 $lang['leavetypes_type_button_create'] = 'Crea una nuova tipologia';
 $lang['leavetypes_type_not_found'] = 'Nessuna tipologia di ferie trovata nel database';
+$lang['leavetypes_extra_hour'] = 'Ore extra';
+
 
 $lang['leavetypes_js_unique_error_msg'] = 'Questa tipologia ferie esiste già.';
 

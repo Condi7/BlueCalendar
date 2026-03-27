@@ -37,11 +37,15 @@ foreach ($users as $user) {
     if (!is_null($summary)) {
       if (count($summary) > 0 ) {
           foreach ($summary as $key => $value) {
-            if ($key == "Recupero Ore") { /**AD_MOD new da inserire*/
-              $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
-              } else {
-                         $result[$user->id][$key] = formatLeaveDurationHours(round($value[1], 3, PHP_ROUND_HALF_DOWN));
-                    }
+            if (!empty($value[6])) {
+                $displayedBalance = round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN);
+                if (!empty($value[5])) {
+                    $displayedBalance -= (float) $value[5];
+                }
+                $result[$user->id][$key] = formatLeaveDurationHours($displayedBalance);
+            } else {
+                $result[$user->id][$key] = formatLeaveDurationHours(round($value[1], 3, PHP_ROUND_HALF_DOWN));
+            }
           }
       }
     }

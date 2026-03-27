@@ -86,7 +86,6 @@ class LeaveTypes extends CI_Controller {
         } else {
             $this->types_model->updateTypes($id,
                     $this->input->post('name'),
-                    $this->input->post('deduct_days_off'),
                     mb_substr($this->input->post('acronym'), 0, 10));
             $this->session->set_flashdata('msg', lang('leavetypes_popup_update_flash_msg'));
             redirect('leavetypes');

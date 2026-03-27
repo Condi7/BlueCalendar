@@ -19,10 +19,6 @@ echo form_open('leavetypes/edit/' . $id, $attributes); ?>
             <i class="mdi mdi-auto-fix" aria-hidden="true"></i>
         </a>
     </div>
-    <label for="deduct_days_off">
-        <input type="checkbox" name="deduct_days_off" id="deduct_days_off" <?php if ($leavetype['deduct_days_off'] == TRUE) {echo "checked";} ?> />
-        <?php echo lang('leavetypes_popup_update_field_deduct');?>
-    </label>
     <br />
 </form>
 <button id="cmdEditLeaveType" class="btn btn-primary"><?php echo lang('leavetypes_popup_update_button_update');?></button>

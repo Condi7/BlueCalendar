@@ -80,11 +80,10 @@ class Types_model extends CI_Model {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function setTypes() {
-        $deduct = ($this->input->post('deduct_days_off') == 'on')?TRUE:FALSE;
         $data = array(
             'acronym' => $this->input->post('acronym'),
             'name' => $this->input->post('name'),
-            'deduct_days_off' => $deduct
+            'deduct_days_off' => FALSE
         );
         return $this->db->insert('types', $data);
     }
@@ -102,17 +101,15 @@ class Types_model extends CI_Model {
      * Update a given leave type in the database.
      * @param int $id identifier of the leave type
      * @param string $name name of the type
-     * @param bool $deduct Deduct days off
      * @param string $acronym Acronym of leave type
      * @return int number of affected rows
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
-    public function updateTypes($id, $name, $deduct, $acronym) {
-        $deduct = ($deduct == 'on')?TRUE:FALSE;
+    public function updateTypes($id, $name, $acronym) {
         $data = array(
             'acronym' => $acronym,
             'name' => $name,
-            'deduct_days_off' => $deduct
+            'deduct_days_off' => FALSE
         );
         $this->db->where('id', $id);
         return $this->db->update('types', $data);

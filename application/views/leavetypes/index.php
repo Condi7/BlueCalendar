@@ -19,7 +19,6 @@
       <th><?php echo lang('leavetypes_type_thead_id');?></th>
       <th><?php echo lang('leavetypes_type_thead_acronym');?></th>
       <th><?php echo lang('leavetypes_type_thead_name');?></th>
-     <th><?php echo lang('leavetypes_type_thead_deduct');?></th>
     </tr>
   </thead>
   <tbody>
@@ -37,18 +36,11 @@
           <a href="<?php echo base_url();?>leavetypes/edit/<?php echo $type['id'] ?>" data-target="#frmEditLeaveType" data-toggle="modal" title="<?php echo lang('leavetypes_type_thead_tip_edit');?>"><i class="mdi mdi-pencil nolink"></i></a>
           &nbsp; <?php echo $type['name']; ?>
       </td>
-      <td>
-        <?php if ($type['deduct_days_off'] == TRUE ) { ?>
-        <i class="mdi mdi-checkbox-marked-outline"></i>
-        <?php } else { ?>
-        <i class="mdi mdi-checkbox-blank-outline"></i>
-        <?php } ?>
-      </td>
     </tr>
   <?php } ?>
   <?php if (count($leavetypes) == 0) { ?>
     <tr>
-        <td colspan="5"><?php echo lang('leavetypes_type_not_found');?></td>
+                <td colspan="3"><?php echo lang('leavetypes_type_not_found');?></td>
     </tr>
   <?php } ?>
   </tbody>

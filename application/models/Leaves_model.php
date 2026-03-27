@@ -354,6 +354,7 @@ class Leaves_model extends CI_Model {
         $this->db->select('SUM(entitleddays.days) as entitled');
         $this->db->select('SUM(CASE WHEN entitleddays.overtime IS NULL THEN entitleddays.days ELSE 0 END) as entitled_non_overtime_days', FALSE);
         $this->db->select('SUM(CASE WHEN entitleddays.overtime IS NOT NULL THEN overtime.duration ELSE 0 END) as overtime_hours', FALSE);
+        $this->db->select('SUM(CASE WHEN entitleddays.overtime IS NOT NULL THEN 1 ELSE 0 END) as has_overtime_entitlement', FALSE);
         $this->db->select('MIN(startdate) as min_date');
         $this->db->select('MAX(enddate) as max_date');
         $this->db->from('entitleddays');
@@ -401,6 +402,7 @@ class Leaves_model extends CI_Model {
                 $summary[$type['name']][0] = 0; //Taken
                 $summary[$type['name']][1] = 0; //Entitled
                 $summary[$type['name']][2] = ''; //Description
+                $summary[$type['name']][6] = FALSE; //Type backed by overtime entitlements
             }
 
             //Get the sum of entitled days
@@ -428,6 +430,7 @@ class Leaves_model extends CI_Model {
                 $summary[$entitlement['type_name']][3] = $entitlement['type_id'];
                 $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
                 $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][6] = !empty($entitlement['has_overtime_entitlement']);
                 $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
             
@@ -454,6 +457,7 @@ class Leaves_model extends CI_Model {
                 //Report the number of available days
                 $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
                 $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][6] = !empty($entitlement['has_overtime_entitlement']);
                 $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
 
@@ -480,6 +484,7 @@ class Leaves_model extends CI_Model {
                 //Report the number of available days
                 $entitledDays = isset($entitlement['entitled_non_overtime_days']) ? (float) $entitlement['entitled_non_overtime_days'] : (float) $entitlement['entitled'];
                 $overtimeHours = isset($entitlement['overtime_hours']) ? (float) $entitlement['overtime_hours'] : 0;
+                $summary[$entitlement['type_name']][6] = !empty($entitlement['has_overtime_entitlement']);
                 $summary[$entitlement['type_name']][1] = ($entitledDays * $dailyHours) + $overtimeHours;
             }
 
