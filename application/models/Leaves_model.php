@@ -1594,7 +1594,7 @@ class Leaves_model extends CI_Model {
         $this->load->model('users_model');
         $employee = $this->users_model->getUsers($employee_id);
         $user = new stdClass;
-        $user->name = $employee['firstname'] . ' ' . $employee['lastname'];
+        $user->name = $employee['lastname'] . ' ' . $employee['firstname'];
         $user->manager = (int) $employee['manager'];  //To enable hiding confidential info in view
         $user->id = (int) $employee['id'];
         $user->days = array();

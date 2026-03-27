@@ -127,7 +127,7 @@ class Overtime_model extends CI_Model {
             'days' => $durationInDays,
             'type' => 0,
             'overtime' => $id,
-            'description' => 'Catch up ' . $extra['date']
+            'description' => 'Ore Extra ' . $extra['date']
         );
         $this->db->insert('entitleddays', $data);
         return 1;

@@ -20,7 +20,7 @@ echo form_open('leaves/create', $attributes) ?>
 
     <label for="type">
         <?php echo lang('leaves_create_field_type');?>
-        &nbsp;<span class="muted" id="lblCredit"><?php if (!is_null($credit)) { ?>(<?php echo $credit; ?>)<?php } ?></span>
+        <!--&nbsp;<span class="muted" id="lblCredit"><?php if (!is_null($credit)) { ?>(<?php echo $credit; ?>)<?php } ?></span>-->
     </label>
     <select class="input-xxlarge" name="type" id="type">
     <?php foreach ($types as $typeId => $TypeName): ?>
@@ -72,7 +72,7 @@ echo form_open('leaves/create', $attributes) ?>
             <option value="<?php echo $minuteSlot; ?>" <?php if ($minuteSlot === $startMinuteValue) echo 'selected'; ?>><?php echo $minuteSlot; ?></option>
         <?php endforeach; ?>
         </select>
-    </div><br />
+    </div>
 
     <label for="viz_enddate"><?php echo lang('leaves_create_field_end');?></label>
     <input type="text" name="viz_enddate" id="viz_enddate" value="<?php echo set_value('enddate'); ?>" autocomplete="off" />

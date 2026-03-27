@@ -11,9 +11,10 @@
     <div class="span12">
 
         <h2><?php echo lang('leaves_summary_title');?><?php /* echo $help; */ ?></h2>
+        <p><?php echo "Saldo Ferie/Permessi: Ultimo cedolino";?></p>
 
         <p><?php echo lang('leaves_summary_date_field');?>&nbsp;
-            <input type="text" id="refdate" />
+            <input type="text" id="refdate" readonly />
         </p>
 
         <table class="table table-bordered table-hover">
@@ -21,21 +22,27 @@
                 <tr>
                 <th rowspan="2"><?php echo lang('leaves_summary_thead_type');?></th>
                 <th colspan="2" style="text-align: center;"><?php echo lang('leaves_summary_thead_available');?></th>
+                <!--
                 <th rowspan="2"><i class="mdi mdi-plus-circle" aria-hidden="true"></i>&nbsp;<?php echo lang('leaves_summary_thead_entitled');?></th>
                 <th rowspan="2"><i class="mdi mdi-minus-circle" aria-hidden="true"></i>&nbsp;<?php echo lang('leaves_summary_thead_taken');?>&nbsp;<i class="mdi mdi-help-circle" data-toggle="tooltip" title="<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?>"></i></th>
+                -->
                 <th rowspan="2"><i class="mdi mdi-information" aria-hidden="true"></i>&nbsp;<span class="label"><?php echo lang('Planned');?></span></th>
                 <th rowspan="2"><i class="mdi mdi-information" aria-hidden="true"></i>&nbsp;<span class="label label-warning"><?php echo lang('Requested');?></span></th>
                 </tr>
                 <tr>
-                <th><?php echo lang('leaves_summary_thead_actual');?>&nbsp;<i class="mdi mdi-help-circle" data-toggle="tooltip" title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?>)"></i></th>
-                <th><?php echo lang('leaves_summary_thead_simulated');?>&nbsp;<i class="mdi mdi-help-circle" data-toggle="tooltip" title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?> + <?php echo lang('Planned');?> + <?php echo lang('Requested');?>)"></i></th>
+                <th><?php echo lang('leaves_summary_thead_actual');?>&nbsp;<i class="mdi mdi-help-circle"  title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?>)"></i></th>
+                <th><?php echo lang('leaves_summary_thead_simulated');?>&nbsp;<i class="mdi mdi-help-circle"  title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?> + <?php echo lang('Planned');?> + <?php echo lang('Requested');?>)"></i></th>
                 </tr>
             </thead>
             <tbody>
             <?php if (count($summary) > 0) {
             foreach ($summary as $key => $value) {
                 if (($value[2] == '') || ($value[2] == 'x')) {
-                    $estimated = round(((float) $value[1] - (float) $value[0]), 3, PHP_ROUND_HALF_DOWN);
+                    if ($key == "Recupero Ore") { /**AD_MOD new da inserire*/
+                    $estimated = round(((float) $value[1] - (float) $value[0]), 3, PHP_ROUND_HALF_DOWN);
+                    } else {
+                         $estimated = round(((float) $value[1]), 3, PHP_ROUND_HALF_DOWN);
+                    }
                     $simulated = $estimated;
                     if (!empty($value[4])) $simulated -= (float) $value[4];
                     if (!empty($value[5])) $simulated -= (float) $value[5];

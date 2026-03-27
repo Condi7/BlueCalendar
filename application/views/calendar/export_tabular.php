@@ -124,9 +124,10 @@ $line = 10;
 foreach ($tabular as $employee) {
     //Merge the two line containing the name of the employee and apply a border around it
     $sheet->setCellValue('C' . $line, $employee->name);
-    $sheet->mergeCells('C' . $line . ':C' . ($line + 1));
+    //$sheet->mergeCells('C' . $line . ':C' . ($line + 1));
     $col = columnName($lastDay + 3);
-    $sheet->getStyle('C' . $line . ':' . $col . ($line + 1))->applyFromArray($styleBox);
+    $sheet->getStyle('C' . $line . ':' . $col . ($line))->applyFromArray($styleBox);
+    //$sheet->getStyle('C' . $line . ':' . $col . ($line + 1))->applyFromArray($styleBox);
 
     //Iterate on all days of the selected month
     $dayNum = 0;

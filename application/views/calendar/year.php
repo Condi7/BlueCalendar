@@ -90,7 +90,9 @@ $statusQuery = (isset($statusesFilter) && $statusesFilter !== '') ? '?statuses='
         <span class="label" style="background-color: #3a87ad;"><input type="checkbox" checked id="chkCancellation" class="filterStatus"> &nbsp;<?php echo lang('Cancellation');?></span>&nbsp;
     </div>
     <div class="span4">
+        <!--
         <a href="<?php echo base_url();?>calendar/year/export/<?php echo $employee_id;?>/<?php echo ($year);?><?php echo $statusQuery;?>" class="btn btn-primary"><i class="mdi mdi-download"></i>&nbsp;<?php echo lang('calendar_year_button_export');?></a>
+        -->    
     </div>
     <div class="span4">
         <div class="pull-right">

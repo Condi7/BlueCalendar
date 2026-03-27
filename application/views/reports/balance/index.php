@@ -8,6 +8,7 @@
 ?>
 
 <h2><?php echo lang("reports_balance_title");?> &nbsp;<?php /* echo $help; */ ?></h2>
+<p><?php echo "Saldo Ferie/Permessi: Ultimo cedolino";?></p>
 
 <div class="row-fluid">
     <div class="span4">
@@ -30,7 +31,7 @@
             </label>
             &nbsp;
             <button class="btn btn-primary" id="cmdLaunchReport"><i class="mdi mdi-file-chart"></i>&nbsp; <?php echo lang('reports_balance_button_launch');?></button>
-            <button class="btn btn-primary" id="cmdExportReport"><i class="mdi mdi-download"></i>&nbsp; <?php echo lang('reports_balance_button_export');?></button>
+            <!--<button class="btn btn-primary" id="cmdExportReport"><i class="mdi mdi-download"></i>&nbsp; <?php echo lang('reports_balance_button_export');?></button>-->
         </div>
     </div>
 </div>

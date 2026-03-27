@@ -22,12 +22,12 @@ $summary = array();
 $types = $this->types_model->getTypes();
 $users = $this->organization_model->allEmployees($_GET['entity'], $include_children);
 foreach ($users as $user) {
-    $result[$user->id]['firstname'] = $user->firstname;
     $result[$user->id]['lastname'] = $user->lastname;
-    $result[$user->id]['datehired'] = $user->datehired;
-    $result[$user->id]['department'] = $user->department;
-    $result[$user->id]['position'] = $user->position;
-    $result[$user->id]['contract'] = $user->contract;
+    $result[$user->id]['firstname'] = $user->firstname;
+    //$result[$user->id]['datehired'] = $user->datehired;
+    //$result[$user->id]['department'] = $user->department;
+    //$result[$user->id]['position'] = $user->position;
+    //$result[$user->id]['contract'] = $user->contract;
     //Init type columns
     foreach ($types as $type) {
         $result[$user->id][$type['name']] = '';
@@ -37,7 +37,11 @@ foreach ($users as $user) {
     if (!is_null($summary)) {
       if (count($summary) > 0 ) {
           foreach ($summary as $key => $value) {
-              $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
+            if ($key == "Recupero Ore") { /**AD_MOD new da inserire*/
+              $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
+              } else {
+                         $result[$user->id][$key] = formatLeaveDurationHours(round($value[1], 3, PHP_ROUND_HALF_DOWN));
+                    }
           }
       }
     }
@@ -45,7 +49,7 @@ foreach ($users as $user) {
 
 $max = 0;
 $line = 2;
-$i18n = array("firstname", "lastname", "datehired", "department", "position", "contract");
+$i18n = array("firstname", "lastname"); //"datehired", "department", "position", "contract");
 foreach ($result as $row) {
     $index = 1;
     foreach ($row as $key => $value) {

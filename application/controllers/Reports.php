@@ -101,8 +101,9 @@ class Reports extends CI_Controller {
         $include_children = filter_var($_GET['children'], FILTER_VALIDATE_BOOLEAN);
         $users = $this->organization_model->allEmployees($_GET['entity'], $include_children);
         foreach ($users as $user) {
+            $result[$user->id]['lastname'] = $user->lastname; 
             $result[$user->id]['firstname'] = $user->firstname;
-            $result[$user->id]['lastname'] = $user->lastname;
+            
             //Init type columns
             foreach ($types as $type) {
                 $result[$user->id][$type['name']] = '';
@@ -112,8 +113,12 @@ class Reports extends CI_Controller {
             if (!is_null($summary)) {
               if (count($summary) > 0 ) {
                   foreach ($summary as $key => $value) {
-                                            $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
-                  }
+                    if ($key == "Recupero Ore") { 
+                            $result[$user->id][$key] = formatLeaveDurationHours(round($value[1] - $value[0], 3, PHP_ROUND_HALF_DOWN));
+                        } else {
+                         $result[$user->id][$key] = formatLeaveDurationHours(round($value[1], 3, PHP_ROUND_HALF_DOWN));
+                    }
+                    }
               }
             }
         }
@@ -225,8 +230,9 @@ class Reports extends CI_Controller {
         $leave_requests = array();
 
         foreach ($users as $user) {
+            $result[$user->id]['lastname'] = $user->lastname; 
             $result[$user->id]['firstname'] = $user->firstname;
-            $result[$user->id]['lastname'] = $user->lastname;
+            
             $daily_hours = $this->leaves_model->getDailyHours($user->id, $user->contract_id);
             $non_working_days = $this->dayoffs_model->lengthDaysOffBetweenDates($user->contract_id, $start, $end);
             $opened_days = $total_days - $non_working_days;
@@ -239,7 +245,7 @@ class Reports extends CI_Controller {
                     $linear = $this->leaves_model->linear($user->id, $ii, $year, FALSE, FALSE, TRUE, FALSE);
                     $leaves_detail = $this->leaves_model->monthlyLeavesByType($linear);
                     $absenceDays = $this->leaves_model->monthlyLeavesDuration($linear);
-                    $leave_duration += $this->leaves_model->convertDaysToHours(
+                    $leave_duration += $this->leaves_model->convertDaysToHours( 
                         $absenceDays,
                         $user->id,
                         $user->contract_id
@@ -290,7 +296,7 @@ class Reports extends CI_Controller {
                     $result[$user->id][$type['name']] = formatLeaveDurationHours($result[$user->id][$type['name']]);
                 }
             }
-            $result[$user->id]['leave_duration'] = formatLeaveDurationHours($leave_duration);
+           // $result[$user->id]['leave_duration'] = formatLeaveDurationHours($leave_duration); //ADILENA da togliere
         }
 
         $table = '';
@@ -308,8 +314,8 @@ class Reports extends CI_Controller {
                 if ($line == 2) {
                     if (in_array($key, $i18n)) {
                         $thead .= '<th>' . lang($key) . '</th>';
-                    } else if (array_key_exists($key, $hours_labels)) {
-                        $thead .= '<th>' . $hours_labels[$key] . '</th>';
+                    } else if (array_key_exists($key, $hours_labels)) { 
+                        $thead .= '<th>xxxx' . '$hours_labels[$key]' . '</th>';
                     } else {
                         $thead .= '<th>' . $key . '</th>';
                     }

@@ -41,7 +41,9 @@
     </div>
     <div class="span2">
         <span class="pull-right">
+            <!--
             <button id="cmdExport" class="btn btn-primary"><i class="mdi mdi-download"></i>&nbsp;<?php echo lang('calendar_tabular_button_export');?></button>
+            -->
         </span>
     </div>
 </div>
