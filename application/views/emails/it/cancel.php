@@ -19,7 +19,7 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        {Firstname} {Lastname} cancelled a requested time off. See the <a href="{BaseUrl}leaves/{LeaveId}">details</a> below:<br />
+        {Firstname} {Lastname} ha annullato una richiesta di ferie. Vedi i <a href="{BaseUrl}leaves/{LeaveId}">dettagli</a> di seguito:<br />
         <table border="0">
             <tr>
                 <td>From &nbsp;</td><td>{StartDate}&nbsp;({StartDateType})</td>
@@ -43,12 +43,12 @@
                 <td>Last comment &nbsp;</td><td>{Comments}</td>
             </tr>
             <tr>
-                <td><a href="{BaseUrl}requests/cancellation/accept/{LeaveId}">Confirm cancellation</a> &nbsp;</td><td><a href="{BaseUrl}requests?cancel_rejected={LeaveId}">Reject cancellation</a></td>
+                <td><a href="{BaseUrl}requests/cancellation/accept/{LeaveId}">Conferma cancellazione</a> &nbsp;</td><td><a href="{BaseUrl}requests?cancel_rejected={LeaveId}">Rifiuta cancellazione</a></td>
             </tr>
         </table>
         <br />
-        You can check the <a href="{BaseUrl}hr/counters/collaborators/{UserId}">leave balance</a> before validating the leave request.
+        Puoi controllare il <a href="{BaseUrl}hr/counters/collaborators/{UserId}">saldo ferie</a> prima di convalidare la richiesta di ferie.
         <hr>
-        <h5>*** This is an automatically generated message, please do not reply to this message ***</h5>
+        <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>
 </html>

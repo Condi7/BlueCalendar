@@ -21,7 +21,7 @@
         <h3>{Title}</h3>
         {Firstname} {Lastname}, <br />
         <br />
-        Il lavoro straordinario che hai richiesto è stata accettata. Qui di seguito, i dettagli:
+        Le ore extra che hai richiesto sono state accettate. Qui di seguito, i dettagli:
         <table border="0">
             <tr>
                 <td>Data &nbsp;</td><td>{Date}</td>

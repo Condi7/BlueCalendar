@@ -17,7 +17,7 @@ $env = is_null(getenv('CI_ENV')) ? '' : getenv('CI_ENV');
 //Configuration values are taken from application/config/(env)/email.php
 //-----------------------------------------------------------------
 //Please enter a valid target email address. A test email will be sent here
-define('EMAIL_ADDRESS', 'paoloconde@outlook.it');
+define('EMAIL_ADDRESS', 'p.condello@bluecube.it');
 
 //-----------------------------------------------------------------
 ?>
@@ -35,7 +35,7 @@ define('EMAIL_ADDRESS', 'paoloconde@outlook.it');
   <div class="container">
 
     <ul class="nav nav-pills">
-      <li class="nav-item"><a class="nav-link" href="home" title="login to Jorani"><i
+      <li class="nav-item"><a class="nav-link" href="home" title="login to BlueCalendar"><i
             class="mdi mdi-home nolink"></i></a></li>
       <li class="nav-item"><a class="nav-link" href="requirements.php">Requirements</a></li>
       <li class="nav-item"><a class="nav-link active" href="#">Email</a></li>
@@ -108,7 +108,7 @@ define('EMAIL_ADDRESS', 'paoloconde@outlook.it');
 
           $mail->CharSet = $config['charset'];
           $mail->AddAddress(EMAIL_ADDRESS, "Test e-mail");
-          $mail->SetFrom($config['from_mail'], "Jorani application");
+          $mail->SetFrom($config['from_mail'], "BlueCalendar");
           $mail->Subject = "Test Message";
           $mail->Body = 'This is a test.';
           $mail->Send();

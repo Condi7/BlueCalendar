@@ -19,7 +19,7 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        {Firstname} {Lastname} richiede un lavoro straordinario. Qui di seguito, i dettagli:
+        {Firstname} {Lastname} richiede il riconoscimento di ore extra. Qui di seguito, i dettagli:
         <table border="0">
             <tr>
                 <td>Data &nbsp;</td><td>{Date}</td>

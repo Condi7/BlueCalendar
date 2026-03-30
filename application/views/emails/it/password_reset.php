@@ -20,7 +20,7 @@
     <body>
         <h3>{Title}</h3>
         <p>{Firstname} {Lastname},</p>
-        <p>Se non si esegue questa operazione, si prega di contattare l'amministratore.</p>
+        <p>La password è stata resettata. Se non siete stati voi a richiederlo, si prega di contattare l'amministratore.</p>
         <hr>
         <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>

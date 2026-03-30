@@ -41,7 +41,7 @@ services:
             - MYSQL_DATABASE=bluecalendar
             - MYSQL_USER=bluecalendar
             - MYSQL_PASSWORD=bluecalendar
-            - SMTP_HOST=mailhog_local
+            - SMTP_HOST=mailhog-local
             - SMTP_PORT=1025
             - FROM_NAME=Bluecube
             - SUBJECT_PREFIX=[BlueCalendar]
@@ -58,6 +58,10 @@ services:
         ports:
             - "127.0.0.1:${MAILHOG_SMTP_PORT:-1025}:1025"
             - "127.0.0.1:${MAILHOG_UI_PORT:-8025}:8025"
+        networks:
+            default:
+                aliases:
+                    - mailhog-local
 
     web_online:
         <<: *web-base
@@ -69,7 +73,7 @@ services:
             - MYSQL_DATABASE=bluecalendar
             - MYSQL_USER=bluecalendar
             - MYSQL_PASSWORD=bluecalendar
-            - SMTP_HOST=mailhog_online
+            - SMTP_HOST=mailhog-online
             - SMTP_PORT=1025
             - FROM_NAME=Bluecube
             - SUBJECT_PREFIX=[BlueCalendar]
@@ -86,3 +90,7 @@ services:
         ports:
             - "0.0.0.0:${MAILHOG_SMTP_PORT:-1025}:1025"
             - "0.0.0.0:${MAILHOG_UI_PORT:-8025}:8025"
+        networks:
+            default:
+                aliases:
+                    - mailhog-online

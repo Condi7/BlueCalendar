@@ -19,9 +19,9 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        Dear {Firstname} {Lastname}, <br />
+        {Firstname} {Lastname}, <br />
         <br />
-        <p>Your cancellation request was accepted and the leave request has been cancelled.</p>
+        <p>La tua richiesta di cancellazione è stata accettata e la richiesta di ferie è stata annullata.</p>
         <table border="0">
             <tr>
                 <td>From &nbsp;</td><td>{StartDate}&nbsp;({StartDateType})</td>
@@ -40,6 +40,6 @@
             </tr>
         </table>
         <hr>
-        <h5>*** This is an automatically generated message, please do not reply to this message ***</h5>
+        <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>
 </html>

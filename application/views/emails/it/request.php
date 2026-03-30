@@ -19,7 +19,7 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        {Firstname} {Lastname} richiede un congedo. Qui di seguito <a href="{BaseUrl}leaves/requests/{LeaveId}">i dettagli</a>:
+        {Firstname} {Lastname} richiede un'assenza. Qui di seguito <a href="{BaseUrl}leaves/requests/{LeaveId}">i dettagli</a>:
         <table border="0">
             <tr>
                 <td>Da &nbsp;</td><td>{StartDate}&nbsp;({StartDateType})</td>
@@ -40,7 +40,7 @@
                 <td>Motivo &nbsp;</td><td>{Reason}</td>
             </tr>
             <tr>
-              <td>Last Comment &nbsp;</td><td>{Comments}</td>
+              <td>Ultimo commento &nbsp;</td><td>{Comments}</td>
             </tr>
             <tr>
                 <td><a href="{BaseUrl}requests/accept/{LeaveId}">Accetta</a> &nbsp;</td>
@@ -48,7 +48,7 @@
             </tr>
         </table>
         <br />
-        È possibile controllare il <a href="{BaseUrl}hr/counters/collaborators/{UserId}">bilanciamento del congedo</a> prima di convalidare la richiesta di congedo.
+        È possibile controllare il <a href="{BaseUrl}hr/counters/collaborators/{UserId}">saldo ore</a> prima di convalidare la richiesta d'assenza.
         <hr>
         <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>

@@ -28,7 +28,7 @@
                 <td>Password</td><td>{Password}</td>
             </tr>            
         </table>
-        Once connected, you can change your password, as explained <a href="https://jorani.org/how-to-change-my-password.html" title="Link to documentation" target="_blank">here</a>.
+        Una volta connessi, è possibile modificare la password, cliccando sul lucchetto in alto a sinistra. Si prega di modificare la password al primo accesso.
         <hr>
         <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>

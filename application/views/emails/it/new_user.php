@@ -19,7 +19,7 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        Benvenuti a Jorani {Firstname} {Lastname}. Si prega di utilizzare queste credenziali per <a href="{BaseURL}">accedere al sistema</a> :
+        Benvenuti in BlueCalendar {Firstname} {Lastname}. Si prega di utilizzare queste credenziali per <a href="{BaseURL}">accedere al sistema</a> :
         <table border="0">
             <tr>
                 <td>Entra</td><td>{Login}</td>
@@ -33,7 +33,8 @@
             </tr>            
         </table>
         <?php if ($this->config->item('ldap_enabled') == FALSE) { ?>
-        Una volta connessi, è possibile modificare la password, come spiegato <a href="https://jorani.org/how-to-change-my-password.html" title="Link to documentation" target="_blank">qui</a>.
+        Una volta connessi, è possibile modificare la password, cliccando sul lucchetto in alto a sinistra. Si prega di modificare la password al primo accesso.
+         <?php } else { ?>
         <?php } ?>
         <hr>
         <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>

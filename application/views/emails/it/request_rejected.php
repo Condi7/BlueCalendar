@@ -19,9 +19,9 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        Dear {Firstname} {Lastname}, <br />
+        {Firstname} {Lastname}, <br />
         <br />
-        Il congedo che hai richiesto è stato respinto. Qui di seguito, i dettagli:
+        L'assenza che hai richiesto è stata respinta. Qui di seguito, i dettagli:
         <table border="0">
             <tr>
                 <td>Da &nbsp;</td><td>{StartDate}&nbsp;({StartDateType})</td>
@@ -36,7 +36,7 @@
                 <td>Motivo &nbsp;</td><td>{Cause}</td>
             </tr>
             <tr>
-                <td>Last comment &nbsp;</td><td>{Comments}</td>
+                <td>Ultimo commento &nbsp;</td><td>{Comments}</td>
             </tr>
         </table>
         <hr>

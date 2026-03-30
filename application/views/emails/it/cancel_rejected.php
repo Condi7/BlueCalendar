@@ -19,11 +19,11 @@
     </head>
     <body>
         <h3>{Title}</h3>
-        Dear {Firstname} {Lastname}, <br />
+        {Firstname} {Lastname}, <br />
         <br />
-        <p>Unfortunately, your cancellation request was not accepted.
-        The leave request has now its original status of Accepted.</p>
-        <p>Please contact your manager to discuss the matter. </p>
+        <p>Sfortunatamente, la tua richiesta di cancellazione non è stata accettata.
+        La richiesta di ferie è rimasta confermata.</p>
+        <p>Si prega di contattare il proprio responsabile per discutere la questione. </p>
         <table border="0">
             <tr>
                 <td>From &nbsp;</td><td>{StartDate}&nbsp;({StartDateType})</td>
@@ -42,6 +42,6 @@
             </tr>
         </table>
         <hr>
-        <h5>*** This is an automatically generated message, please do not reply to this message ***</h5>
+        <h5>*** Questo è un messaggio generato automaticamente, si prega di non rispondere a questo messaggio ***</h5>
     </body>
 </html>
