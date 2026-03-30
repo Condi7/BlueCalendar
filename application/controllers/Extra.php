@@ -234,6 +234,7 @@ class Extra extends CI_Controller {
     private function sendMail($id) {
         $this->load->model('users_model');
         $this->load->model('delegations_model');
+        $this->load->model('organization_model');
         $extra = $this->overtime_model->getExtras($id);
         $user = $this->users_model->getUsers($extra['employee']);
         $manager = $this->users_model->getUsers($user['manager']);
@@ -269,11 +270,22 @@ class Extra extends CI_Controller {
                 'UrlReject' => $rejectUrl
             );
             $message = $this->parser->parse('emails/' . $manager['language'] . '/overtime', $data, TRUE);
-            //Copy to the delegates, if any
+            //Copy to the delegates and supervisors of the employee's entity, if any
+            $ccParts = array();
             $delegates = $this->delegations_model->listMailsOfDelegates($manager['id']);
+            if ($delegates != '') {
+                $ccParts[] = $delegates;
+            }
+            if (!empty($user['organization'])) {
+                $supervisorsMails = $this->organization_model->getSupervisorsMails($user['organization']);
+                if ($supervisorsMails != '') {
+                    $ccParts[] = $supervisorsMails;
+                }
+            }
+            $cc = empty($ccParts) ? NULL : implode(',', array_unique(explode(',', implode(',', $ccParts))));
             $subject = $lang_mail->line('email_extra_request_reject_subject') . ' ' .
                                 $user['firstname'] . ' ' .$user['lastname'];
-            sendMailByWrapper($this, $subject, $message, $manager['email'], $delegates);
+            sendMailByWrapper($this, $subject, $message, $manager['email'], $cc);
         }
     }
 

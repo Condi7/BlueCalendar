@@ -258,6 +258,7 @@ class RestLeaves extends MY_RestController {
         $this->load->model('users_model');
         $this->load->model('types_model');
         $this->load->model('delegations_model');
+        $this->load->model('organization_model');
         //We load everything from DB as the LR can be edited from HR/Employees
         $leave = $this->leaves_model->getLeaves($leaveId);
         $user = $this->users_model->getUsers($leave['employee']);
@@ -304,6 +305,8 @@ class RestLeaves extends MY_RestController {
      */
     private function sendGenericMail($leave, $user, $manager, $lang_mail, $title, $detailledSubject, $emailModel) {
         log_message('debug', '++sendGenericMail');
+        $this->load->model('organization_model');
+
         $date = new DateTime($leave['startdate']);
         $startdate = $date->format($lang_mail->line('global_date_format'));
         $date = new DateTime($leave['enddate']);
@@ -343,11 +346,21 @@ class RestLeaves extends MY_RestController {
 
         $to = $manager['email'];
         $subject = $detailledSubject . ' ' . $user['firstname'] . ' ' . $user['lastname'];
-        //Copy to the delegates, if any
+        //Copy to the delegates and supervisors of the employee's entity, if any
         $cc = NULL;
+        $ccParts = array();
         $delegates = $this->delegations_model->listMailsOfDelegates($manager['id']);
         if ($delegates != '') {
-            $cc = $delegates;
+            $ccParts[] = $delegates;
+        }
+        if (!empty($user['organization'])) {
+            $supervisorsMails = $this->organization_model->getSupervisorsMails($user['organization']);
+            if ($supervisorsMails != '') {
+                $ccParts[] = $supervisorsMails;
+            }
+        }
+        if (!empty($ccParts)) {
+            $cc = implode(',', array_unique(explode(',', implode(',', $ccParts))));
         }
 
         sendMailByWrapper($this, $subject, $message, $to, $cc);
