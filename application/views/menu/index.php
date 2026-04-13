@@ -52,7 +52,7 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
                 <ul class="nav">
                     <li><a href="<?php echo base_url();?>leaves" title="<?php echo lang('menu_leaves_list_requests');?>"><i class="mdi mdi-format-list-bulleted"></i></a></li>
 
-          <?php if (($is_hr == TRUE) || ($is_admin == TRUE)) { ?>
+          <?php if (($is_admin == TRUE)) { ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_admin_title'); ?> <b
                   class="caret"></b></a>
@@ -78,18 +78,22 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
             </li>
           <?php } ?>
 
-          <?php if ($is_hr == TRUE) { ?>
+          <?php if ($is_superuser == TRUE || $is_admin == TRUE) { ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('menu_hr_title'); ?> <b
                   class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="nav-header"><?php echo lang('menu_hr_employees_divider'); ?></li>
+                <?php if ($is_admin == TRUE) { ?>
                 <li><a href="<?php echo base_url(); ?>hr/employees"><?php echo lang('menu_hr_list_employees'); ?></a></li>
+                <?php } ?>
                 <li><a href="<?php echo base_url(); ?>organization"><?php echo lang('menu_hr_list_organization'); ?></a>
                 </li>
                 <li class="divider"></li>
                 <li class="nav-header"><?php echo lang('menu_hr_contracts_divider'); ?></li>
+                <?php if ($is_admin == TRUE) { ?>
                 <li><a href="<?php echo base_url(); ?>contracts"><?php echo lang('menu_hr_list_contracts'); ?></a></li>
+                <?php } ?>
                 <li><a href="<?php echo base_url(); ?>positions"><?php echo lang('menu_hr_list_positions'); ?></a></li>
                 <li class="divider"></li>
                 <li class="nav-header"><?php echo lang('menu_hr_reports_divider'); ?></li>
@@ -173,7 +177,7 @@ $show_calendar_collaborators = ($this->config->item('menu_show_calendar_collabor
                     href="<?php echo base_url(); ?>calendar/collaborators"><?php echo lang('menu_calendar_collaborators'); ?></a>
                 </li>
               <?php } ?>
-              <?php if (($is_hr == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
+              <?php if (($is_superuser == TRUE) || ($is_admin == TRUE) || ($this->config->item('hide_global_cals_to_users') === FALSE)) { ?>
                 <li><a href="<?php echo base_url(); ?>calendar/tabular"><?php echo lang('menu_calendar_tabular'); ?></a>
                 </li>
               <?php } ?>

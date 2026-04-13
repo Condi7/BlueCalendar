@@ -448,14 +448,14 @@ class Users_model extends CI_Model {
 
         /*
           00000001 1  Admin
-          00000100 8  HR Officier / Local HR Manager
-          00001000 16 HR Manager
+          00000100 8  Superuser
+          00001000 16 Manager (is the manager of some Users)
           = 00001101 25 Can access to HR functions
          */
         if (((int) $row->role & 25)) {
-            $is_hr = TRUE;
+            $is_superuser = TRUE;
         } else {
-            $is_hr = FALSE;
+            $is_superuser = FALSE;
         }
 
         //Determine if the connected user is a manager or if he has any delegation
@@ -475,7 +475,7 @@ class Users_model extends CI_Model {
             'lastname' => $row->lastname,
             'is_manager' => $isManager,
             'is_admin' => $is_admin,
-            'is_hr' => $is_hr,
+            'is_superuser' => $is_superuser,
             'manager' => $row->manager,
             'random_hash' => $row->random_hash,
             'logged_in' => TRUE

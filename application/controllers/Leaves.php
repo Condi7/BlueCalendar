@@ -202,6 +202,9 @@ class Leaves extends CI_Controller {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function create() {
+        show_404();
+        return;
+
         $this->auth->checkIfOperationIsAllowed('create_leaves');
         $data = getUserContext($this);
         $this->load->helper('form');
@@ -821,6 +824,14 @@ class Leaves extends CI_Controller {
     }
 
     /**
+     * Alias endpoint for leave validation payload.
+     * Kept for backward compatibility with legacy route leaves/team.
+     */
+    public function team() {
+        $this->showDeprecatedEndpointPage();
+    }
+
+    /**
      * Ajax endpoint. Result varies according to input :
      *  - difference between the entitled and the taken days
      *  - try to calculate the duration of the leave
@@ -829,73 +840,20 @@ class Leaves extends CI_Controller {
      * @author Benjamin BALET <benjamin.balet@gmail.com>
      */
     public function validate() {
-        header("Content-Type: application/json");
-        $id = $this->input->post('id', TRUE);
-        $type = $this->input->post('type', TRUE);
-        $date = $this->input->post('startdate', TRUE);
-        $d = DateTime::createFromFormat('Y-m-d', $date);
-        $startdate = ($d && $d->format('Y-m-d') === $date)?$date:'1970-01-01';
-        $startdate = preg_replace("([^0-9-])", "", $startdate);
-        $date = $this->input->post('enddate', TRUE);
-        $d = DateTime::createFromFormat('Y-m-d', $date);
-        $enddate = ($d && $d->format('Y-m-d') === $date)?$date:'1970-01-01';
-        $enddate = preg_replace("([^0-9-])", "", $enddate);
-        $startdatetype = $this->input->post('startdatetype', TRUE);
-        if ($startdatetype == NULL || $startdatetype === '') {
-            $startdatetype = '09:00';
-        }
-        $enddatetype = $this->input->post('enddatetype', TRUE);
-        if ($enddatetype == NULL || $enddatetype === '') {
-            $enddatetype = '18:00';
-        }
-        $leave_id = intval($this->input->post('leave_id', TRUE));
-        $leaveValidator = new stdClass;
-        $deductDayOff = FALSE;
-        if (isset($id) && isset($type)) {
-            $typeObject = $this->types_model->getTypeByName($type);
-            $deductDayOff = $typeObject['deduct_days_off'];
-            if (isset($startdate) && $startdate !== "") {
-                $leaveValidator->credit = $this->leaves_model->getLeavesTypeBalanceForEmployee($id, $type, $startdate);
-            } else {
-                $leaveValidator->credit = $this->leaves_model->getLeavesTypeBalanceForEmployee($id, $type);
-            }
-        }
-        if (isset($id) && isset($startdate) && isset($enddate)) {
-            if (isset($leave_id)) {
-                $leaveValidator->overlap = $this->leaves_model->detectOverlappingLeaves($id, $startdate, $enddate, $startdatetype, $enddatetype, $leave_id);
-            } else {
-                $leaveValidator->overlap = $this->leaves_model->detectOverlappingLeaves($id, $startdate, $enddate, $startdatetype, $enddatetype);
-            }
-        }
+        $this->showDeprecatedEndpointPage();
+    }
 
-        //Returns end date of the yearly leave period or NULL if the user is not linked to a contract
-        $this->load->model('contracts_model');
-        $startentdate = NULL;
-        $endentdate = NULL;
-        $hasContract = $this->contracts_model->getBoundaries($id, $startentdate, $endentdate);
-        $leaveValidator->PeriodStartDate = $startentdate;
-        $leaveValidator->PeriodEndDate = $endentdate;
-        $leaveValidator->hasContract = $hasContract;
-
-        //Add non working days between the two dates (including their type: morning, afternoon and all day)
-        if (isset($id) && ($startdate!='') && ($enddate!='')  && $hasContract===TRUE) {
-            $this->load->model('dayoffs_model');
-            $leaveValidator->listDaysOff = $this->dayoffs_model->listOfDaysOffBetweenDates($id, $startdate, $enddate);
-            //Sum non-working days and overlapping with day off detection
-            $result = $this->leaves_model->actualLengthAndDaysOff($id, $startdate, $enddate, $startdatetype, $enddatetype, $leaveValidator->listDaysOff, $deductDayOff);
-            $leaveValidator->overlapDayOff = $result['overlapping'];
-            $leaveValidator->lengthDaysOff = $result['daysoff'];
-            $leaveValidator->length = $result['length'];
-        }
-        //If the user has no contract, simply compute a date difference between start and end dates
-        if (isset($id) && isset($startdate) && isset($enddate)  && $hasContract===FALSE) {
-            $leaveValidator->length = $this->leaves_model->length($id, $startdate, $enddate, $startdatetype, $enddatetype);
-        }
-
-        //Repeat start and end dates of the leave request
-        $leaveValidator->RequestStartDate = $startdate;
-        $leaveValidator->RequestEndDate = $enddate;
-
-        echo json_encode($leaveValidator);
+    /**
+     * Display a warning page for deprecated endpoints.
+     */
+    private function showDeprecatedEndpointPage() {
+        $this->output->set_status_header(410);
+        $data = getUserContext($this);
+        $data['title'] = lang('Error');
+        $data['deprecated_message'] = 'Questa funzione potrebbe essere stata deprecata.';
+        $this->load->view('templates/header', $data);
+        $this->load->view('menu/index', $data);
+        $this->load->view('pages/deprecated_endpoint', $data);
+        $this->load->view('templates/footer');
     }
 }

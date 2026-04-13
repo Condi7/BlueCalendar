@@ -23,7 +23,7 @@ class Auth {
      * Is the connected user part of HR team
      * @var bool Is Human Resource role
      */
-    private $isHR;
+    private $isSuperuser;
     /**
      * Is the connected user part of Admin team
      * @var bool Is Admin role
@@ -42,7 +42,7 @@ class Auth {
         $this->CI = & get_instance();
         $this->CI->load->library('session');
 
-        $this->isHR = ($this->CI->session->userdata('is_hr') === TRUE);
+        $this->isSuperuser = ($this->CI->session->userdata('is_superuser') === TRUE);
         $this->isAdmin = ($this->CI->session->userdata('is_admin') === TRUE);
         $this->isManager = ($this->CI->session->userdata('is_manager') === TRUE);
     }
@@ -77,12 +77,6 @@ class Auth {
             //User management
             case 'list_settings' :
             case 'oauth_clients' :
-                if ($this->CI->session->userdata('is_admin') == true)
-                    return true;
-                else
-                    return false;
-                break;
-
             case 'list_users' :
             case 'create_user' :
             case 'delete_user' :
@@ -91,7 +85,7 @@ class Auth {
             case 'update_user' :
             case 'import_user' :
             case 'export_user' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_admin') == true)
                     return true;
                 else
                     return false;
@@ -99,7 +93,7 @@ class Auth {
 
             //Password management
             case 'change_password' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_superuser') == true || $this->CI->session->userdata('is_admin') == true)
                     return true;
                 else {//a user can change its own password
                     if ($this->CI->session->userdata('id') == $object_id)
@@ -129,7 +123,7 @@ class Auth {
             case 'calendar_contract' :
             case 'adddayoff_contract' :
             case 'deletedayoff_contract' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_admin') == true)
                     return true;
                 else
                     return false;
@@ -139,7 +133,7 @@ class Auth {
             case 'native_report_leaves':
             case 'report_list' :
             case 'report_execute' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_superuser') == true || $this->CI->session->userdata('is_admin') == true)
                     return true;
                 else
                     return false;
@@ -155,14 +149,14 @@ class Auth {
             case 'entitleddays_user_delete' :
             case 'entitleddays_contract' :
             case 'entitleddays_contract_delete' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_superuser') == true || $this->CI->session->userdata('is_admin') == true)
                     return true;
                 else
                     return false;
                 break;
 
             case 'organization_index' :
-                if ($this->CI->session->userdata('is_hr') == true)
+                if ($this->CI->session->userdata('is_superuser') == true || $this->CI->session->userdata('is_admin') == true)
                     return true;
                 else
                     return false;
@@ -214,13 +208,13 @@ class Auth {
             case 'individual_calendar' :
               return true;
             case 'workmates_calendar' :
-              return ($this->isHR || $this->isAdmin || ($this->CI->config->item('disable_workmates_calendar') == FALSE));
+              return ($this->isSuperuser || $this->isAdmin || ($this->CI->config->item('disable_workmates_calendar') == FALSE));
             case 'collaborators_calendar' :
-              return ($this->isHR || $this->isAdmin || $this->isManager);
+              return ($this->isSuperuser || $this->isAdmin || $this->isManager);
             case 'department_calendar' :
               return ($this->CI->config->item('disable_department_calendar') == FALSE);
             case 'organization_calendar' :
-                return ($this->isHR || $this->isAdmin || ($this->CI->config->item('hide_global_cals_to_users') == FALSE));
+                return ($this->isSuperuser || $this->isAdmin || ($this->CI->config->item('hide_global_cals_to_users') == FALSE));
             case 'download_calendar' :
                 return true;
                 break;
