@@ -21,9 +21,9 @@
             <thead>
                 <tr>
                 <th rowspan="2"><?php echo lang('leaves_summary_thead_type');?></th> 
-                <th><?php echo lang('leaves_summary_thead_actual');?>&nbsp;<i class="mdi mdi-help-circle" title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?>)"></i></th>
-                <th rowspan="2"><i class="mdi mdi-information" aria-hidden="true"></i>&nbsp;<span class="label"><?php echo lang('Planned');?></span></th>
-                <th rowspan="2"><i class="mdi mdi-information" aria-hidden="true"></i>&nbsp;<span class="label label-warning"><?php echo lang('Requested');?></span></th>
+                <th><?php echo lang('leaves_summary_thead_actual');?>&nbsp;<!--<i class="mdi mdi-help-circle" title="<?php echo lang('leaves_summary_thead_entitled');?> - (<?php echo lang('Accepted');?> + <?php echo lang('Cancellation');?>)"></i>--></th>
+                <th rowspan="2"><!--i class="mdi mdi-information" aria-hidden="true"></i-->&nbsp;<span class="label"><?php echo lang('Planned');?></span></th>
+                <th rowspan="2"><!--i class="mdi mdi-information" aria-hidden="true"></i-->&nbsp;<span class="label label-warning"><?php echo lang('Requested');?></span></th>
                 </tr>
                 
             </thead>

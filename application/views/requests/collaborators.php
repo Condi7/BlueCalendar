@@ -34,11 +34,11 @@
                 <?php echo $collaborator['id']; ?>
                 <div class="pull-right">
                     <?php if ($this->config->item('requests_by_manager') == TRUE) { ?>
-                    <a href="<?php echo base_url();?>requests/createleave/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_create_leave');?>"><i class="mdi mdi-file-plus nolink"></i></a>
+                    <!--a href="<?php echo base_url();?>requests/createleave/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_create_leave');?>"><i class="mdi mdi-file-plus nolink"></i></a-->
                     <?php } ?>
-                    <a href="<?php echo base_url();?>hr/counters/collaborators/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_balance');?>"><i class="mdi mdi-information-outline nolink"></i></a>
-                    &nbsp;<a href="<?php echo base_url();?>hr/presence/collaborators/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_presence');?>"><i class="mdi mdi-chart-pie nolink"></i></a>
-                    &nbsp;<a href="<?php echo base_url();?>calendar/year/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_year');?>"><i class="mdi mdi-calendar-text nolink"></i></a>
+                    <!--a href="<?php echo base_url();?>hr/counters/collaborators/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_balance');?>"><i class="mdi mdi-information-outline nolink"></i></a-->
+                    &nbsp;<!--a href="<?php echo base_url();?>hr/presence/collaborators/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_presence');?>"><i class="mdi mdi-chart-pie nolink"></i></a-->
+                    &nbsp;<!--a href="<?php echo base_url();?>calendar/year/<?php echo $collaborator['id'] ?>" title="<?php echo lang('requests_collaborators_thead_link_year');?>"><i class="mdi mdi-calendar-text nolink"></i></a-->
                 </div>
             </td>
             <td><?php echo $collaborator['firstname'] ?></td>
