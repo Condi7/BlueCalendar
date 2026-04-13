@@ -34,7 +34,7 @@ if (isset($_GET['source'])) {
         <option value="1" <?php if ($extra['status'] == 1) echo 'selected'; ?>><?php echo lang('Planned');?></option>
         <option value="2" <?php if (($extra['status'] == 2) || $this->config->item('extra_status_requested')) echo 'selected'; ?>><?php echo lang('Requested');?></optio
 n>
-        <?php if ($is_hr) {?>
+        <?php if ($is_superuser) {?>
         <option value="3" <?php if ($extra['status'] == 3) echo 'selected'; ?>><?php echo lang('Accepted');?></option>
         <option value="4" <?php if ($extra['status'] == 4) echo 'selected'; ?>><?php echo lang('Rejected');?></option>        
         <?php } ?>

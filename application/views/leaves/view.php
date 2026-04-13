@@ -61,7 +61,7 @@ switch ($leave['status']) {
       <br/><br/>
     <?php } ?>
 
-    <?php if (($leave['status'] == LMS_PLANNED) || ($is_hr)) { ?>
+    <?php if (($leave['status'] == LMS_PLANNED) || ($is_superuser)) { ?>
     <a href="<?php echo base_url();?>leaves/edit/<?php echo $leave['id'] ?>" class="btn btn-primary"><i class="mdi mdi-pencil"></i>&nbsp;<?php echo lang('leaves_view_button_edit');?></a>
     &nbsp;
     <?php } ?>

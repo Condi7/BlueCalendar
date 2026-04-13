@@ -189,7 +189,7 @@ if (count($tabular) > 0) {?>
                     $dayType = "";
                 } else {
                     //Hide leave type to users who are not part of HR/Admin
-                    if (($is_hr == TRUE) || 
+                    if (($is_superuser == TRUE) || 
                             ($is_admin == TRUE) || 
                             ($employee->manager == $user_id) || 
                             ($employee->id == $user_id)) {

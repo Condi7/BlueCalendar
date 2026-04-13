@@ -65,7 +65,7 @@ class Extra extends CI_Controller {
         //If the user is not its not HR, not manager and not the creator of the overtime
         //the employee can't see it, redirect to LR list
         if ($data['extra']['employee'] != $this->user_id) {
-            if ((!$this->is_hr)) {
+            if ((!$this->is_superuser)) {
                 $this->load->model('users_model');
                 $employee = $this->users_model->getUsers($data['extra']['employee']);
                 if ($employee['manager'] != $this->user_id) {
@@ -120,7 +120,7 @@ class Extra extends CI_Controller {
             $this->load->view('templates/footer');
         } else {
           //Prevent thugs to auto validate their extra requests
-          if (!$this->is_hr && !$this->is_admin) {
+          if (!$this->is_superuser && !$this->is_admin) {
             if ($this->input->post('status') > LMS_REQUESTED) {
               $_POST['status'] = LMS_REQUESTED;
             }
@@ -179,7 +179,7 @@ class Extra extends CI_Controller {
         }
         //If the user is not its own manager and if the overtime is
         //already requested, the employee can't modify it
-        if (!$this->is_hr) {
+        if (!$this->is_superuser) {
             if (($this->session->userdata('manager') != $this->user_id) &&
                     $data['extra']['status'] != 1) {
                 log_message('error', 'User #' . $this->user_id . ' illegally tried to edit overtime request #' . $id);
@@ -207,7 +207,7 @@ class Extra extends CI_Controller {
             $this->load->view('templates/footer');
         } else {
           //Prevent thugs to auto validate their extra requests
-          if (!$this->is_hr && !$this->is_admin) {
+          if (!$this->is_superuser && !$this->is_admin) {
             if ($this->input->post('status') == LMS_ACCEPTED) {
               $_POST['status'] = LMS_REQUESTED;
             }
@@ -301,7 +301,7 @@ class Extra extends CI_Controller {
         if (empty($extra)) {
             redirect('notfound');
         } else {
-            if ($this->is_hr) {
+            if ($this->is_superuser) {
                 $can_delete = TRUE;
             } else {
                 if ($extra['status'] == 1 ) {

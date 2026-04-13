@@ -21,7 +21,7 @@ $sheet = $spreadsheet->getActiveSheet();
 if ($employee == 0) {
     $employee = $this->user_id;
 } else {
-    if (!$this->is_hr) {
+    if (!$this->is_superuser) {
         if ($this->manager != $this->user_id) {
             $employee = $this->user_id;
         }

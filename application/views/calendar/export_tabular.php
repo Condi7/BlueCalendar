@@ -132,7 +132,7 @@ foreach ($tabular as $employee) {
     //Iterate on all days of the selected month
     $dayNum = 0;
     foreach ($employee->days as $day) {
-        if (($is_hr == TRUE) ||
+        if (($is_superuser == TRUE) ||
                 ($is_admin == TRUE) ||
                 ($employee->manager == $user_id) ||
                 ($employee->id == $user_id)) {

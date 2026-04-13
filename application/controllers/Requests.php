@@ -75,7 +75,7 @@ class Requests extends CI_Controller {
         }
         $employee = $this->users_model->getUsers($leave['employee']);
         $is_delegate = $this->delegations_model->isDelegateOfManager($this->user_id, $employee['manager']);
-        if (($this->user_id == $employee['manager']) || ($this->is_hr)  || ($is_delegate)) {
+        if (($this->user_id == $employee['manager']) || ($this->is_superuser)  || ($is_delegate)) {
             $this->leaves_model->switchStatus($id, LMS_ACCEPTED);
             $this->sendMail($id, LMS_REQUESTED_ACCEPTED);
             $this->session->set_flashdata('msg', lang('requests_accept_flash_msg_success'));
@@ -106,7 +106,7 @@ class Requests extends CI_Controller {
         }
         $employee = $this->users_model->getUsers($leave['employee']);
         $is_delegate = $this->delegations_model->isDelegateOfManager($this->user_id, $employee['manager']);
-        if (($this->user_id == $employee['manager']) || ($this->is_hr)  || ($is_delegate)) {
+        if (($this->user_id == $employee['manager']) || ($this->is_superuser)  || ($is_delegate)) {
             if(isset($_POST['comment'])){
               $this->leaves_model->switchStatusAndComment($id, LMS_REJECTED, $_POST['comment']);
             } else {
@@ -141,7 +141,7 @@ class Requests extends CI_Controller {
         }
         $employee = $this->users_model->getUsers($leave['employee']);
         $is_delegate = $this->delegations_model->isDelegateOfManager($this->user_id, $employee['manager']);
-        if (($this->user_id == $employee['manager']) || ($this->is_hr)  || ($is_delegate)) {
+        if (($this->user_id == $employee['manager']) || ($this->is_superuser)  || ($is_delegate)) {
             $this->leaves_model->switchStatus($id, LMS_CANCELED);
             $this->sendMail($id, LMS_CANCELLATION_CANCELED);
             $this->session->set_flashdata('msg', lang('requests_cancellation_accept_flash_msg_success'));
@@ -172,7 +172,7 @@ class Requests extends CI_Controller {
         }
         $employee = $this->users_model->getUsers($leave['employee']);
         $is_delegate = $this->delegations_model->isDelegateOfManager($this->user_id, $employee['manager']);
-        if (($this->user_id == $employee['manager']) || ($this->is_hr)  || ($is_delegate)) {
+        if (($this->user_id == $employee['manager']) || ($this->is_superuser)  || ($is_delegate)) {
             //$this->leaves_model->switchStatus($id, LMS_ACCEPTED);
             if(isset($_POST['comment'])){
               $this->leaves_model->switchStatusAndComment($id, LMS_ACCEPTED, $_POST['comment']);
@@ -220,7 +220,7 @@ class Requests extends CI_Controller {
     public function delegations($id = 0) {
         if ($id == 0) $id = $this->user_id;
         //Self modification or by HR
-        if (($this->user_id == $id) || ($this->is_hr)) {
+        if (($this->user_id == $id) || ($this->is_superuser)) {
             $data = getUserContext($this);
             $this->lang->load('datatable', $this->language);
             $data['title'] = lang('requests_delegations_title');
@@ -248,7 +248,7 @@ class Requests extends CI_Controller {
     public function deleteDelegations() {
         $manager = $this->input->post('manager_id', TRUE);
         $delegation = $this->input->post('delegation_id', TRUE);
-        if (($this->user_id != $manager) && ($this->is_hr == FALSE)) {
+        if (($this->user_id != $manager) && ($this->is_superuser == FALSE)) {
             $this->output->set_header("HTTP/1.1 403 Forbidden");
         } else {
             if (isset($manager) && isset($delegation)) {
@@ -269,7 +269,7 @@ class Requests extends CI_Controller {
     public function addDelegations() {
         $manager = $this->input->post('manager_id', TRUE);
         $delegate = $this->input->post('delegate_id', TRUE);
-        if (($this->user_id != $manager) && ($this->is_hr === FALSE)) {
+        if (($this->user_id != $manager) && ($this->is_superuser === FALSE)) {
             $this->output->set_header("HTTP/1.1 403 Forbidden");
         } else {
             if (isset($manager) && isset($delegate)) {
@@ -296,7 +296,7 @@ class Requests extends CI_Controller {
         $this->lang->load('hr', $this->language);
         $this->load->model('users_model');
         $employee = $this->users_model->getUsers($id);
-        if (($this->user_id != $employee['manager']) && ($this->is_hr === FALSE)) {
+        if (($this->user_id != $employee['manager']) && ($this->is_superuser === FALSE)) {
             log_message('error', 'User #' . $this->user_id . ' illegally tried to access to collaborators/leave/create  #' . $id);
             $this->session->set_flashdata('msg', lang('requests_summary_flash_msg_forbidden'));
             redirect('leaves');

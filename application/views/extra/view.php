@@ -24,7 +24,7 @@
     </select><br />
 
     <br /><br />
-    <?php if (($extra['status'] == 1) || ($is_hr)) { ?>
+    <?php if (($extra['status'] == 1) || ($is_superuser)) { ?>
     <a href="<?php echo base_url();?>extra/edit/<?php echo $extra['id'] ?>" class="btn btn-primary"><i class="mdi mdi-pencil"></i>&nbsp;<?php echo lang('extra_view_button_edit');?></a>
     &nbsp;
     <?php } 

@@ -1078,7 +1078,7 @@ class Leaves_model extends CI_Model {
             $url = '';
             if (($entry->employee == $this->session->userdata('id')) ||
                 ($entry->manager == $this->session->userdata('id')) ||
-                    ($this->session->userdata('is_hr') === TRUE)) {
+                    ($this->session->userdata('is_superuser') === TRUE)) {
                 $url = base_url() . 'leaves/leaves/' . $entry->id;
                 if (!empty($entry->acronym)) {
                     $title .= ' - ' . $entry->acronym;
@@ -1165,7 +1165,7 @@ class Leaves_model extends CI_Model {
           $url = '';
           if (($entry->employee == $this->session->userdata('id')) ||
               ($entry->manager == $this->session->userdata('id')) ||
-                  ($this->session->userdata('is_hr') === TRUE)) {
+                  ($this->session->userdata('is_superuser') === TRUE)) {
               $url = base_url() . 'leaves/leaves/' . $entry->id;
               if (!empty($entry->acronym)) {
                   $title .= ' - ' . $entry->acronym;
@@ -1654,7 +1654,7 @@ class Leaves_model extends CI_Model {
                 //Don't display rejected and cancel* leave requests for other employees
                 if (($entry->employee != $this->session->userdata('id')) &&
                     ($entry->manager != $this->session->userdata('id')) &&
-                        ($this->session->userdata('is_hr') === FALSE)) {
+                        ($this->session->userdata('is_superuser') === FALSE)) {
                     if ($entry->status > LMS_ACCEPTED) {
                         continue;
                     }

@@ -253,7 +253,7 @@ class Users extends CI_Controller {
 
                 //Inform back the user by flash message
                 $this->session->set_flashdata('msg', lang('users_reset_flash_msg_success'));
-                if ($this->is_hr) {
+                if ($this->is_superuser) {
                     redirect('users');
                 }
                 else {
